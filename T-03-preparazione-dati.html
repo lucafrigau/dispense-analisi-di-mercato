@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>3&nbsp; Preparazione e pulizia dei dati – Analisi di Mercato — Dispense del corso</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./T-04-cluster-analysis.html" rel="next">
+<link href="./T-02-campionamento.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ef622e21aa483743907546df5fc19a86.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nessun risultato",
+    "search-matching-documents-text": "documenti trovati",
+    "search-copy-link-title": "Copiare il link nella ricerca",
+    "search-hide-matches-text": "Nascondere i risultati aggiuntivi",
+    "search-more-match-text": "ci sono altri risultati in questo documento",
+    "search-more-matches-text": "ulteriori risultati in questo documento",
+    "search-clear-button-title": "Pulire",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancellare",
+    "search-submit-button-title": "Inviare",
+    "search-label": "Ricerca"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./T-01-introduzione.html">Parte I — Approfondimenti teorici</a></li><li class="breadcrumb-item"><a href="./T-03-preparazione-dati.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Ricerca" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisi di Mercato — Dispense del corso</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Attiva/disattiva la modalità oscura"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Ricerca"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefazione</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I — Approfondimenti teorici</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-01-introduzione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduzione alla ricerca di mercato quantitativa</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-02-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-03-preparazione-dati.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-04-cluster-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-05-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte II — Progetto pratico</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25-introduzione-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25b-strumenti-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-26-esempio-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-27-report-finale.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Report finale del progetto di esempio</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte III — Software Jamovi</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-01-cosa-e-analisimercato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Cos’è <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-02-installazione-jamovi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Installazione di Jamovi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-03-installazione-modulo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installazione del modulo <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-04-tour-interfaccia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tour dell’interfaccia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-06-fondamenti-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Workflow operativo del campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-07-numerosita-campionaria.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Numerosità campionaria</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-08-campionamento-casuale-semplice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Campionamento casuale semplice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-09-campionamento-sistematico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Campionamento sistematico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-10-campionamento-stratificato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-11-campionamento-grappoli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Campionamento a grappoli</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-12-campionamento-due-stadi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Campionamento a due stadi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-13-campionamento-cpv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Campionamento con probabilità variabili (CPV)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-14-intervalli-confidenza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Intervalli di confidenza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15-design-effect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Design Effect</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-16-fondamenti-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Workflow operativo della cluster analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-17-distanze-agglomerazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Distanze e agglomerazione</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-18-scelta-k-dendrogramma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Scelta di k e dendrogramma</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-19-caratterizzazione-cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Caratterizzazione dei cluster</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-20-confronto-partizioni-ari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Confronto fra partizioni — Adjusted Rand Index</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-21-fondamenti-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Workflow operativo della PCA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-22-contributi-cos2-biplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Contributi, cos² e biplot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-23-rotazioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Rotazioni Varimax e Promax</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-24-variabili-supplementari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Variabili supplementari e mappa di posizionamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte IV — Casi studio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-01-caso-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-02-caso-segmentazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Caso studio — Segmentare il mercato: quattro gruppi che l’anagrafica non vede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-03-caso-posizionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Caso studio — Dove siamo sulla mappa: il posizionamento di venti marche</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-01-caso-reale-comuni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Caso reale — Campionare un frame vero: i comuni italiani</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-02-caso-reale-ingrosso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Caso reale — Segmentare clienti veri: un distributore all’ingrosso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-03-caso-reale-yogurt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-04-caso-reale-regioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Caso reale — Dove conviene entrare: le regioni italiane</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1-glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A2-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Domande frequenti (FAQ)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Riferimenti bibliografici</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#perché-è-cruciale" id="toc-perché-è-cruciale" class="nav-link active" data-scroll-target="#perché-è-cruciale"><span class="header-section-number">3.1</span> Perché è cruciale</a></li>
+  <li><a href="#il-workflow-in-undici-fasi" id="toc-il-workflow-in-undici-fasi" class="nav-link" data-scroll-target="#il-workflow-in-undici-fasi"><span class="header-section-number">3.2</span> Il workflow in undici fasi</a></li>
+  <li><a href="#ispezione-iniziale" id="toc-ispezione-iniziale" class="nav-link" data-scroll-target="#ispezione-iniziale"><span class="header-section-number">3.3</span> 1. Ispezione iniziale</a></li>
+  <li><a href="#ridenominazione-e-standardizzazione-dei-nomi" id="toc-ridenominazione-e-standardizzazione-dei-nomi" class="nav-link" data-scroll-target="#ridenominazione-e-standardizzazione-dei-nomi"><span class="header-section-number">3.4</span> 2. Ridenominazione e standardizzazione dei nomi</a></li>
+  <li><a href="#gestione-dei-valori-mancanti" id="toc-gestione-dei-valori-mancanti" class="nav-link" data-scroll-target="#gestione-dei-valori-mancanti"><span class="header-section-number">3.5</span> 3. Gestione dei valori mancanti</a>
+  <ul class="collapse">
+  <li><a href="#strategie" id="toc-strategie" class="nav-link" data-scroll-target="#strategie"><span class="header-section-number">3.5.1</span> Strategie</a></li>
+  </ul></li>
+  <li><a href="#controllo-dei-tipi-di-variabile" id="toc-controllo-dei-tipi-di-variabile" class="nav-link" data-scroll-target="#controllo-dei-tipi-di-variabile"><span class="header-section-number">3.6</span> 4. Controllo dei tipi di variabile</a></li>
+  <li><a href="#trasformazione-delle-variabili" id="toc-trasformazione-delle-variabili" class="nav-link" data-scroll-target="#trasformazione-delle-variabili"><span class="header-section-number">3.7</span> 5. Trasformazione delle variabili</a>
+  <ul class="collapse">
+  <li><a href="#da-nominale-a-numerica-one-hot-encoding-dummy" id="toc-da-nominale-a-numerica-one-hot-encoding-dummy" class="nav-link" data-scroll-target="#da-nominale-a-numerica-one-hot-encoding-dummy"><span class="header-section-number">3.7.1</span> Da nominale a numerica — <em>one-hot encoding</em> (dummy)</a></li>
+  <li><a href="#da-ordinale-a-numerica-codifica-diretta-o-sostantiva" id="toc-da-ordinale-a-numerica-codifica-diretta-o-sostantiva" class="nav-link" data-scroll-target="#da-ordinale-a-numerica-codifica-diretta-o-sostantiva"><span class="header-section-number">3.7.2</span> Da ordinale a numerica — codifica diretta o sostantiva</a></li>
+  <li><a href="#da-numerica-a-categorica-discretizzazione" id="toc-da-numerica-a-categorica-discretizzazione" class="nav-link" data-scroll-target="#da-numerica-a-categorica-discretizzazione"><span class="header-section-number">3.7.3</span> Da numerica a categorica — discretizzazione</a></li>
+  <li><a href="#variabili-a-risposta-multipla-one-hot-encoding-in-due-fasi" id="toc-variabili-a-risposta-multipla-one-hot-encoding-in-due-fasi" class="nav-link" data-scroll-target="#variabili-a-risposta-multipla-one-hot-encoding-in-due-fasi"><span class="header-section-number">3.7.4</span> Variabili a risposta multipla — <em>one-hot encoding</em> in due fasi</a></li>
+  </ul></li>
+  <li><a href="#individuazione-e-trattamento-degli-outlier" id="toc-individuazione-e-trattamento-degli-outlier" class="nav-link" data-scroll-target="#individuazione-e-trattamento-degli-outlier"><span class="header-section-number">3.8</span> 6. Individuazione e trattamento degli outlier</a></li>
+  <li><a href="#domande-di-controllo-e-coerenza-delle-risposte" id="toc-domande-di-controllo-e-coerenza-delle-risposte" class="nav-link" data-scroll-target="#domande-di-controllo-e-coerenza-delle-risposte"><span class="header-section-number">3.9</span> 7. Domande di controllo e coerenza delle risposte</a>
+  <ul class="collapse">
+  <li><a href="#tipologie" id="toc-tipologie" class="nav-link" data-scroll-target="#tipologie"><span class="header-section-number">3.9.1</span> Tipologie</a></li>
+  <li><a href="#esempio-applicato-acquisto-di-prodotti-biologici" id="toc-esempio-applicato-acquisto-di-prodotti-biologici" class="nav-link" data-scroll-target="#esempio-applicato-acquisto-di-prodotti-biologici"><span class="header-section-number">3.9.2</span> Esempio applicato — acquisto di prodotti biologici</a></li>
+  <li><a href="#matrice-di-coerenza" id="toc-matrice-di-coerenza" class="nav-link" data-scroll-target="#matrice-di-coerenza"><span class="header-section-number">3.9.3</span> Matrice di coerenza</a></li>
+  <li><a href="#quanti-rispondenti-escludere" id="toc-quanti-rispondenti-escludere" class="nav-link" data-scroll-target="#quanti-rispondenti-escludere"><span class="header-section-number">3.9.4</span> Quanti rispondenti escludere?</a></li>
+  </ul></li>
+  <li><a href="#pulizia-di-variabili-testuali-e-categoriche" id="toc-pulizia-di-variabili-testuali-e-categoriche" class="nav-link" data-scroll-target="#pulizia-di-variabili-testuali-e-categoriche"><span class="header-section-number">3.10</span> 8. Pulizia di variabili testuali e categoriche</a>
+  <ul class="collapse">
+  <li><a href="#uniformazione-ortografica-e-formale" id="toc-uniformazione-ortografica-e-formale" class="nav-link" data-scroll-target="#uniformazione-ortografica-e-formale"><span class="header-section-number">3.10.1</span> Uniformazione ortografica e formale</a></li>
+  <li><a href="#unificazione-di-categorie-equivalenti" id="toc-unificazione-di-categorie-equivalenti" class="nav-link" data-scroll-target="#unificazione-di-categorie-equivalenti"><span class="header-section-number">3.10.2</span> Unificazione di categorie equivalenti</a></li>
+  <li><a href="#categorie-residuali" id="toc-categorie-residuali" class="nav-link" data-scroll-target="#categorie-residuali"><span class="header-section-number">3.10.3</span> Categorie residuali</a></li>
+  </ul></li>
+  <li><a href="#controllo-della-coerenza-interna" id="toc-controllo-della-coerenza-interna" class="nav-link" data-scroll-target="#controllo-della-coerenza-interna"><span class="header-section-number">3.11</span> 9. Controllo della coerenza interna</a></li>
+  <li><a href="#documentazione-il-data-cleaning-log" id="toc-documentazione-il-data-cleaning-log" class="nav-link" data-scroll-target="#documentazione-il-data-cleaning-log"><span class="header-section-number">3.12</span> 10. Documentazione: il Data Cleaning Log</a></li>
+  <li><a href="#verifica-finale" id="toc-verifica-finale" class="nav-link" data-scroll-target="#verifica-finale"><span class="header-section-number">3.13</span> 11. Verifica finale</a></li>
+  <li><a href="#in-sintesi" id="toc-in-sintesi" class="nav-link" data-scroll-target="#in-sintesi"><span class="header-section-number">3.14</span> In sintesi</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./T-01-introduzione.html">Parte I — Approfondimenti teorici</a></li><li class="breadcrumb-item"><a href="./T-03-preparazione-dati.html"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Il <em>data cleaning</em> — la pulizia dei dati — è una delle fasi più importanti e più lunghe di qualsiasi analisi statistica. Consiste nell’individuare, correggere e documentare errori, incongruenze, valori mancanti, duplicazioni e formati non coerenti, con l’obiettivo di ottenere dati <strong>accurati</strong>, <strong>consistenti</strong>, <strong>completi</strong> e <strong>utilizzabili</strong>.</p>
+<p>I riquadri delle fasi 4 e 5 dedicati alla cluster analysis e alla PCA anticipano temi dei due capitoli successivi: conviene tornarci dopo averli studiati.</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Il principio guida
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Garbage in, garbage out.</strong> Nessuna tecnica analitica, per quanto sofisticata, può compensare dati di partenza incoerenti, incompleti o inattendibili. Nei progetti di analisi dei dati la preparazione richiede spesso più tempo dell’analisi vera e propria: è un investimento metodologico, non un’operazione accessoria.</p>
+</div>
+</div>
+<section id="perché-è-cruciale" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="perché-è-cruciale"><span class="header-section-number">3.1</span> Perché è cruciale</h2>
+<p>Dati incompleti, errati o mal strutturati compromettono l’affidabilità delle conclusioni. Gli effetti più comuni di una scarsa qualità del dato sono:</p>
+<ul>
+<li>stime distorte di parametri e test statistici falsati;</li>
+<li>relazioni spurie dovute a errori di codifica o duplicazioni;</li>
+<li>riduzione del numero effettivo di osservazioni utilizzabili;</li>
+<li>difficoltà di replicazione o confronto tra studi diversi.</li>
+</ul>
+<p>Al contrario, un <em>data cleaning</em> ben eseguito aiuta a rendere coerenti fra loro fonti eterogenee, migliora la leggibilità di report e visualizzazioni, favorisce la replicabilità e permette di concentrarsi sulla sostanza dell’analisi.</p>
+</section>
+<section id="il-workflow-in-undici-fasi" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="il-workflow-in-undici-fasi"><span class="header-section-number">3.2</span> Il workflow in undici fasi</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A[1. Ispezione iniziale] --&gt; B[2. Ridenominazione&lt;br/&gt;e standardizzazione]
+    B --&gt; C[3. Gestione missing values]
+    C --&gt; D[4. Controllo tipi di variabile]
+    D --&gt; E[5. Trasformazione variabili]
+    E --&gt; F[6. Outlier]
+    F --&gt; G[7. Domande di controllo]
+    G --&gt; H[8. Pulizia variabili testuali]
+    H --&gt; I[9. Coerenza interna]
+    I --&gt; J[10. Documentazione]
+    J --&gt; J2[11. Verifica finale]
+    J2 --&gt; K{Dataset analitico&lt;br/&gt;pronto?}
+    K -- No --&gt; A
+    K -- Sì --&gt; L[Analisi]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>Il processo è <strong>iterativo</strong>: ogni controllo può far emergere nuove problematiche che richiedono ulteriori verifiche.</p>
+</section>
+<section id="ispezione-iniziale" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="ispezione-iniziale"><span class="header-section-number">3.3</span> 1. Ispezione iniziale</h2>
+<p>Prima di intervenire occorre comprendere la struttura del dataset.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 75%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cosa verificare</th>
+<th>Come</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Numero di osservazioni e variabili</td>
+<td>Confronta con quanto atteso dal disegno dell’indagine</td>
+</tr>
+<tr class="even">
+<td>Colonne vuote, ridondanti o prive di significato</td>
+<td>Scorri le intestazioni nel foglio dati</td>
+</tr>
+<tr class="odd">
+<td>Tipi di variabili (<em>Continua</em>, <em>Ordinale</em>, <em>Nominale</em>, <em>ID</em>; dati interi, decimali o testo)</td>
+<td>Verifica le icone accanto al nome colonna (tipo di misura) e, nell’editor di variabile, il tipo di dato (Jamovi non ha un tipo dedicato alle date)</td>
+</tr>
+<tr class="even">
+<td>Duplicati o errori evidenti</td>
+<td>Ordina/filtra le colonne chiave</td>
+</tr>
+<tr class="odd">
+<td>Campione di record</td>
+<td>Scorri le prime e ultime 20 righe</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>In Jamovi
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nel foglio dati l’icona accanto al nome di ogni colonna indica il tipo di variabile. Doppio click sull’intestazione apre l’editor di variabile (vedi <a href="./P-04-tour-interfaccia.html">Tour dell’interfaccia</a>) — è qui che si correggono nome, tipo, livelli e codifica dei missing.</p>
+</div>
+</div>
+</section>
+<section id="ridenominazione-e-standardizzazione-dei-nomi" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="ridenominazione-e-standardizzazione-dei-nomi"><span class="header-section-number">3.4</span> 2. Ridenominazione e standardizzazione dei nomi</h2>
+<p>Uniformare i nomi delle variabili riduce errori e migliora la leggibilità.</p>
+<ul>
+<li>Sostituire nomi lunghi con etichette <strong>brevi ma descrittive</strong>, evitando sigle criptiche: devono restare comprensibili anche dopo mesi e a colleghi diversi.</li>
+<li>Evitare (sia nei nomi variabile sia nelle modalità) spazi, caratteri speciali, accenti — usare l’underscore <code>_</code>.</li>
+<li>Applicare una convenzione coerente in tutto il dataset (es. <em>snake_case</em> minuscolo).</li>
+<li>Rinominare variabili generiche come <code>Var1</code> o <code>X3</code> in <code>prezzo_camera</code>, <code>data_prenotazione</code>.</li>
+</ul>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Avviso</span>Trabocchetto in Jamovi
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Jamovi conserva sia il nome interno (<code>Name</code>) sia un’etichetta più descrittiva (<code>Description</code>). Conviene tenere nomi <em>snake_case</em> corti come <code>Name</code> e una descrizione in italiano leggibile come <code>Description</code>: il primo lo si vede nelle formule, la seconda nei report.</p>
+</div>
+</div>
+</section>
+<section id="gestione-dei-valori-mancanti" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="gestione-dei-valori-mancanti"><span class="header-section-number">3.5</span> 3. Gestione dei valori mancanti</h2>
+<p>I <em>missing values</em> sono una costante in quasi tutti i dataset. La loro gestione è delicata e va coerentemente documentata.</p>
+<section id="strategie" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="strategie"><span class="header-section-number">3.5.1</span> Strategie</h3>
+<ol type="1">
+<li><strong>Analisi delle cause</strong>: distinguere fra
+<ul>
+<li><strong>MCAR</strong> (<em>Missing Completely At Random</em>) — la probabilità che il dato manchi non dipende né dai valori osservati né dal valore mancante: un questionario smarrito per un disguido postale;</li>
+<li><strong>MAR</strong> (<em>Missing At Random</em>) — la probabilità che il dato manchi dipende da altre informazioni osservate, ma non più dal valore mancante una volta tenuto conto di quelle: i più giovani rispondono meno spesso alla domanda sul reddito, ma a parità di età chi ha redditi alti e bassi risponde allo stesso modo;</li>
+<li><strong>MNAR</strong> (<em>Missing Not At Random</em>) — la probabilità che il dato manchi resta legata proprio al valore che manca: chi ha redditi molto alti evita la domanda sul reddito;</li>
+<li><strong>strutturali</strong> — l’informazione non è prevista per quell’osservazione (es. “anni di esperienza lavorativa” in una domanda rivolta solo a chi lavora).</li>
+</ul></li>
+<li><strong>Quantificazione</strong>: percentuale di valori mancanti (NA, <em>not available</em>) per variabile e per riga.</li>
+<li><strong>Trattamento</strong>:
+<ul>
+<li>rimozione di righe o colonne con troppi mancanti;</li>
+<li>imputazione (media/mediana per quantitative, moda per categoriche, modelli per imputazioni più sofisticate);</li>
+<li>codifica esplicita (“Non risponde”, “Non applicabile”) se l’assenza è informativa.</li>
+</ul></li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 48%">
+<col style="width: 51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Percentuale di NA</th>
+<th>Indicazione orientativa</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>&lt; 5% sulla variabile</td>
+<td>Una quota contenuta si gestisce di solito senza conseguenze rilevanti, ma la scelta dipende dal meccanismo e dall’analisi prevista</td>
+</tr>
+<tr class="even">
+<td>5–20%</td>
+<td>Valutare il meccanismo, scegliere un’imputazione appropriata e verificare quanto i risultati cambiano al variare della scelta</td>
+</tr>
+<tr class="odd">
+<td>&gt; 20%</td>
+<td>Serve particolare cautela: qualità del dato, meccanismo, possibilità di imputazione e rilevanza sostantiva vanno valutate prima di decidere un’eventuale esclusione</td>
+</tr>
+</tbody>
+</table>
+<p>Sono indicazioni orientative, non soglie decisionali automatiche: la strategia dipende dal meccanismo (MCAR, MAR o MNAR), da quanti e quali casi mancano, dall’analisi successiva e dalle informazioni ausiliarie disponibili.</p>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Avviso</span>Documentare sempre
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Ogni decisione sui missing va annotata: influisce sulla validità delle analisi successive ed è centrale per la riproducibilità.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="controllo-dei-tipi-di-variabile" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="controllo-dei-tipi-di-variabile"><span class="header-section-number">3.6</span> 4. Controllo dei tipi di variabile</h2>
+<p>Tipizzazione corretta = analisi corretta. In <code>AnalisiMercato</code> (e in Jamovi in generale) i controlli sui tipi sono espliciti:</p>
+<ul>
+<li>l’<strong>Analisi delle Componenti Principali</strong> (PCA, <em>Principal Component Analysis</em>) accetta solo variabili numeriche come variabili attive (e come quantitative supplementari); le categoriali possono entrare soltanto come supplementari (colore del biplot, mappa di posizionamento);</li>
+<li>la <strong>Cluster Analysis</strong> accetta sia variabili numeriche sia categoriali: è la <em>distanza</em> a stabilire che cosa è ammesso (vedi il riquadro sotto);</li>
+<li>la <strong>Caratterizzazione</strong> usa <code>catdes</code> se la variabile target è categoriale (nominale o ordinale) e <code>condes</code> se è numerica.</li>
+</ul>
+<p>Più in generale:</p>
+<ul>
+<li>Le <strong>date</strong>, per le quali Jamovi non ha un tipo apposito, vanno registrate in un formato unico e coerente (es. <code>AAAA-MM-GG</code>); per le analisi conviene ricavarne variabili numeriche (anno, mese, durate).</li>
+<li>Le <strong>numeriche</strong> devono contenere solo cifre e simboli validi (attenzione a virgole/punti decimali).</li>
+<li>Le <strong>categoriche</strong> devono avere etichette coerenti.</li>
+<li>Distinguere <strong>nominali, ordinali e numeriche</strong> in modo chiaro: gli ordinali in Jamovi si codificano come <em>Ordinale</em> con livelli ordinati esplicitamente.</li>
+</ul>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Preparare i dati per la cluster analysis: che cosa serve davvero
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La base della segmentazione accetta direttamente variabili quantitative e categoriali, e i tipi vengono preservati lungo tutto il calcolo: le variabili qualitative non vanno ricodificate a mano. La preparazione si riduce quindi a scegliere la distanza coerente con i tipi presenti.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Composizione della base</th>
+<th>Distanza appropriata</th>
+<th>Preparazione necessaria</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tutte quantitative</td>
+<td>Euclidea, Manhattan, Mahalanobis</td>
+<td>Standardizzare se le unità di misura differiscono (con Mahalanobis è superfluo: la distanza è già invariante alla scala)</td>
+</tr>
+<tr class="even">
+<td>Tutte categoriali</td>
+<td>Sokal-Michener, Jaccard politomico</td>
+<td>Nessuna ricodifica: le modalità entrano come categorie</td>
+</tr>
+<tr class="odd">
+<td><strong>Miste</strong> (quantitative + qualitative)</td>
+<td><strong>Gower</strong></td>
+<td>Nessuna ricodifica; la standardizzazione è superflua. Le binarie di presenza/assenza, codificate 0/1, vanno nella casella apposita</td>
+</tr>
+<tr class="even">
+<td>Binarie con zeri non informativi</td>
+<td>Jaccard</td>
+<td>Verificare che 0 significhi <em>assenza</em></td>
+</tr>
+</tbody>
+</table>
+<p>Restano due avvertenze:</p>
+<ul>
+<li>applicare Euclidea, Manhattan o Mahalanobis a una variabile categoriale <strong>codificata con numeri</strong> è possibile e il modulo lo consente, con una nota di avvertimento: i codici entrano nel calcolo come quantità, cioè la modalità 3 dista dalla 1 il doppio di quanto disti dalla 2. È una scelta discutibile che vale la pena poter fare e poi discutere. Con modalità <strong>testuali</strong> il calcolo è invece impossibile e viene rifiutato;</li>
+<li>con una base che contiene variabili <strong>categoriali trattate come tali</strong> (distanze Gower, Sokal-Michener, Jaccard) l’R², la deviazione standard media dei gruppi (RMSSTD, <em>Root-Mean-Square Standard Deviation</em>) e l’indice di Caliński-Harabasz (CH) non sono definiti (si fondano sulla devianza rispetto ai centroidi) e restano vuoti, con una nota in tabella: per la scelta di <span class="math inline">\(k\)</span> restano il dendrogramma e il <strong>Delta G</strong>. Con Euclidea, Manhattan o Mahalanobis, invece, i codici numerici sono trattati come quantità e gli indici vengono calcolati.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="trasformazione-delle-variabili" class="level2" data-number="3.7">
+<h2 data-number="3.7" class="anchored" data-anchor-id="trasformazione-delle-variabili"><span class="header-section-number">3.7</span> 5. Trasformazione delle variabili</h2>
+<p>Spesso bisogna trasformare variabili categoriche in numeriche (o viceversa) per adattarle ai modelli o per semplificare l’interpretazione. Le trasformazioni devono <strong>mantenere il significato sostantivo</strong> e vanno documentate.</p>
+<section id="da-nominale-a-numerica-one-hot-encoding-dummy" class="level3" data-number="3.7.1">
+<h3 data-number="3.7.1" class="anchored" data-anchor-id="da-nominale-a-numerica-one-hot-encoding-dummy"><span class="header-section-number">3.7.1</span> Da nominale a numerica — <em>one-hot encoding</em> (dummy)</h3>
+<p>Per ogni modalità si crea una variabile binaria che vale <code>1</code> se la modalità è presente per quell’osservazione, <code>0</code> altrimenti.</p>
+<div id="fig-dummies" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dummies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/diagrams/dummies.png" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dummies-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.1: Codifica dummy di una variabile nominale: la variabile <code>status_studente</code> (colonna A) genera tre colonne binarie (B, C, D), una per ciascuna modalità
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Quante dummy: <span class="math inline">\(m\)</span> o <span class="math inline">\(m-1\)</span>?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nei manuali si legge spesso che una nominale con <span class="math inline">\(m\)</span> modalità si rappresenta con <span class="math inline">\(m-1\)</span> dummy. È una regola dei modelli di regressione, che in questo corso non usiamo. Nelle analisi del corso le cose stanno così:</p>
+<ul>
+<li><p><strong>Cluster Analysis.</strong> La via più semplice è non usare le dummy: con Gower o con una distanza di matching le categoriali entrano direttamente, e ogni variabile conta una volta sola, qualunque sia il numero di modalità (<a href="P-17-distanze-agglomerazione.html" class="quarto-xref"><span>Capitolo 25</span></a>). Se si usano le dummy:</p>
+<ul>
+<li><strong>per rappresentare tutte le modalità servono tutte e <span class="math inline">\(m\)</span> le dummy</strong>, con l’euclidea e con le distanze per dati binari. Con <span class="math inline">\(m-1\)</span> dummy, come nella regressione, la modalità omessa è codificata con tutti zeri e diventa un caso speciale: con l’euclidea, per esempio, chi ha quella modalità dista 1 da chiunque altro, mentre due persone con due altre modalità diverse distano <span class="math inline">\(\sqrt{2}\)</span>. La distanza fra due rispondenti dipenderebbe così da quale modalità si è scelto di omettere;</li>
+<li><strong>se si standardizza, il peso cresce con <span class="math inline">\(m\)</span>.</strong> Lasciate a 0/1, le dummy non fanno pesare la variabile più del dovuto: con l’euclidea due rispondenti con modalità diverse differiscono sempre su due dummy, qualunque sia <span class="math inline">\(m\)</span>, e la variabile pesa al più quanto una variabile numerica standardizzata. Se però i dati richiedono di standardizzare, per esempio perché le variabili numeriche della base hanno unità di misura diverse, <em>Standardizza le variabili</em> nel modulo si applica anche alle dummy: ognuna diventa una variabile a varianza 1, e la nominale pesa come <span class="math inline">\(m\)</span> variabili. Le modalità rare, poi, ricevono valori molto grandi (con una modalità scelta dal 3% dei rispondenti la dummy standardizzata arriva a circa 5,5): chi le ha finisce lontano da tutti, spesso in un cluster a sé. In questo caso ci sono tre strade. Usare Gower, che tratta direttamente sia le numeriche sia le categoriali e porta da sé le numeriche su una scala comune. Accorpare le modalità rare, così che le dummy siano di meno. Oppure tenere solo un sottoinsieme di dummy, per esempio quelle delle modalità più frequenti o più importanti per l’analisi: si perde informazione, perché le modalità escluse finiscono tutte a zero e diventano indistinguibili fra loro, come un’unica modalità «altro», ma la variabile pesa come il numero di dummy tenute invece che come <span class="math inline">\(m\)</span> variabili;</li>
+<li><strong>con la Mahalanobis ne servono <span class="math inline">\(m-1\)</span></strong>: con tutte e <span class="math inline">\(m\)</span> le dummy, che sommano sempre a 1, la distanza non è calcolabile e il modulo si ferma con un messaggio.</li>
+</ul></li>
+<li><p><strong>PCA.</strong> Una nominale, così com’è, non può essere variabile attiva: la PCA accetta come attive solo variabili numeriche. Le sue dummy invece sì, perché valgono 0 o 1, e una variabile con due sole modalità (per esempio Sì/No) può entrare senza problemi come una sola dummy. Con molte modalità, però, la standardizzazione non basta, per due motivi:</p>
+<ul>
+<li>ogni dummy conta come una variabile, quindi la nominale pesa come <span class="math inline">\(m\)</span> variabili nella varianza totale;</li>
+<li>le dummy della stessa variabile si escludono a vicenda (chi ha una modalità non ha le altre), quindi sono correlate fra loro, e la PCA spende componenti solo per separare le modalità.</li>
+</ul>
+<p>Un esempio: aggiungendo ai sei item del questionario di soddisfazione di <a href="./T-05-pca.html">§ T-05</a> le sei dummy di una variabile che con gli item non ha nulla a che fare, la quota di varianza spiegata da PC1 scende dal 67,6% al 34,1%, e le componenti con autovalore maggiore di 1 passano da 2 a 7: le cinque in più servono solo a separare le modalità.</p>
+<p>Le strade sono due. La più comune è usare la nominale come variabile supplementare: le sue modalità compaiono sulla mappa come baricentri, senza influenzare le componenti (<a href="./P-24-variabili-supplementari.html">§ P-24</a>). L’altra, se la variabile deve contribuire a costruire le componenti, è tenere solo un sottoinsieme di dummy, come nel clustering, per esempio una sola dummy per la modalità che interessa contro tutte le altre («studente lavoratore» sì/no). Nell’esempio, una sola dummy senza legami con gli item aggiunge una sola componente, con autovalore 1, e lascia intatte le altre; la quota di PC1 scende comunque un po’, dal 67,6% al 58,0%, perché la varianza totale passa da 6 a 7. Una dummy legata agli item, invece, entra nelle prime due componenti senza crearne di nuove. Il prezzo è lo stesso del clustering: le modalità escluse diventano indistinguibili fra loro.</p></li>
+<li><p><strong>Caratterizzazione dei cluster.</strong> Una nominale si usa così com’è: è il modulo a confrontare ogni modalità con il totale del campione (<a href="./P-19-caratterizzazione-cluster.html">§ P-19</a>).</p></li>
+</ul>
+</div>
+</div>
+<p><strong>Gestione di variabili con molte modalità</strong> (tipicamente <span class="math inline">\(m \geq 5\)</span>):</p>
+<ul>
+<li><strong>Raggruppamento delle modalità</strong>: aggregare categorie simili o molto rare prima della codifica, purché l’accorpamento abbia una giustificazione sostantiva e non sia solo una comodità di calcolo.</li>
+<li><strong>Tenere solo alcune dummy</strong>: le modalità escluse finiscono tutte con zeri, indistinguibili fra loro, come se fossero accorpate in un’unica modalità «altro». La variabile che entra nell’analisi non è più quella originale, quindi la scelta va motivata: ha senso se le modalità escluse non interessano all’analisi, o per limitare il peso della variabile quando si standardizza (vedi il riquadro sopra). Nel clustering, se le categoriali sono molte, l’alternativa è una distanza adatta ai dati misti come Gower.</li>
+</ul>
+</section>
+<section id="da-ordinale-a-numerica-codifica-diretta-o-sostantiva" class="level3" data-number="3.7.2">
+<h3 data-number="3.7.2" class="anchored" data-anchor-id="da-ordinale-a-numerica-codifica-diretta-o-sostantiva"><span class="header-section-number">3.7.2</span> Da ordinale a numerica — codifica diretta o sostantiva</h3>
+<p><strong>Codifica numerica diretta</strong>: assegna un intero a ogni categoria. Cautela: si assume che le differenze tra modalità consecutive abbiano intensità costante, proprietà non garantita dalla scala ordinale.</p>
+<p><strong>Codifica basata su valori sostantivi</strong>: quando la natura dell’ordinale lo consente, si assegna un valore numerico che riflette una quantità reale.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Esempio — Classi di età
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Per <code>classe_eta</code> è opportuno assegnare il valore centrale di ciascuna classe:</p>
+<ul>
+<li><code>30-50</code> → valore centrale <strong>40</strong></li>
+<li><code>oltre 50</code> → la classe è aperta superiormente e un centro non esiste. Se serve un valore numerico se ne sceglie uno rappresentativo, per esempio <strong>65</strong>, ma la scelta va motivata sulla distribuzione osservata, su dati esterni o su conoscenza di dominio</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Esempio — Titolo di studio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Anziché numeri arbitrari (1, 2, 3, …), interpretare <code>titolo_di_studio</code> come proxy del <strong>grado di istruzione formale</strong> e assegnare gli <strong>anni di scolarizzazione</strong>:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Modalità</th>
+<th style="text-align: right;">Anni</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Nessun titolo</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td>Licenza elementare</td>
+<td style="text-align: right;">5</td>
+</tr>
+<tr class="odd">
+<td>Licenza media</td>
+<td style="text-align: right;">8</td>
+</tr>
+<tr class="even">
+<td>Diploma superiore</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="odd">
+<td>Laurea triennale</td>
+<td style="text-align: right;">16</td>
+</tr>
+<tr class="even">
+<td>Laurea magistrale</td>
+<td style="text-align: right;">18</td>
+</tr>
+</tbody>
+</table>
+<p>Questa codifica riflette una metrica oggettiva e interpretabile.</p>
+</div>
+</div>
+</section>
+<section id="da-numerica-a-categorica-discretizzazione" class="level3" data-number="3.7.3">
+<h3 data-number="3.7.3" class="anchored" data-anchor-id="da-numerica-a-categorica-discretizzazione"><span class="header-section-number">3.7.3</span> Da numerica a categorica — discretizzazione</h3>
+<ul>
+<li><strong>Suddivisione in intervalli</strong>: classi di valori (es. fasce d’età: 18–30, 31–50, oltre 50; classi di reddito: basso/medio/alto).</li>
+<li><strong>Binarizzazione su soglia</strong>: 1 sopra e 0 sotto un valore critico (media, mediana, soglia di dominio).</li>
+</ul>
+<p><strong>Quando ha senso discretizzare</strong>:</p>
+<ol type="1">
+<li><strong>Comunicabilità</strong>: facilita la lettura di tabelle e report per stakeholder non tecnici.</li>
+<li><strong>Focus sull’aspetto qualitativo</strong>: quando l’interesse è “sopra/sotto” più che il valore esatto.</li>
+<li><strong>Rappresentazione semplificata di relazioni non lineari</strong>: le differenze fra fasce emergono anche quando un modello lineare sulla variabile continua non le coglierebbe. Va però ricordato che discretizzare butta via informazione, e non è l’unico modo di trattare una relazione non lineare.</li>
+</ol>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Esempio — Voto d’esame
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Se l’obiettivo è capire i fattori associati al <strong>superamento</strong> dell’esame (non al voto specifico), si binarizza:</p>
+<ul>
+<li><code>voto &lt; 18</code> → <strong>0</strong> (non superato)</li>
+<li><code>voto ≥ 18</code> → <strong>1</strong> (superato)</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Avviso</span>Costo della discretizzazione
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si perde sempre informazione rispetto alla variabile continua. Va bilanciato il guadagno di interpretabilità con la riduzione del contenuto informativo.</p>
+</div>
+</div>
+</section>
+<section id="variabili-a-risposta-multipla-one-hot-encoding-in-due-fasi" class="level3" data-number="3.7.4">
+<h3 data-number="3.7.4" class="anchored" data-anchor-id="variabili-a-risposta-multipla-one-hot-encoding-in-due-fasi"><span class="header-section-number">3.7.4</span> Variabili a risposta multipla — <em>one-hot encoding</em> in due fasi</h3>
+<p>In molti questionari una domanda permette di selezionare più opzioni contemporaneamente: in formato grezzo la risposta è una stringa con più modalità separate da un delimitatore. Non è direttamente utilizzabile.</p>
+<div id="fig-multipla" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-multipla-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/diagrams/multipla.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-multipla-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.2: One-hot encoding per variabili a risposta multipla: dalla stringa originale (colonna A) si separano le modalità (colonne C–E) e si costruiscono variabili binarie indipendenti (colonne G–J)
+</figcaption>
+</figure>
+</div>
+<p><strong>Procedura:</strong></p>
+<ol type="1">
+<li><strong>Separazione delle modalità</strong>: identificare il delimitatore (virgola, punto e virgola, pipe) e suddividere la stringa in colonne separate. In Excel: <em>Dati → Testo in colonne → specificare delimitatore</em>; in Fogli Google: <em>Dati → Dividi il testo in colonne</em>.</li>
+<li><strong>Creazione di variabili binarie</strong>: per ciascuna delle <span class="math inline">\(m\)</span> modalità possibili, una nuova variabile binaria che vale <code>1</code> se la modalità è presente, <code>0</code> altrimenti.</li>
+</ol>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Tutte le <span class="math inline">\(m\)</span> dummy, non <span class="math inline">\(m-1\)</span>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Diversamente dalle nominali a risposta singola, qui <strong>tutte e <span class="math inline">\(m\)</span></strong> le dummy vanno mantenute: le modalità non sono mutualmente esclusive (un rispondente può aver scelto nessuna, una, alcune o tutte le opzioni), quindi non esiste una categoria di riferimento naturale.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="individuazione-e-trattamento-degli-outlier" class="level2" data-number="3.8">
+<h2 data-number="3.8" class="anchored" data-anchor-id="individuazione-e-trattamento-degli-outlier"><span class="header-section-number">3.8</span> 6. Individuazione e trattamento degli outlier</h2>
+<p>Gli <em>outlier</em> sono osservazioni che si discostano marcatamente dal resto dei dati. Possono derivare da:</p>
+<ul>
+<li>errori di digitazione o misura;</li>
+<li>casi rari ma reali;</li>
+<li>fenomeni specifici del contesto osservato.</li>
+</ul>
+<p>Prima di rimuoverli, <strong>verificarne la plausibilità</strong>. Vanno trattati in base al contesto:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 52%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Origine</th>
+<th>Azione</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Errore evidente di digitazione (es. età 250)</td>
+<td><strong>Correggere</strong> se ricostruibile, altrimenti <code>NA</code></td>
+</tr>
+<tr class="even">
+<td>Caso raro ma reale e informativo</td>
+<td><strong>Mantenere</strong> e segnalare nel report</td>
+</tr>
+<tr class="odd">
+<td>Caso valido ma che distorce gravemente le stime</td>
+<td>Valutare <strong>winsorizzazione</strong> o esclusione motivata</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Strumenti di identificazione
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>Scarto interquartile</strong> (IQR, <em>interquartile range</em>): <span class="math inline">\(x &lt; Q_1 - 1{,}5 \cdot \text{IQR}\)</span> o <span class="math inline">\(x &gt; Q_3 + 1{,}5 \cdot \text{IQR}\)</span>.</li>
+<li><strong>Z-score</strong>: <span class="math inline">\(|z| &gt; 3\)</span> in distribuzioni approssimativamente normali.</li>
+<li><strong>Distanza di Mahalanobis</strong>: per individuare osservazioni anomale considerando più variabili quantitative insieme.</li>
+</ul>
+<p>IQR e z-score si leggono dalle statistiche descrittive e dal boxplot. La distanza di Mahalanobis è invece una misura multivariata: va calcolata a parte (in Jamovi, per esempio, fra i salvataggi diagnostici della regressione lineare) e non è uno dei valori restituiti dal boxplot.</p>
+</div>
+</div>
+</section>
+<section id="domande-di-controllo-e-coerenza-delle-risposte" class="level2" data-number="3.9">
+<h2 data-number="3.9" class="anchored" data-anchor-id="domande-di-controllo-e-coerenza-delle-risposte"><span class="header-section-number">3.9</span> 7. Domande di controllo e coerenza delle risposte</h2>
+<p>Nei questionari, le <strong>domande di controllo</strong> (<em>consistency checks</em>) verificano l’attenzione e la coerenza degli intervistati. Sono domande che chiedono sostanzialmente la stessa informazione, formulate in modo diverso o poste in momenti diversi del questionario.</p>
+<section id="tipologie" class="level3" data-number="3.9.1">
+<h3 data-number="3.9.1" class="anchored" data-anchor-id="tipologie"><span class="header-section-number">3.9.1</span> Tipologie</h3>
+<ul>
+<li><strong>Domande ripetute con formulazioni diverse</strong>: stessa informazione, parole o scale diverse (es. “Utilizza internet quotidianamente?” e, dopo, “Con quale frequenza accede a internet?”).</li>
+<li><strong>Domande filtro con vincoli logici</strong>: relazioni necessarie fra variabili (es. dichiarare “età 15 anni” e contemporaneamente “lavora a tempo pieno da 10 anni”).</li>
+<li><strong>Affermazioni assurde</strong>: volutamente impossibili per identificare rispondenti disattenti (“Ho visitato tutti i paesi del mondo”, “Leggo più di 50 libri al mese”).</li>
+</ul>
+</section>
+<section id="esempio-applicato-acquisto-di-prodotti-biologici" class="level3" data-number="3.9.2">
+<h3 data-number="3.9.2" class="anchored" data-anchor-id="esempio-applicato-acquisto-di-prodotti-biologici"><span class="header-section-number">3.9.2</span> Esempio applicato — acquisto di prodotti biologici</h3>
+<p><strong>Domanda 17</strong> (prima parte): <em>Con quale frequenza acquista prodotti biologici?</em> — modalità: Mai/quasi mai · Meno di una volta al mese · 1–3 volte al mese · Almeno una volta a settimana · Sempre/quasi sempre.</p>
+<p><strong>Domanda 43</strong> (parte finale): <em>Negli ultimi 3 mesi, con quale frequenza ha acquistato prodotti con certificazione biologica?</em> — modalità: Mai · 1–2 volte in 3 mesi · Circa una volta al mese · 2–3 volte al mese · Settimanalmente o più spesso.</p>
+<p>Un rispondente che dichiara “Mai o quasi mai” alla 17 <strong>non dovrebbe</strong> rispondere “Settimanalmente o più spesso” alla 43.</p>
+</section>
+<section id="matrice-di-coerenza" class="level3" data-number="3.9.3">
+<h3 data-number="3.9.3" class="anchored" data-anchor-id="matrice-di-coerenza"><span class="header-section-number">3.9.3</span> Matrice di coerenza</h3>
+<div id="fig-controllo" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-controllo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/diagrams/controllo.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-controllo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;3.3: Risposte alle domande di controllo (sinistra) e matrice di coerenza (destra): diagonale = matching perfetto; celle adiacenti = accettabili; celle a due passi dalla diagonale (gialle) = sospette; celle più lontane dalla diagonale, verso gli angoli opposti = contraddizioni forti. Le diciture “da considerare se eliminare” e “da eliminare” della legenda vanno lette come “da esaminare” e “da segnalare e verificare” (vedi la tabella sotto)
+</figcaption>
+</figure>
+</div>
+<p><strong>Lettura:</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 46%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Celle</th>
+<th>Significato</th>
+<th>Azione</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Diagonale (blu)</td>
+<td>Matching perfetto</td>
+<td>Conservare</td>
+</tr>
+<tr class="even">
+<td>Adiacenti (celesti)</td>
+<td>Coerenza accettabile (memoria/soggettività)</td>
+<td>Conservare</td>
+</tr>
+<tr class="odd">
+<td>A due passi dalla diagonale (gialle)</td>
+<td>Incoerenze significative</td>
+<td>Esaminare individualmente</td>
+</tr>
+<tr class="even">
+<td>Più lontane dalla diagonale, verso gli angoli opposti (rosse)</td>
+<td>Contraddizioni forti</td>
+<td><strong>Segnalare e verificare</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Una risposta incoerente non comporta di per sé l’esclusione del rispondente: l’eliminazione va motivata da criteri di qualità fissati prima di guardare i dati e, preferibilmente, dalla presenza di <strong>più segnali insieme</strong> (incoerenze multiple, tempi di compilazione implausibili, risposte tutte uguali).</p>
+</section>
+<section id="quanti-rispondenti-escludere" class="level3" data-number="3.9.4">
+<h3 data-number="3.9.4" class="anchored" data-anchor-id="quanti-rispondenti-escludere"><span class="header-section-number">3.9.4</span> Quanti rispondenti escludere?</h3>
+<p>Non esiste una percentuale universale di rispondenti da eliminare per incoerenza. Se i criteri di controllo portano a segnalare o escludere una quota elevata del campione, va verificata sia la qualità delle risposte sia la validità del controllo:</p>
+<ul>
+<li>le due domande misurano davvero lo stesso costrutto?</li>
+<li>la formulazione è chiara e univoca?</li>
+<li>il periodo di riferimento giustifica risposte apparentemente discordanti?</li>
+<li>le categorie di risposta sono comparabili?</li>
+</ul>
+<p>Spesso un’elevata percentuale di incoerenze non riflette la scarsa qualità delle risposte, ma l’inadeguatezza delle domande come controllo reciproco.</p>
+</section>
+</section>
+<section id="pulizia-di-variabili-testuali-e-categoriche" class="level2" data-number="3.10">
+<h2 data-number="3.10" class="anchored" data-anchor-id="pulizia-di-variabili-testuali-e-categoriche"><span class="header-section-number">3.10</span> 8. Pulizia di variabili testuali e categoriche</h2>
+<section id="uniformazione-ortografica-e-formale" class="level3" data-number="3.10.1">
+<h3 data-number="3.10.1" class="anchored" data-anchor-id="uniformazione-ortografica-e-formale"><span class="header-section-number">3.10.1</span> Uniformazione ortografica e formale</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 57%">
+<col style="width: 42%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Operazione</th>
+<th>Esempio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Normalizzazione maiuscole/minuscole</td>
+<td><code>Roma</code>, <code>roma</code>, <code>ROMA</code> → <code>roma</code></td>
+</tr>
+<tr class="even">
+<td>Rimozione spazi superflui</td>
+<td><code>␣␣Milano␣</code> → <code>milano</code></td>
+</tr>
+<tr class="odd">
+<td>Correzione di refusi e varianti</td>
+<td><code>E-mail</code>, <code>email</code>, <code>e mail</code> → <code>email</code></td>
+</tr>
+<tr class="even">
+<td>Standardizzazione della punteggiatura</td>
+<td><code>Cagliari.</code>, <code>Cagliari,</code> → <code>cagliari</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="unificazione-di-categorie-equivalenti" class="level3" data-number="3.10.2">
+<h3 data-number="3.10.2" class="anchored" data-anchor-id="unificazione-di-categorie-equivalenti"><span class="header-section-number">3.10.2</span> Unificazione di categorie equivalenti</h3>
+<p>Lo stesso concetto può essere espresso in modi diversi: identificare e consolidare.</p>
+<ul>
+<li>Variazioni ortografiche: <code>Cagliari</code>/<code>cagliari</code>/<code>CAGLIARI</code> → <code>cagliari</code></li>
+<li>Abbreviazioni: <code>CA</code>/<code>Cgl</code>/<code>Cagliari</code> → <code>cagliari</code></li>
+<li>Sinonimi: <code>Cellulare</code>/<code>Mobile</code>/<code>Telefono mobile</code> → <code>cellulare</code></li>
+<li>Codifiche miste: codici (<code>CA</code>) e testo completo (<code>Cagliari</code>) → uniformare a un solo formato.</li>
+</ul>
+</section>
+<section id="categorie-residuali" class="level3" data-number="3.10.3">
+<h3 data-number="3.10.3" class="anchored" data-anchor-id="categorie-residuali"><span class="header-section-number">3.10.3</span> Categorie residuali</h3>
+<ul>
+<li><strong>Accorpamento delle poco frequenti</strong>: se una categoria ha frequenza assoluta molto bassa (es. <span class="math inline">\(&lt; 5\)</span> obs o <span class="math inline">\(&lt; 1\%\)</span> del campione), valutare se aggregarla in “Altro” o in una simile.</li>
+<li><strong>Eliminazione delle non informative</strong>: <code>Non so</code>, <code>N/A</code>, <code>---</code> non rilevanti per l’analisi vanno ricodificate come missing.</li>
+<li><strong>Documentare</strong> ogni accorpamento o eliminazione per garantire trasparenza.</li>
+</ul>
+</section>
+</section>
+<section id="controllo-della-coerenza-interna" class="level2" data-number="3.11">
+<h2 data-number="3.11" class="anchored" data-anchor-id="controllo-della-coerenza-interna"><span class="header-section-number">3.11</span> 9. Controllo della coerenza interna</h2>
+<p>Verifiche logiche sistematiche su tutto il dataset, oltre alle domande di controllo esplicite.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 39%">
+<col style="width: 39%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo di vincolo</th>
+<th>Cosa verificare</th>
+<th>Esempio</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Temporale</strong></td>
+<td>Ordine cronologico</td>
+<td><code>data_nascita &lt; data_immatricolazione &lt; data_laurea</code></td>
+</tr>
+<tr class="even">
+<td><strong>Temporale</strong></td>
+<td>Intervalli plausibili</td>
+<td>Durata del corso di studi non superiore a 20 anni</td>
+</tr>
+<tr class="odd">
+<td><strong>Temporale</strong></td>
+<td>Coerenza con l’anno di rilevazione</td>
+<td>Niente eventi futuri come “già avvenuti”</td>
+</tr>
+<tr class="even">
+<td><strong>Aritmetico</strong></td>
+<td>Totali = somma componenti</td>
+<td>Spesa totale = Σ spese per categoria</td>
+</tr>
+<tr class="odd">
+<td><strong>Aritmetico</strong></td>
+<td>Percentuali sommano a 100%</td>
+<td>Tolleranza per arrotondamenti</td>
+</tr>
+<tr class="even">
+<td><strong>Aritmetico</strong></td>
+<td>Valori derivati corretti</td>
+<td>Indice di massa corporea (IMC) da peso e altezza</td>
+</tr>
+<tr class="odd">
+<td><strong>Dominio</strong></td>
+<td>Non-negatività</td>
+<td>Età, durata, prezzi, quantità ≥ 0</td>
+</tr>
+<tr class="even">
+<td><strong>Dominio</strong></td>
+<td>Range ammissibili</td>
+<td>Voti d’esame verbalizzati tra 18 e 30 (tra 0 e 30 se si registrano anche le prove non superate)</td>
+</tr>
+<tr class="odd">
+<td><strong>Dominio</strong></td>
+<td>Codifiche valide</td>
+<td>Codici regionali dell’Istituto nazionale di statistica (Istat), codici della classificazione delle attività economiche (ATECO)</td>
+</tr>
+<tr class="even">
+<td><strong>Plausibilità</strong></td>
+<td>Combinazioni logiche</td>
+<td>“Studente universitario” + “età 12 anni” è implausibile</td>
+</tr>
+<tr class="odd">
+<td><strong>Plausibilità</strong></td>
+<td>Pattern sospetti</td>
+<td>Risposte tutte identiche per uno stesso soggetto</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="documentazione-il-data-cleaning-log" class="level2" data-number="3.12">
+<h2 data-number="3.12" class="anchored" data-anchor-id="documentazione-il-data-cleaning-log"><span class="header-section-number">3.12</span> 10. Documentazione: il Data Cleaning Log</h2>
+<p>La <strong>tracciabilità</strong> e la <strong>riproducibilità</strong> sono principi fondamentali. Ogni intervento di pulizia va documentato in modo sistematico.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Modello di registro
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Mantenere un documento (foglio, Markdown, file in repo) con queste sezioni:</p>
+<ol type="1">
+<li><strong>Variabili modificate</strong> — nome originale e nuovo, tipo di intervento, data, autore.</li>
+<li><strong>Missing values</strong> — variabili coinvolte, % di mancanti, metodo di gestione, motivazione.</li>
+<li><strong>Outlier</strong> — criteri di identificazione, numero individuati, azione (rimozione/winsor./mantenimento).</li>
+<li><strong>Incoerenze</strong> — tipo (logica/temporale/aritmetica), numero di osservazioni, strategia risolutiva.</li>
+<li><strong>Osservazioni rimosse</strong> — numero, %, motivazione, caratteristiche distintive (per valutare bias di selezione).</li>
+<li><strong>Variabili derivate</strong> — nome, formula/algoritmo, scopo analitico.</li>
+</ol>
+</div>
+</div>
+<p>In jamovi una buona pratica è scrivere il log nel file <code>.omv</code> stesso, come annotazione dei risultati: sotto il titolo di ogni analisi c’è uno spazio per il testo, che si attiva con un clic e si formatta dalla scheda <em>Modifica</em> (per esempio con <em>Intestazione</em>). In alternativa si tiene un <code>.md</code> accanto al file <code>.omv</code>.</p>
+</section>
+<section id="verifica-finale" class="level2" data-number="3.13">
+<h2 data-number="3.13" class="anchored" data-anchor-id="verifica-finale"><span class="header-section-number">3.13</span> 11. Verifica finale</h2>
+<p>Al termine del processo, una <strong>validazione complessiva</strong> assicura che il dataset sia pronto e che la pulizia stessa non abbia introdotto errori.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Checklist finale
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul class="task-list">
+<li><label><input type="checkbox">Numero di osservazioni e variabili coerente con l’atteso (e con il log).</label></li>
+<li><label><input type="checkbox">Nessuna variabile con tipo errato.</label></li>
+<li><label><input type="checkbox">Distribuzioni “ragionevoli” (range, media, frequenze) per tutte le variabili chiave.</label></li>
+<li><label><input type="checkbox">Missing residui quantificati e documentati.</label></li>
+<li><label><input type="checkbox">Outlier residui consapevoli (mantenuti perché informativi).</label></li>
+<li><label><input type="checkbox">Variabili derivate verificate su almeno qualche caso.</label></li>
+<li><label><input type="checkbox">Confronto delle statistiche descrittive <strong>prima</strong> vs <strong>dopo</strong> la pulizia.</label></li>
+<li><label><input type="checkbox">Backup dei dati grezzi e del log salvato.</label></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="in-sintesi" class="level2" data-number="3.14">
+<h2 data-number="3.14" class="anchored" data-anchor-id="in-sintesi"><span class="header-section-number">3.14</span> In sintesi</h2>
+<p>Un dataset pulito:</p>
+<ul>
+<li><strong>migliora la qualità dei risultati</strong> — meno rumore, pattern reali più nitidi;</li>
+<li><strong>stabilizza le stime</strong> — meno sensibili a piccole variazioni;</li>
+<li><strong>rende affidabile l’applicazione dei modelli</strong> — molti metodi presuppongono proprietà specifiche;</li>
+<li><strong>favorisce riproducibilità e trasparenza scientifica</strong>, se ogni passaggio è documentato;</li>
+<li><strong>riduce il rischio di interpretazioni errate</strong>;</li>
+<li><strong>rende l’elaborazione più efficiente</strong>.</li>
+</ul>
+<p>Il tempo dedicato al <em>data cleaning</em> non è tempo “perso” rispetto all’analisi vera e propria: è un <strong>investimento strategico</strong> sulla solidità, credibilità e utilità di tutto il lavoro statistico successivo.</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Raccomandazione finale
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Pianificare sempre tempo adeguato per la pulizia dei dati all’inizio di ogni progetto analitico. Una fase di preparazione accurata e documentata è un presupposto fondamentale per ottenere risultati affidabili, interpretabili e riproducibili — indipendentemente dall’eleganza dei metodi statistici applicati o dalla potenza computazionale impiegata.</p>
+</div>
+</div>
+<p>Una volta che il dataset è pulito si passa alle analisi, oggetto dei prossimi capitoli: la cluster analysis e la PCA. Il <a href="./P-26-esempio-progetto.html">§ P-26</a> mostra l’intero percorso su un caso reale, dai dati al report.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("^(?!https://github\.com/)");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./T-02-campionamento.html" class="pagination-link" aria-label="Campionamento">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Campionamento</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./T-04-cluster-analysis.html" class="pagination-link" aria-label="Cluster Analysis">
+        <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><code>AnalisiMercato</code> — Dispense del corso. © 2026 Luca Frigau, tutti i diritti riservati.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Realizzate con <a href="https://quarto.org">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

@@ -1,0 +1,1876 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>8&nbsp; Esempio di realizzazione del progetto – Analisi di Mercato — Dispense del corso</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./P-27-report-finale.html" rel="next">
+<link href="./P-25b-strumenti-ia.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ef622e21aa483743907546df5fc19a86.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nessun risultato",
+    "search-matching-documents-text": "documenti trovati",
+    "search-copy-link-title": "Copiare il link nella ricerca",
+    "search-hide-matches-text": "Nascondere i risultati aggiuntivi",
+    "search-more-match-text": "ci sono altri risultati in questo documento",
+    "search-more-matches-text": "ulteriori risultati in questo documento",
+    "search-clear-button-title": "Pulire",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancellare",
+    "search-submit-button-title": "Inviare",
+    "search-label": "Ricerca"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P-25-introduzione-progetto.html">Parte II — Progetto pratico</a></li><li class="breadcrumb-item"><a href="./P-26-esempio-progetto.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Ricerca" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisi di Mercato — Dispense del corso</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Attiva/disattiva la modalità oscura"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Ricerca"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefazione</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte I — Approfondimenti teorici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-01-introduzione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduzione alla ricerca di mercato quantitativa</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-02-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-03-preparazione-dati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-04-cluster-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-05-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II — Progetto pratico</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25-introduzione-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25b-strumenti-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-26-esempio-progetto.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-27-report-finale.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Report finale del progetto di esempio</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte III — Software Jamovi</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-01-cosa-e-analisimercato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Cos’è <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-02-installazione-jamovi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Installazione di Jamovi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-03-installazione-modulo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installazione del modulo <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-04-tour-interfaccia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tour dell’interfaccia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-06-fondamenti-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Workflow operativo del campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-07-numerosita-campionaria.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Numerosità campionaria</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-08-campionamento-casuale-semplice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Campionamento casuale semplice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-09-campionamento-sistematico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Campionamento sistematico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-10-campionamento-stratificato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-11-campionamento-grappoli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Campionamento a grappoli</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-12-campionamento-due-stadi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Campionamento a due stadi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-13-campionamento-cpv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Campionamento con probabilità variabili (CPV)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-14-intervalli-confidenza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Intervalli di confidenza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15-design-effect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Design Effect</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-16-fondamenti-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Workflow operativo della cluster analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-17-distanze-agglomerazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Distanze e agglomerazione</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-18-scelta-k-dendrogramma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Scelta di k e dendrogramma</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-19-caratterizzazione-cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Caratterizzazione dei cluster</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-20-confronto-partizioni-ari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Confronto fra partizioni — Adjusted Rand Index</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-21-fondamenti-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Workflow operativo della PCA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-22-contributi-cos2-biplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Contributi, cos² e biplot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-23-rotazioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Rotazioni Varimax e Promax</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-24-variabili-supplementari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Variabili supplementari e mappa di posizionamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte IV — Casi studio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-01-caso-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-02-caso-segmentazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Caso studio — Segmentare il mercato: quattro gruppi che l’anagrafica non vede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-03-caso-posizionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Caso studio — Dove siamo sulla mappa: il posizionamento di venti marche</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-01-caso-reale-comuni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Caso reale — Campionare un frame vero: i comuni italiani</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-02-caso-reale-ingrosso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Caso reale — Segmentare clienti veri: un distributore all’ingrosso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-03-caso-reale-yogurt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-04-caso-reale-regioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Caso reale — Dove conviene entrare: le regioni italiane</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1-glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A2-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Domande frequenti (FAQ)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Riferimenti bibliografici</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#analisi-esplorativa" id="toc-analisi-esplorativa" class="nav-link active" data-scroll-target="#analisi-esplorativa"><span class="header-section-number">8.1</span> Analisi esplorativa</a></li>
+  <li><a href="#analisi-bivariata" id="toc-analisi-bivariata" class="nav-link" data-scroll-target="#analisi-bivariata"><span class="header-section-number">8.2</span> Analisi bivariata</a>
+  <ul class="collapse">
+  <li><a href="#letture-principali" id="toc-letture-principali" class="nav-link" data-scroll-target="#letture-principali"><span class="header-section-number">8.2.1</span> Letture principali</a></li>
+  <li><a href="#uso-di-un-assistente-ai-per-la-sintesi" id="toc-uso-di-un-assistente-ai-per-la-sintesi" class="nav-link" data-scroll-target="#uso-di-un-assistente-ai-per-la-sintesi"><span class="header-section-number">8.2.2</span> Uso di un assistente AI per la sintesi</a></li>
+  </ul></li>
+  <li><a href="#analisi-delle-componenti-principali-pca" id="toc-analisi-delle-componenti-principali-pca" class="nav-link" data-scroll-target="#analisi-delle-componenti-principali-pca"><span class="header-section-number">8.3</span> Analisi delle Componenti Principali (PCA)</a>
+  <ul class="collapse">
+  <li><a href="#selezione-delle-variabili" id="toc-selezione-delle-variabili" class="nav-link" data-scroll-target="#selezione-delle-variabili"><span class="header-section-number">8.3.1</span> Selezione delle variabili</a></li>
+  <li><a href="#prima-iterazione-della-pca" id="toc-prima-iterazione-della-pca" class="nav-link" data-scroll-target="#prima-iterazione-della-pca"><span class="header-section-number">8.3.2</span> Prima iterazione della PCA</a></li>
+  <li><a href="#configurazione-finale-della-pca" id="toc-configurazione-finale-della-pca" class="nav-link" data-scroll-target="#configurazione-finale-della-pca"><span class="header-section-number">8.3.3</span> Configurazione finale della PCA</a></li>
+  <li><a href="#mappa-di-posizionamento" id="toc-mappa-di-posizionamento" class="nav-link" data-scroll-target="#mappa-di-posizionamento"><span class="header-section-number">8.3.4</span> Mappa di posizionamento</a></li>
+  </ul></li>
+  <li><a href="#cluster-analysis" id="toc-cluster-analysis" class="nav-link" data-scroll-target="#cluster-analysis"><span class="header-section-number">8.4</span> Cluster Analysis</a>
+  <ul class="collapse">
+  <li><a href="#scelta-della-metrica-e-del-metodo" id="toc-scelta-della-metrica-e-del-metodo" class="nav-link" data-scroll-target="#scelta-della-metrica-e-del-metodo"><span class="header-section-number">8.4.1</span> Scelta della metrica e del metodo</a></li>
+  <li><a href="#quanti-gruppi" id="toc-quanti-gruppi" class="nav-link" data-scroll-target="#quanti-gruppi"><span class="header-section-number">8.4.2</span> Quanti gruppi</a></li>
+  <li><a href="#confronto-con-altri-metodi-ari" id="toc-confronto-con-altri-metodi-ari" class="nav-link" data-scroll-target="#confronto-con-altri-metodi-ari"><span class="header-section-number">8.4.3</span> Confronto con altri metodi (ARI)</a></li>
+  <li><a href="#caratterizzazione-dei-gruppi" id="toc-caratterizzazione-dei-gruppi" class="nav-link" data-scroll-target="#caratterizzazione-dei-gruppi"><span class="header-section-number">8.4.4</span> Caratterizzazione dei gruppi</a></li>
+  <li><a href="#i-cinque-cluster" id="toc-i-cinque-cluster" class="nav-link" data-scroll-target="#i-cinque-cluster"><span class="header-section-number">8.4.5</span> I cinque cluster</a></li>
+  </ul></li>
+  <li><a href="#strategie-operative-mirate-per-cluster" id="toc-strategie-operative-mirate-per-cluster" class="nav-link" data-scroll-target="#strategie-operative-mirate-per-cluster"><span class="header-section-number">8.5</span> Strategie operative mirate per cluster</a></li>
+  <li><a href="#cosa-portare-nel-report-finale" id="toc-cosa-portare-nel-report-finale" class="nav-link" data-scroll-target="#cosa-portare-nel-report-finale"><span class="header-section-number">8.6</span> Cosa portare nel report finale</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P-25-introduzione-progetto.html">Parte II — Progetto pratico</a></li><li class="breadcrumb-item"><a href="./P-26-esempio-progetto.html"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Questo capitolo illustra i passaggi fondamentali per la costruzione di un report di analisi su un caso reale. I dati derivano da un’indagine condotta sulla popolazione studentesca di <strong>Economia Manageriale</strong> dell’Università di Cagliari, fra gli studenti che hanno frequentato il corso di <em>Contabilità per la Direzione</em>. I dati sono stati raccolti e analizzati da un gruppo di studenti del corso nell’ambito del progetto d’esame.</p>
+<p>I dati sono riservati agli studenti del corso: non sono distribuiti con il modulo né pubblicati in questa versione online delle dispense. Nel <a href="./P-27-report-finale.html">§ P-27</a> è indicato che cosa contengono il file Jamovi con le analisi di questo capitolo e la cartella Excel con dati grezzi, dati puliti e codifica. Sono 102 rispondenti.</p>
+<p>Un accorgimento prima di rifare le analisi: le variabili qualitative che hanno un ordine naturale — il grado di accordo sulle domande relative al progetto, la fascia di frequenza alle lezioni, la sessione d’esame, la classe di età — nel file arrivano come <strong>nominali</strong>, e Jamovi le mette quindi in ordine alfabetico, che per loro non significa nulla (“abbastanza” prima di “per nulla”). Conviene dichiararle <strong>ordinali</strong> dal pannello delle variabili, mettendo i livelli nella sequenza giusta: non cambia il modo in cui le analisi le trattano, ma tabelle e grafici diventano leggibili (<a href="./T-03-preparazione-dati.html">§ T-03</a>).</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Seguire il capitolo con i dati aperti
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Conviene tenere il dataset aperto mentre si legge: ogni analisi descritta qui si può rieseguire sugli stessi dati e confrontare con quanto riportato. Le variabili <code>progetto_voto</code>, <code>progetto_comprensione</code>, <code>progetto_team</code> e <code>progetto_inutile</code> usano tutte la stessa scala di accordo (<em>per nulla, poco, indifferente, abbastanza, molto</em>).</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Caso didattico vs caso reale
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>In un contesto professionale reale, il primo passo imprescindibile è la <strong>definizione a priori</strong> dell’obiettivo dell’analisi. In questo ambito didattico è concessa maggiore flessibilità: lo scopo primario è la dimostrazione delle competenze acquisite, quindi è <strong>consentito definire o affinare l’obiettivo a posteriori</strong>, basandosi sulle evidenze più significative emerse durante l’esplorazione dei dati.</p>
+<p>Nella realtà non funziona così. Anche lì l’esplorazione può suggerire domande nuove, ma vanno presentate come tali, non come ipotesi fissate prima di guardare i dati. La ragione è precisa: esplorando molte variabili, qualche associazione salta fuori anche per caso, e un obiettivo costruito su quell’associazione la ritrova per forza nei dati da cui è nata. Un risultato emerso dall’esplorazione si può quindi riportare come risultato esplorativo, ma non come conferma di un’ipotesi: per verificarlo servono dati nuovi.</p>
+<p>Per iniziare fissiamo un obiettivo preliminare, suscettibile di modifica:</p>
+<blockquote class="blockquote">
+<p><strong>Studiare gli elementi associati al ritardo nel superamento o sostenimento dell’esame</strong> (variabile <code>esame_ripetuto</code>).</p>
+</blockquote>
+</div>
+</div>
+<section id="analisi-esplorativa" class="level2" data-number="8.1">
+<h2 data-number="8.1" class="anchored" data-anchor-id="analisi-esplorativa"><span class="header-section-number">8.1</span> Analisi esplorativa</h2>
+<p>L’indagine prende avvio con un’<strong>analisi esplorativa univariata</strong>, finalizzata a delineare una caratterizzazione del campione. In questa fase preliminare l’attenzione si è focalizzata su otto variabili rappresentative del profilo dei rispondenti e degli obiettivi di ricerca: <code>genere</code>, <code>parziale</code>, <code>esame_ripetuto</code>, <code>tipo</code>, <code>lavoro</code>, <code>frequenza_lez</code>, <code>esame_sessione</code>, <code>indirizzo</code>.</p>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-uni1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-uni1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/progetto-esempio/Uni1.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-uni1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.1: Tabelle di frequenza — parte 1
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-uni2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-uni2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/progetto-esempio/Uni2.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-uni2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.2: Tabelle di frequenza — parte 2
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Sintesi del campione (102 studenti)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>L’analisi si basa su un campione di 102 studenti, con composizione demografica a netta prevalenza femminile (64,7%). L’80,4% del campione dichiara di essere studente a tempo pieno e di non lavorare, definendo un profilo di studente prevalentemente “dedicato”, concentrato in via esclusiva sul percorso universitario.</p>
+<p>Sul piano della mobilità geografica, la categoria più rappresentata è quella degli studenti <strong>fuori sede</strong> (44,1%), superiore sia agli in sede (37,3%) sia ai pendolari (18,6%): nel campione c’è quindi una presenza rilevante di studenti che studiano lontano dalla residenza abituale.</p>
+<p>A livello didattico, gli iscritti si ripartiscono tra due indirizzi: leggera maggioranza di <code>Dir_creaz_impresa</code> (58,8%) rispetto ad <code>Amm_contr</code> (41,2%). L’impegno accademico si riflette in tassi di frequenza molto elevati: il 67,6% dichiara presenza superiore al 75%, un ulteriore 24,5% nella fascia 50–75%.</p>
+<p>Questo si traduce in tempestività nelle prove: l’80,4% tenta l’esame nella <strong>prima sessione disponibile</strong> al termine del corso. I risultati premiano la costanza: oltre la metà (54,9%) ha superato la prova parziale e il 64,7% ha concluso l’esame al primo tentativo. Resta però una quota rilevante (23,5%) che, al momento della rilevazione, non aveva ancora superato l’esame.</p>
+</div>
+</div>
+</section>
+<section id="analisi-bivariata" class="level2" data-number="8.2">
+<h2 data-number="8.2" class="anchored" data-anchor-id="analisi-bivariata"><span class="header-section-number">8.2</span> Analisi bivariata</h2>
+<p>In considerazione della chiarezza dei risultati emersi dall’univariata, si è scelto di non appesantire la trattazione con ulteriori tabelle: i valori percentuali sono riportati nel corpo del testo, privilegiando la sintesi espositiva.</p>
+<p>La fase successiva approfondisce la <strong>variabile obiettivo</strong> <code>esame_ripetuto</code>, indagando l’esistenza di relazioni di dipendenza o associazione significativa con altre variabili. Sono state esaminate in particolare le relazioni con: <code>eta2</code>, <code>complessita_teoria</code>, <code>esame_tempo</code>, <code>corso_docente</code>, <code>utilita</code>, <code>lavoro_ore</code>, <code>complessita_pratica</code>, <code>voto</code>, <code>parziale_preparazione</code>, <code>progetto</code>, <code>corso_materiale</code>, <code>corso_esercitazioni</code>, <code>corso_carico</code>; non tutte risultano rilevanti, come mostrano le letture principali.</p>
+<div class="quarto-layout-panel" data-layout-ncol="1">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-biv1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-biv1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/progetto-esempio/bivariate1.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-biv1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.3: Medie condizionate — parte 1
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
+<div id="fig-biv2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-biv2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/progetto-esempio/bivariate2.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-biv2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.4: Medie condizionate — parte 2
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<section id="letture-principali" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1" class="anchored" data-anchor-id="letture-principali"><span class="header-section-number">8.2.1</span> Letture principali</h3>
+<ul>
+<li>Il <strong>voto</strong> medio è più alto fra chi supera l’esame nei primi tentativi e cala nei gruppi che richiedono più appelli. È un’associazione fra esito e numero di tentativi: non basta a stabilire che la differenza dipenda solo dal livello di preparazione.</li>
+<li>Le <strong>ore di lavoro</strong> non hanno un andamento regolare: le medie sono circa 2,42 ore al primo tentativo, 10,9 al secondo e 40 nell’unico caso di quarto tentativo, mentre chi non ha ancora superato l’esame si attesta intorno a 6,67. La numerosità molto piccola di alcuni gruppi impone cautela; resta l’indicazione di approfondire il rapporto fra impegno lavorativo e percorso d’esame.</li>
+<li>Una maggiore <code>parziale_preparazione</code> si associa a un minor numero di tentativi: partecipazione e preparazione alla prova intermedia sembrano indicatori di un percorso più regolare, senza che questo dimostri un effetto causale del parziale.</li>
+<li>La partecipazione al <strong>progetto</strong> è più frequente fra chi supera l’esame nei primi appelli. Anche qui si tratta di un’associazione, che può riflettere caratteristiche preesistenti degli studenti più coinvolti.</li>
+<li>La percezione dell’adeguatezza del <strong>tempo d’esame</strong> (<code>esame_tempo</code>) varia col numero di tentativi: la relazione descrive un legame fra esperienza d’esame e percezione del tempo, non permette di concludere che la durata della prova sia la causa delle differenze negli esiti.</li>
+<li>Nessuna differenza marcata sulla percezione della <strong>complessità teorica</strong> (<code>complessita_teoria</code>) fra gruppi.</li>
+<li>Chi supera l’esame nei primi tentativi tende a valutare la <strong>complessità pratica</strong> (<code>complessita_pratica</code>) in modo meno critico.</li>
+<li>La <strong>soddisfazione media</strong> per i quattro aspetti del corso (<code>corso_docente</code>, <code>corso_materiale</code>, <code>corso_esercitazioni</code>, <code>corso_carico</code>) è mediamente più alta nei gruppi che superano prima. L’associazione può riflettere sia differenze nell’esperienza didattica sia caratteristiche degli studenti, e non va letta in senso causale.</li>
+</ul>
+</section>
+<section id="uso-di-un-assistente-ai-per-la-sintesi" class="level3" data-number="8.2.2">
+<h3 data-number="8.2.2" class="anchored" data-anchor-id="uso-di-un-assistente-ai-per-la-sintesi"><span class="header-section-number">8.2.2</span> Uso di un assistente AI per la sintesi</h3>
+<p>Successivamente, le considerazioni sono state riscritte in forma discorsiva con l’aiuto di Microsoft Copilot, un assistente di intelligenza artificiale (AI, <em>artificial intelligence</em>). Il prompt gli fornisce i risultati delle analisi e le bozze dei commenti scritte dagli studenti, e gli chiede di riscriverle senza aggiungere nulla di suo: l’interpretazione resta degli studenti.</p>
+<blockquote class="blockquote">
+<p><em>“Devo scrivere il commento dell’analisi esplorativa per un report su un corso universitario. L’obiettivo è capire quali caratteristiche degli studenti sono associate al numero di sessioni necessarie per superare l’esame. Ti allego i risultati delle analisi (analisi bivariata.pdf) e le bozze dei commenti che ho scritto io (Analisi esplorativa.docx). Trasforma le mie bozze in un testo discorsivo, senza elenchi puntati, inserendo qualche valore preso dai risultati. Non aggiungere interpretazioni, cause o conclusioni che non siano già nelle mie bozze: se ti sembra che manchi qualcosa, segnalamelo a parte invece di scriverlo nel testo.”</em></p>
+</blockquote>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Sintesi prodotta dall’AI (da vagliare prima di inserire nel report)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nel complesso il campione conta 102 studenti: 66 hanno superato l’esame al primo appello, 11 al secondo, 1 al quarto e 24 non l’hanno ancora superato. L’andamento del voto conferma una relazione inversa con il numero di ripetizioni: la media è 24,5 al primo appello, 22,2 al secondo, 21,0 al quarto (caso isolato), 10,0 fra chi non ha ancora superato. Coerente con l’interpretazione: chi supera subito ha preparazione più solida; ripetere non si traduce necessariamente in voto più alto.</p>
+<p>Le ore di lavoro medie crescono col numero di ripetizioni: 2,42 ore al primo appello, 10,9 al secondo, 40,0 nel caso del quarto, 6,67 fra chi non ha ancora superato. Chi lavora di più ha meno tempo da dedicare allo studio.</p>
+<p>La preparazione al parziale emerge come fattore distintivo: media di <code>parziale_preparazione</code> 1,71 al primo appello, 0,818 al secondo, 0,333 fra i non ancora promossi. Anche il <strong>progetto</strong> si associa a un percorso più lineare: media 0,924 al primo appello, 0,818 al secondo, 0,583 fra i non ancora promossi.</p>
+<p>Sul versante delle percezioni, chi supera al primo appello giudica più “adeguato” il tempo a disposizione: media di <code>esame_tempo</code> 3,64 al primo, 2,55 al secondo, 2,46 fra i non ancora promossi. La parte pratica (<code>complessita_pratica</code>) è reputata meno difficile da chi supera subito.</p>
+<p>Anche gli indicatori di soddisfazione sono più alti tra chi supera al primo appello: la valutazione del docente (<code>corso_docente</code>) media 3,80 al primo appello, 2,73 al secondo, 2,54 fra i non ancora promossi.</p>
+<p>L’<strong>età</strong> varia poco fra i gruppi (25,1 / 26,1 / 25,6); difficile trarre conclusioni solide.</p>
+<p>In sintesi, <strong>tre elementi</strong> accompagnano con maggiore probabilità il superamento rapido: buona performance al parziale, svolgimento del progetto, minore carico di lavoro extra-universitario. A questi si affiancano percezioni più favorevoli sul tempo d’esame e sulla difficoltà pratica, e una soddisfazione più alta per corso e docente. Va ricordato che si tratta di <strong>evidenze esplorative</strong> e che alcune categorie hanno numerosità molto diverse: queste relazioni descrivono associazioni e non implicano nessi causali.</p>
+</div>
+</div>
+<p>Il passaggio <em>“Chi lavora di più ha meno tempo da dedicare allo studio”</em> mostra bene perché il testo generato dall’AI va vagliato anche quando il prompt è scritto bene: dai dati si osserva un’associazione fra ore lavorate e percorso d’esame, ma non si può concludere che il lavoro sia la causa del maggior numero di tentativi.</p>
+<p>Anche il valore 10,0 fra chi non ha ancora superato l’esame non è un voto medio: nel foglio “Dati puliti” 10 è il codice assegnato a chi non ha un voto (nel foglio “Dati originali” questi studenti avevano risposto 0 o lasciato una nota testuale). Il confronto dei voti medi ha senso solo fra chi ha superato l’esame (24,5 / 22,2 / 21,0); per lo stesso motivo <code>voto</code> non entra né nell’Analisi delle Componenti Principali (PCA, <em>Principal Component Analysis</em>) né nella cluster analysis (vedi più avanti).</p>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Avviso</span>L’AI è un assistente, non un autore
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>L’output dell’assistente è una <strong>solida base preliminare</strong>, ma prima dell’inserimento definitivo nel report va sottoposto a vaglio critico per:</p>
+<ul>
+<li>eliminare informazioni marginali;</li>
+<li>preservare gli elementi di maggiore rilevanza informativa;</li>
+<li>correggere eventuali errori o interpretazioni forzate.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="analisi-delle-componenti-principali-pca" class="level2" data-number="8.3">
+<h2 data-number="8.3" class="anchored" data-anchor-id="analisi-delle-componenti-principali-pca"><span class="header-section-number">8.3</span> Analisi delle Componenti Principali (PCA)</h2>
+<p>L’applicazione della PCA persegue, in prima istanza, l’obiettivo di <strong>analisi di posizionamento</strong>. Condizione necessaria è l’identificazione di un sottoinsieme di variabili <strong>correlate fra loro</strong> e coerenti con gli obiettivi di ricerca.</p>
+<p>Qualora l’analisi delle correlazioni non evidenzi una struttura adeguata a supportare un’interpretazione di posizionamento, due scenari alternativi:</p>
+<ol type="1">
+<li><strong>Ridefinizione dell’obiettivo</strong> — nuovo focus emerso naturalmente dalla struttura dei dati, con aggiornamento della dichiarazione degli obiettivi.</li>
+<li><strong>PCA come pre-processing</strong> — uso esclusivo per la riduzione di dimensionalità, propedeutica alla cluster analysis. Le componenti diventano input ortogonali per la successiva segmentazione.</li>
+</ol>
+<section id="selezione-delle-variabili" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1" class="anchored" data-anchor-id="selezione-delle-variabili"><span class="header-section-number">8.3.1</span> Selezione delle variabili</h3>
+<p>Coerentemente con il focus sulla ripetizione della prova, ci si è concentrati sulle correlazioni fra variabili inerenti alla didattica e alla valutazione. Dopo una selezione iterativa, sono state isolate <strong>sette variabili</strong>:</p>
+<ul>
+<li><code>corso_carico</code>, <code>corso_docente</code>, <code>corso_esercitazioni</code>, <code>corso_materiale</code> (soddisfazione didattica);</li>
+<li><code>progetto</code>, <code>parziale_preparazione</code>, <code>esame_tempo</code> (elementi d’esame).</li>
+</ul>
+<div id="fig-corr" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-corr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/progetto-esempio/correlazioni.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-corr-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.5: Matrice delle correlazioni tra le variabili selezionate e <code>voto</code>
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Perché <code>voto</code> resta fuori dalla PCA
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nel progetto consegnato <code>voto</code> era fra le variabili attive. Per i 24 studenti che non hanno ancora superato l’esame, però, vale 10: è il codice assegnato a chi non ha un voto, non un voto. Così la variabile mescola due informazioni diverse, il voto per i 78 promossi e l’esito per gli altri, con un valore arbitrario: con 0 o 17 al posto di 10 cambierebbero correlazioni, assi e gruppi. Il codice gonfia anche le correlazioni con la partecipazione: sui 102 studenti <code>voto</code> correla 0,69 con <code>parziale_preparazione</code> e 0,39 con <code>progetto</code>, sui soli promossi 0,45 e 0,25. Soprattutto, l’esito dell’esame è ciò che il progetto vuole spiegare: metterlo fra le variabili che costruiscono assi e gruppi renderebbe circolare la lettura.</p>
+<p>Per lo stesso motivo <code>voto</code> non viene proiettato nemmeno come <strong>variabile supplementare</strong>: anche lì la sua correlazione con gli assi dipenderebbe dal codice (nella configurazione finale varrebbe 0,60 con la prima componente principale (PC1) usando 10, 0,54 con 0, 0,69 con 17). L’esito dell’esame entra nella mappa con <code>esame_ripetuto</code>, che è qualitativa e non ha bisogno di codici. Il legame fra voto e assi si misura invece sui soli 78 promossi, senza toccare la PCA, che resta costruita sui 102 studenti: si salvano i punteggi di PC1 (opzione <em>▸ SALVA · PC1</em>), si crea una copia di <code>voto</code> in cui il 10 è dichiarato valore mancante e se ne calcola la correlazione con PC1 nella <em>Correlation Matrix</em>. Un filtro sulle righe non va bene, perché in jamovi vale per tutte le analisi: la PCA verrebbe ricalcolata sui soli promossi. E dichiarare il 10 mancante nella stessa <code>voto</code> per proiettarla come supplementare non risolverebbe: FactoMineR, che il modulo usa, sostituirebbe i mancanti con la media dei promossi (24,2), un altro valore arbitrario.</p>
+</div>
+</div>
+<p>La matrice evidenzia una <strong>struttura di correlazione sufficientemente marcata</strong> da giustificare l’applicazione della PCA.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Processo iterativo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La costruzione dello spazio fattoriale è intrinsecamente iterativa: si bilancia la <strong>parsimonia</strong> del modello (numero di variabili) con la <strong>capacità esplicativa</strong>. In questo esempio didattico si è adottato, come criterio operativo e non come regola generale della PCA, l’obiettivo di tenere un insieme di variabili abbastanza parsimonioso (7, poi portate a 9 nell’analisi di sensibilità descritta più avanti) e di arrivare a un piano bidimensionale che rappresentasse una quota sostanziale della variabilità (attorno al 60%). Né il 60% né il numero di variabili sono soglie universali di interpretabilità: la scelta va guidata prima di tutto dall’obiettivo sostantivo, dalla struttura delle correlazioni e dalla leggibilità delle componenti.</p>
+</div>
+</div>
+</section>
+<section id="prima-iterazione-della-pca" class="level3" data-number="8.3.2">
+<h3 data-number="8.3.2" class="anchored" data-anchor-id="prima-iterazione-della-pca"><span class="header-section-number">8.3.2</span> Prima iterazione della PCA</h3>
+<div id="fig-cerchio1" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cerchio1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/progetto-esempio/pca_cerchio_iterazione1.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cerchio1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.6: Cerchio delle correlazioni (prima versione provvisoria, 7 variabili attive)
+</figcaption>
+</figure>
+</div>
+<p>L’analisi degli autovalori evidenzia che le prime due componenti spiegano <strong>55,07%</strong> e <strong>15,16%</strong> della varianza totale, per un cumulato del 70%.</p>
+<p>Dall’ispezione grafica emergono due cluster di variabili e una variabile isolata:</p>
+<ul>
+<li><strong>Gruppo 1</strong>: <code>corso_docente</code>, <code>corso_esercitazioni</code>, <code>corso_materiale</code>, <code>esame_tempo</code>;</li>
+<li><strong>Gruppo 2</strong>: <code>progetto</code>, <code>parziale_preparazione</code>;</li>
+<li><strong>Variabile cardine</strong>: <code>corso_carico</code>, in posizione intermedia tra i due gruppi.</li>
+</ul>
+<section id="interpretazione-di-pc1" class="level4" data-number="8.3.2.1">
+<h4 data-number="8.3.2.1" class="anchored" data-anchor-id="interpretazione-di-pc1"><span class="header-section-number">8.3.2.1</span> Interpretazione di PC1</h4>
+<p>La prima componente è caratterizzata dal <strong>contributo concordante</strong> di tutte le variabili. La variabile <code>corso_carico</code> mostra un allineamento pressoché perfetto con l’asse, sebbene con magnitudine contenuta. Gli altri due gruppi, pur presentando un angolo maggiore fra loro, mostrano elevate saturazioni sulla componente.</p>
+<p><strong>PC1 sintetizza il <em>Coinvolgimento nel Corso</em></strong>. Aggrega positivamente:</p>
+<ol type="1">
+<li>la <strong>valutazione della qualità didattica</strong> (fattori su cui il docente ha controllo: disponibilità del docente e dei tutor per chiarimenti, materiali, esercitazioni, tempo d’esame);</li>
+<li>la <strong>partecipazione attiva dello studente</strong> (adesione al progetto, prove intermedie).</li>
+</ol>
+<p>La soddisfazione per <code>corso_carico</code> riflette l’apprezzamento per la progettazione dei contenuti. Fra i 78 promossi il punteggio su PC1 correla 0,68 con il voto: il coinvolgimento si accompagna a esiti migliori, ma l’esito non ha contribuito a costruire l’asse.</p>
+</section>
+<section id="pc2-ambigua-arricchimento-del-modello" class="level4" data-number="8.3.2.2">
+<h4 data-number="8.3.2.2" class="anchored" data-anchor-id="pc2-ambigua-arricchimento-del-modello"><span class="header-section-number">8.3.2.2</span> PC2 ambigua → arricchimento del modello</h4>
+<p>Nella configurazione iniziale, l’interpretazione della <strong>seconda componente principale (PC2) risulta problematica</strong>. L’autovalore di PC2 è appena sopra 1 (1,06) e le saturazioni sull’asse verticale riguardano quasi solo <code>progetto</code> e <code>parziale_preparazione</code> (circa 0,68 e 0,65): l’asse si limita a contrapporre i due gruppi di variabili, entrambi già legati a PC1, con <code>corso_carico</code> ortogonale: è un contrasto difficile da tradurre in una dimensione sostantiva utile per l’obiettivo del progetto.</p>
+<p>Poiché PC2 risultava difficilmente interpretabile, si è svolta un’<strong>analisi esplorativa di sensibilità</strong>, aggiungendo due variabili — <code>lavoro_ore</code> e <code>frequenza_lez2</code> — coerenti con l’obiettivo del progetto. È una scelta dichiaratamente <em>data-driven</em> ed esplorativa, non una procedura standard per “costruire” una seconda componente interpretabile: in un’analisi confermativa la selezione delle variabili andrebbe decisa prima di guardare i risultati.</p>
+</section>
+</section>
+<section id="configurazione-finale-della-pca" class="level3" data-number="8.3.3">
+<h3 data-number="8.3.3" class="anchored" data-anchor-id="configurazione-finale-della-pca"><span class="header-section-number">8.3.3</span> Configurazione finale della PCA</h3>
+<div id="fig-cerchio2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-cerchio2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/progetto-esempio/pca_cerchio_finale.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cerchio2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.7: Cerchio delle correlazioni — configurazione finale con le variabili aggiunte (9 variabili attive)
+</figcaption>
+</figure>
+</div>
+<p>L’inserimento delle nuove variabili comporta una <strong>riduzione</strong> della varianza spiegata cumulata, che si assesta al <strong>61,5%</strong> (43,3% + 18,2%). Il decremento è atteso perché le due nuove variabili sono poco correlate con quelle già presenti e portano una variabilità propria, che il primo piano non riesce ad assorbire del tutto; il valore rimane pienamente accettabile per le finalità esplorative.</p>
+<p>Il vantaggio sostanziale è nella <strong>chiara leggibilità della seconda dimensione</strong>:</p>
+<ul>
+<li>la struttura interpretativa della <strong>PC1 resta simile</strong> dopo l’aggiunta delle due variabili, il che suggerisce una certa stabilità descrittiva dell’asse rispetto a questa specifica modifica della base;</li>
+<li>la <strong>PC2 emerge</strong> come dimensione del <strong><em>Tempo a disposizione per lo studio</em></strong>.</li>
+</ul>
+<p>I vettori confermano: PC2 è correlata <strong>positivamente</strong> con la frequenza alle lezioni (0,81) e <strong>negativamente</strong> con le ore di lavoro settimanali (−0,66). Si delinea una dicotomia comportamentale:</p>
+<ul>
+<li>sul lato dell’asse associato a <strong>maggiore frequenza alle lezioni</strong> si collocano anche maggiore partecipazione ad alcune attività e risultati mediamente più favorevoli;</li>
+<li>sul lato opposto si collocano le <strong>maggiori ore di lavoro</strong>.</li>
+</ul>
+<p>L’asse si può quindi leggere, con cautela, come una dimensione legata alla disponibilità e all’organizzazione del tempo per lo studio. La PCA descrive una struttura di associazioni: non dimostra relazioni causali fra lavoro, frequenza, strumenti didattici ed esiti.</p>
+</section>
+<section id="mappa-di-posizionamento" class="level3" data-number="8.3.4">
+<h3 data-number="8.3.4" class="anchored" data-anchor-id="mappa-di-posizionamento"><span class="header-section-number">8.3.4</span> Mappa di posizionamento</h3>
+<p>Definite le coordinate semantiche dello spazio fattoriale:</p>
+<ul>
+<li><strong>Dimensione 1 (ascissa)</strong> = <strong>Coinvolgimento nel corso</strong>;</li>
+<li><strong>Dimensione 2 (ordinata)</strong> = <strong>Tempo a disposizione per lo studio</strong>;</li>
+</ul>
+<p>si procede all’analisi del posizionamento. Data l’elevata numerosità, la proiezione delle singole osservazioni genererebbe un sovraffollamento grafico. L’analisi si focalizza pertanto sulla <strong>proiezione delle modalità</strong> delle variabili categoriche di interesse (variabili illustrative): <code>esame_ripetuto</code>, <code>tipo</code>, <code>progetto_comprensione</code>, <code>indirizzo</code>, <code>parziale</code>.</p>
+<div id="fig-posizionamento" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-posizionamento-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/progetto-esempio/pca_mappa.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-posizionamento-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.8: Mappa di posizionamento dei baricentri delle variabili illustrative. Per leggibilità le modalità sono state rinominate: in jamovi compaiono con i livelli del file (per esempio «esame_ripetuto_1» è qui «Esame: 1° tentativo», «Sì, l’ho superata» è «Parziale: superato») e con colori assegnati nell’ordine in cui le variabili sono inserite, e le 21 risposte vuote di <code>progetto_comprensione</code>, di chi non ha valutato il progetto, sono raccolte nella modalità «non valutato», che jamovi altrimenti non mostra
+</figcaption>
+</figure>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Lettura del posizionamento (da rifinire per il report)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>L’analisi di posizionamento evidenzia una struttura interpretativa chiara e coerente lungo i primi due assi (61,5% di varianza). L’<strong>asse orizzontale</strong> (Coinvolgimento) è la principale dimensione discriminante; l’<strong>asse verticale</strong> (Tempo) introduce una differenziazione legata ai vincoli organizzativi.</p>
+<p>Le modalità di <code>esame_ripetuto</code> si dispongono lungo il primo asse: il superamento al primo tentativo nella parte positiva (0,80), il secondo tentativo (−1,05) e il mancato superamento (−1,57) in quella negativa; il caso isolato del quarto tentativo cade all’estremo del piano e non va interpretato. L’ordinamento è un risultato, non un effetto di costruzione: l’esito non è fra le variabili attive.</p>
+<p>L’inserimento delle modalità di <code>progetto_comprensione</code> rafforza la lettura: “molto” si colloca nettamente nella parte positiva di PC1 (alto coinvolgimento, superamento rapido), “abbastanza” vicino all’origine; “indifferente”, “poco” e “per nulla” nelle aree negative (basso engagement, traiettorie discontinue). La percezione di efficacia del progetto si integra con le dinamiche motivazionali e con gli esiti valutativi.</p>
+<p>Per <code>parziale</code>: “Sì, l’ho superata” si colloca nelle aree di elevato coinvolgimento (indicatore di allineamento precoce col percorso didattico). “Sì, non l’ho superata” in posizione intermedia. “No” tende a disporsi nelle zone di minore coinvolgimento: nel campione la mancata partecipazione si colloca in una regione associata a minore coinvolgimento e a percorsi d’esame più discontinui. È quindi una caratteristica da monitorare, ma questa analisi descrittiva non ne dimostra una capacità predittiva prospettica.</p>
+<p>Per i due <strong>indirizzi</strong>: <code>Amm_contr</code> si colloca dal lato del maggiore coinvolgimento (PC1 positiva), <code>Dir_creaz_impresa</code> dal lato opposto, verso un coinvolgimento più contenuto; su PC2 entrambi restano vicini all’origine. Pur senza polarizzazione netta, suggerisce eterogeneità nelle modalità di apprendimento.</p>
+<p>Per lo <strong>status abitativo</strong>: le modalità occupano posizioni differenti sul piano. Gli studenti in sede stanno dal lato del maggiore coinvolgimento e, su PC2, verso valori negativi; i <strong>pendolari</strong> si collocano soprattutto dal lato del minore coinvolgimento (PC1 negativa) e restano vicini all’origine sull’asse del tempo; i fuori sede si spostano verso valori positivi di PC2. La mappa descrive associazioni e non permette, da sola, di attribuire quelle posizioni a specifici vincoli logistici.</p>
+<p><strong>Ipotesi di intervento suggerite dai risultati.</strong> Le analisi individuano gruppi e associazioni che possono orientare possibili interventi, ma non permettono di stimarne l’effetto causale: quelle che seguono sono azioni da sperimentare e valutare successivamente, non misure di cui sia stata dimostrata l’efficacia.</p>
+<ul>
+<li>valutare una maggiore strutturazione del <strong>progetto</strong> come strumento di apprendimento guidato, con feedback intermedi, soprattutto per i profili che mostrano minore coinvolgimento;</li>
+<li>valutare attività di accompagnamento e di recupero collegate al <strong>parziale</strong>, per chi non lo supera;</li>
+<li>considerare soluzioni organizzative per chi ha maggiori vincoli di presenza: materiali asincroni strutturati, tutorato flessibile, momenti di studio assistito compatibili con gli spostamenti.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="cluster-analysis" class="level2" data-number="8.4">
+<h2 data-number="8.4" class="anchored" data-anchor-id="cluster-analysis"><span class="header-section-number">8.4</span> Cluster Analysis</h2>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Rispetto al progetto consegnato
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Nel progetto originale gli studenti avevano usato la distanza di Mahalanobis, con una base della segmentazione che conteneva anche <code>voto</code>. L’analisi che segue è rifatta senza <code>voto</code> ed è quella del report del <a href="./P-27-report-finale.html">§ P-27</a>.</p>
+</div>
+</div>
+<p>Per identificare profili studenteschi omogenei e definire strategie mirate alla riduzione della reiterazione d’esame, si è proceduto a una <strong>Cluster Analysis gerarchica</strong>. La base di segmentazione è formata da <strong>11 variabili attive</strong>: le nove della PCA più le due che indicano quale parte dell’esame lo studente ritiene più complicata.</p>
+<p><code>parziale_preparazione</code>, <code>complessita_teoria</code>, <code>complessita_pratica</code>, <code>corso_materiale</code>, <code>corso_esercitazioni</code>, <code>corso_docente</code>, <code>corso_carico</code>, <code>progetto</code>, <code>lavoro_ore</code>, <code>esame_tempo</code>, <code>frequenza_lez2</code>.</p>
+<section id="scelta-della-metrica-e-del-metodo" class="level3" data-number="8.4.1">
+<h3 data-number="8.4.1" class="anchored" data-anchor-id="scelta-della-metrica-e-del-metodo"><span class="header-section-number">8.4.1</span> Scelta della metrica e del metodo</h3>
+<p>Le variabili sono misurate su scale diverse (giudizi da 1 a 5, ore di lavoro, indicatori 0/1): si <strong>standardizzano</strong> e si usa la <strong>distanza euclidea</strong>, con il metodo di <strong>Ward</strong>, che cerca gruppi compatti.</p>
+<p>La distanza di Mahalanobis, che tiene conto delle correlazioni, qui non è la scelta migliore: standardizza gli scostamenti lungo tutte le direzioni principali dei dati, quindi dà molto peso anche a quelle di varianza piccola, che spesso sono soprattutto rumore. La si usa solo come confronto, insieme al legame completo e al legame medio.</p>
+</section>
+<section id="quanti-gruppi" class="level3" data-number="8.4.2">
+<h3 data-number="8.4.2" class="anchored" data-anchor-id="quanti-gruppi"><span class="header-section-number">8.4.2</span> Quanti gruppi</h3>
+<div id="fig-dend-ward" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dend-ward-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/progetto-esempio/cluster_dendrogramma.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dend-ward-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.9: Dendrogramma (distanza euclidea su variabili standardizzate, metodo di Ward) con il taglio a cinque gruppi; da sinistra: cluster 5, 2, 3, 4 e 1
+</figcaption>
+</figure>
+</div>
+<div id="tbl-metriche-cluster" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-metriche-cluster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabella&nbsp;8.1: Metriche delle partizioni (estratto della tabella del modulo); RMSSTD è la deviazione standard media dei gruppi (<em>Root-Mean-Square Standard Deviation</em>)
+</figcaption>
+<div aria-describedby="tbl-metriche-cluster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>g</th>
+<th>R²</th>
+<th>RMSSTD</th>
+<th>Indice CH</th>
+<th>Delta G</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>2</td>
+<td>0,284</td>
+<td>0,850</td>
+<td>39,682</td>
+<td>11,478</td>
+</tr>
+<tr class="even">
+<td>3</td>
+<td>0,368</td>
+<td>0,803</td>
+<td>28,811</td>
+<td>0,728</td>
+</tr>
+<tr class="odd">
+<td>4</td>
+<td>0,443</td>
+<td>0,758</td>
+<td>25,983</td>
+<td>0,649</td>
+</tr>
+<tr class="even">
+<td>5</td>
+<td>0,511</td>
+<td>0,714</td>
+<td>25,318</td>
+<td>2,668</td>
+</tr>
+<tr class="odd">
+<td>6</td>
+<td>0,552</td>
+<td>0,686</td>
+<td>23,683</td>
+<td>0,252</td>
+</tr>
+<tr class="even">
+<td>7</td>
+<td>0,592</td>
+<td>0,659</td>
+<td>22,938</td>
+<td>0,795</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<div id="fig-deltag" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-deltag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/progetto-esempio/cluster_deltag.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-deltag-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;8.10: Delta G al variare del numero di gruppi g
+</figcaption>
+</figure>
+</div>
+<p>Il Delta G ha due picchi. Il primo, a 2 gruppi (11,48), separa soltanto gli studenti soddisfatti del corso dagli altri. Il secondo è a 5 (2,67): passare da 5 a 4 gruppi richiederebbe una fusione molto più alta di quelle precedenti. L’indice di Caliński-Harabasz (CH) è massimo a 2 e poi decresce senza altri massimi, quindi non aiuta a scegliere fra le soluzioni con più gruppi. Si sceglie la soluzione a <strong>5 gruppi</strong>, che spiega il 51% della variabilità (R² = 0,51) e distingue profili utili per l’obiettivo del progetto.</p>
+</section>
+<section id="confronto-con-altri-metodi-ari" class="level3" data-number="8.4.3">
+<h3 data-number="8.4.3" class="anchored" data-anchor-id="confronto-con-altri-metodi-ari"><span class="header-section-number">8.4.3</span> Confronto con altri metodi (ARI)</h3>
+<p>Con le stesse 11 variabili e 5 gruppi, la partizione di Ward si confronta con quelle del legame completo e del legame medio (distanza euclidea su variabili standardizzate) e di Ward con la distanza di Mahalanobis; l’accordo fra due partizioni è misurato dall’indice di Rand corretto (ARI, <em>Adjusted Rand Index</em>):</p>
+<div id="tbl-ari-progetto" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ari-progetto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabella&nbsp;8.2: Adjusted Rand Index fra le partizioni a 5 gruppi
+</figcaption>
+<div aria-describedby="tbl-ari-progetto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th>Ward (euclidea)</th>
+<th>Legame completo</th>
+<th>Legame medio</th>
+<th>Ward (Mahalanobis)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Ward (euclidea)</strong></td>
+<td>1,000</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Legame completo</strong></td>
+<td>0,535</td>
+<td>1,000</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Legame medio</strong></td>
+<td>0,145</td>
+<td>0,125</td>
+<td>1,000</td>
+<td></td>
+</tr>
+<tr class="even">
+<td><strong>Ward (Mahalanobis)</strong></td>
+<td>0,292</td>
+<td>0,156</td>
+<td>0,170</td>
+<td>1,000</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Il legame completo dà una partizione abbastanza simile a quella di Ward (ARI 0,54). Il legame medio isola pochi studenti in gruppi minuscoli e ne mette 84 in uno solo; la Mahalanobis con Ward porta a gruppi diversi (ARI 0,29). La struttura dei dati, quindi, non è nettissima: i cinque profili vanno letti come una descrizione utile del campione, non come una tipologia stabile. Un ARI elevato fra soluzioni alternative, del resto, mostrerebbe solo accordo fra quelle partizioni, non stabilità su un nuovo campione.</p>
+</section>
+<section id="caratterizzazione-dei-gruppi" class="level3" data-number="8.4.4">
+<h3 data-number="8.4.4" class="anchored" data-anchor-id="caratterizzazione-dei-gruppi"><span class="header-section-number">8.4.4</span> Caratterizzazione dei gruppi</h3>
+<p>Si è proceduto all’interpretazione con l’analisi di <strong>Caratterizzazione</strong>, fissando un livello di significatività <span class="math inline">\(\alpha = 0{,}05\)</span> e usando come descrittori le altre variabili del questionario. <code>voto</code> resta fuori anche qui come variabile quantitativa, perché la sua media in un gruppo mescolerebbe di nuovo voti e codice 10: l’esito si legge con <code>esame_ripetuto</code>, e il voto si confronta solo fra i promossi.</p>
+<div id="tbl-esito-cluster" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-esito-cluster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Tabella&nbsp;8.3: Esito dell’esame nei cinque gruppi
+</figcaption>
+<div aria-describedby="tbl-esito-cluster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cluster</th>
+<th>n</th>
+<th>1° tentativo</th>
+<th>2° tentativo</th>
+<th>4° tentativo</th>
+<th>Non ancora superato</th>
+<th>Voto medio dei promossi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>17</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+<td>10</td>
+<td>22,4</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>31</td>
+<td>25</td>
+<td>3</td>
+<td>0</td>
+<td>3</td>
+<td>24,9</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>10</td>
+<td>6</td>
+<td>1</td>
+<td>0</td>
+<td>3</td>
+<td>24,9</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>28</td>
+<td>16</td>
+<td>5</td>
+<td>0</td>
+<td>7</td>
+<td>22,1</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>16</td>
+<td>15</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>26,2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="i-cinque-cluster" class="level3" data-number="8.4.5">
+<h3 data-number="8.4.5" class="anchored" data-anchor-id="i-cinque-cluster"><span class="header-section-number">8.4.5</span> I cinque cluster</h3>
+<p>Prima di leggere i profili, un dettaglio pratico: il modulo numera i gruppi nell’ordine in cui compaiono le righe del dataset. I numeri usati qui sono quelli che si ottengono aprendo il file <code>valutazione_corso.omv</code>; importando invece il foglio Excel, che ha le stesse righe in un altro ordine, si ottengono gli stessi cinque gruppi con numeri diversi. Per confrontare due soluzioni contano le composizioni dei gruppi, non i loro numeri (è anche il motivo per cui l’ARI non dipende dalle etichette).</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Cluster 1 — Senza progetto e spesso senza parziale: il gruppo a rischio (17 studenti)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Quasi nessuno ha svolto il progetto (2 su 17) e il 59% non ha sostenuto il parziale, contro il 26% del campione. Qui stanno i 3 studenti che non hanno frequentato e 3 dei 4 lavoratori a tempo pieno: la frequenza è la più bassa (7 su 17 oltre il 75%) e le ore di lavoro le più alte (9,4 contro 4,7 di media). Le valutazioni del corso sono basse. Prevale l’indirizzo <em>Direzione e creazione d’impresa</em> (14 su 17). È il gruppo con più non promossi: 10 su 17, cioè 10 dei 24 del campione.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Cluster 2 — Soddisfatti del corso e del progetto (31 studenti)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Le valutazioni più alte di disponibilità del docente (4,68) e tempo d’esame (4,48), alte anche quelle di materiale ed esercitazioni. Tutti hanno svolto il progetto e il 74% lo ritiene molto utile per la comprensione. Più frequenti della media gli studenti in sede (61% contro 37%) e i lavoratori part-time (9 su 31); la frequenza è un po’ più bassa (14 su 31 fra il 50% e il 75% delle lezioni). Qui stanno 12 dei 13 studenti che hanno sostenuto l’esame alla seconda sessione disponibile. Esiti buoni: 25 su 31 al primo tentativo, 3 non promossi.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Cluster 3 — In difficoltà con la teoria (10 studenti)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tutti indicano la parte teorica come la più difficile (sono 10 dei 15 del campione che lo fanno) e danno i giudizi più bassi su materiale (1,60) ed esercitazioni (1,30). Gli esiti sono intermedi: 6 al primo tentativo, 3 non promossi. È un gruppo piccolo, definito soprattutto da una variabile binaria: va letto con cautela.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Cluster 4 — Frequentanti critici sul corso e sul progetto (28 studenti)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Frequentano con regolarità (25 su 28 oltre il 75% delle lezioni) e quasi tutti non lavorano (0,7 ore in media). Tutti hanno svolto il progetto, ma lo giudicano poco utile: per la comprensione «poco» o «per nulla» in 12 casi, «molto» in uno solo. Danno valutazioni molto basse, fra le più basse del campione, a esercitazioni (1,32), materiale (1,64), disponibilità del docente (2,21) e tempo d’esame (2,18), e quasi tutti indicano la parte pratica come la più difficile. Pochi gli studenti in sede (4), molti i fuori sede (16). Gli esiti sono nella media: 16 al primo tentativo, 7 non ancora promossi.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Cluster 5 — Regolari e soddisfatti (16 studenti)
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tutti frequentano oltre il 75% delle lezioni, 14 su 16 hanno superato il parziale e 15 superano l’esame al primo tentativo, con il voto medio più alto fra i promossi (26,2). Le valutazioni più alte di materiale (4,25), esercitazioni (3,94) e carico didattico (3,69); il progetto è molto utile per il 69%. Nessuno indica la parte pratica come la più difficile. Prevale l’indirizzo <em>Amministrazione e controllo</em> (12 su 16).</p>
+</div>
+</div>
+<p>I 24 studenti che non hanno ancora superato l’esame <strong>non formano un gruppo solo</strong>: 10 sono nel cluster 1, senza progetto e spesso senza parziale, con più ore di lavoro; 7 nel cluster 4, che frequenta ma è molto critico sul corso; gli altri 7 sono distribuiti fra i gruppi 2, 3 e 5. Ci sono almeno due strade verso la ripetizione dell’esame, e chiedono interventi diversi.</p>
+</section>
+</section>
+<section id="strategie-operative-mirate-per-cluster" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="strategie-operative-mirate-per-cluster"><span class="header-section-number">8.5</span> Strategie operative mirate per cluster</h2>
+<p>A partire dai profili emersi, si propongono strategie operative differenziate per i gruppi problematici, formulate in modo coerente con un contesto di miglioramento didattico e di assicurazione della qualità. L’obiettivo è <strong>minimizzare la ripetizione dell’esame</strong> aumentando le probabilità di successo ai primi tentativi. Le analisi individuano profili e associazioni, non effetti causali: sono ipotesi da sperimentare e valutare.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Cluster 1 — Senza progetto e senza parziale
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Vincoli di tempo e presenza, e strumenti del corso non usati → <strong>intercettare presto</strong> chi rischia di non chiudere l’esame e rendere il percorso <strong>più flessibile</strong> senza abbassarne gli standard:</p>
+<ul>
+<li>usare il parziale come momento di monitoraggio, con attività di recupero per chi non lo sostiene o non lo supera;</li>
+<li>progetto <strong>modulare</strong>, con una distribuzione graduale dell’impegno, accessibile anche a chi frequenta meno;</li>
+<li>materiali asincroni ben organizzati (registrazioni, dispense strutturate) e pianificazione trasparente del carico per chi lavora.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Cluster 4 — Frequentanti critici
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Studenti presenti ma insoddisfatti degli strumenti → rivedere gli strumenti stessi:</p>
+<ul>
+<li>esercitazioni e materiale ricevono le valutazioni più basse proprio da chi frequenta: rafforzare la preparazione alla parte pratica, che quasi tutti indicano come la più difficile;</li>
+<li>chiarire il collegamento fra lezioni, esercitazioni e prova d’esame, e il contributo del progetto alla comprensione;</li>
+<li>verificare l’adeguatezza del tempo d’esame.</li>
+</ul>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Cluster 3 — Difficoltà con la teoria
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Supporto mirato sulla parte teorica: schemi riassuntivi, esempi guidati, esercizi di teoria, momenti di verifica dell’apprendimento prima della prova.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Cluster 2 e 5 — Ciò che funziona
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Progetto e parziale sono associati ai percorsi più regolari: vanno mantenuti e resi espliciti come strumenti di apprendimento guidato, non solo valutativi.</p>
+</div>
+</div>
+<p>In sintesi, le strategie condividono una <strong>logica comune</strong>: spostare l’attenzione da interventi generalisti a <strong>azioni differenziate per profilo di studente</strong>, mantenendo invariati gli obiettivi formativi ma adattando strumenti, tempi e modalità di supporto. Questo approccio trasforma l’analisi descrittiva in una <strong>leva concreta per il miglioramento della qualità della didattica</strong>.</p>
+</section>
+<section id="cosa-portare-nel-report-finale" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="cosa-portare-nel-report-finale"><span class="header-section-number">8.6</span> Cosa portare nel report finale</h2>
+<p>L’esempio sviluppato in questo capitolo è esaustivo dei <em>passaggi</em> da affrontare. Nel report consegnato (5 pagine, da usare tutte), per ciascuna fase è opportuno <strong>selezionare gli elementi più rappresentativi</strong>:</p>
+<ul>
+<li><strong>Introduzione</strong>: contesto, popolazione, obiettivo, ipotesi.</li>
+<li><strong>Analisi esplorativa</strong>: solo le 2–3 figure più informative; il resto in testo discorsivo.</li>
+<li><strong>PCA</strong>: cerchio finale + mappa di posizionamento + 3–4 punti di lettura strategici.</li>
+<li><strong>Cluster</strong>: dendrogramma scelto + tabelle di caratterizzazione + profili nominati + 3–4 strategie operative.</li>
+<li><strong>Conclusioni</strong>: risposta alla domanda di ricerca + proposte operative concrete + limiti + sviluppi.</li>
+</ul>
+<p>Per la <strong>convenzione di naming</strong> dei file da consegnare e la <strong>checklist finale</strong>, vedi <a href="./P-25-introduzione-progetto.html">Introduzione al progetto del corso</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("^(?!https://github\.com/)");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./P-25b-strumenti-ia.html" class="pagination-link" aria-label="Uso degli strumenti di IA per il progetto">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./P-27-report-finale.html" class="pagination-link" aria-label="Report finale del progetto di esempio">
+        <span class="nav-page-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Report finale del progetto di esempio</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><code>AnalisiMercato</code> — Dispense del corso. © 2026 Luca Frigau, tutti i diritti riservati.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Realizzate con <a href="https://quarto.org">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

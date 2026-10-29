@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>7&nbsp; Uso degli strumenti di IA per il progetto – Analisi di Mercato — Dispense del corso</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./P-26-esempio-progetto.html" rel="next">
+<link href="./P-25-introduzione-progetto.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ef622e21aa483743907546df5fc19a86.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nessun risultato",
+    "search-matching-documents-text": "documenti trovati",
+    "search-copy-link-title": "Copiare il link nella ricerca",
+    "search-hide-matches-text": "Nascondere i risultati aggiuntivi",
+    "search-more-match-text": "ci sono altri risultati in questo documento",
+    "search-more-matches-text": "ulteriori risultati in questo documento",
+    "search-clear-button-title": "Pulire",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancellare",
+    "search-submit-button-title": "Inviare",
+    "search-label": "Ricerca"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P-25-introduzione-progetto.html">Parte II — Progetto pratico</a></li><li class="breadcrumb-item"><a href="./P-25b-strumenti-ia.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Ricerca" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisi di Mercato — Dispense del corso</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Attiva/disattiva la modalità oscura"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Ricerca"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefazione</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte I — Approfondimenti teorici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-01-introduzione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduzione alla ricerca di mercato quantitativa</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-02-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-03-preparazione-dati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-04-cluster-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-05-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II — Progetto pratico</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25-introduzione-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25b-strumenti-ia.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-26-esempio-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-27-report-finale.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Report finale del progetto di esempio</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte III — Software Jamovi</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-01-cosa-e-analisimercato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Cos’è <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-02-installazione-jamovi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Installazione di Jamovi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-03-installazione-modulo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installazione del modulo <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-04-tour-interfaccia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tour dell’interfaccia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-06-fondamenti-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Workflow operativo del campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-07-numerosita-campionaria.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Numerosità campionaria</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-08-campionamento-casuale-semplice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Campionamento casuale semplice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-09-campionamento-sistematico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Campionamento sistematico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-10-campionamento-stratificato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-11-campionamento-grappoli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Campionamento a grappoli</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-12-campionamento-due-stadi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Campionamento a due stadi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-13-campionamento-cpv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Campionamento con probabilità variabili (CPV)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-14-intervalli-confidenza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Intervalli di confidenza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15-design-effect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Design Effect</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-16-fondamenti-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Workflow operativo della cluster analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-17-distanze-agglomerazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Distanze e agglomerazione</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-18-scelta-k-dendrogramma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Scelta di k e dendrogramma</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-19-caratterizzazione-cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Caratterizzazione dei cluster</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-20-confronto-partizioni-ari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Confronto fra partizioni — Adjusted Rand Index</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-21-fondamenti-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Workflow operativo della PCA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-22-contributi-cos2-biplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Contributi, cos² e biplot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-23-rotazioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Rotazioni Varimax e Promax</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-24-variabili-supplementari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Variabili supplementari e mappa di posizionamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte IV — Casi studio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-01-caso-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-02-caso-segmentazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Caso studio — Segmentare il mercato: quattro gruppi che l’anagrafica non vede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-03-caso-posizionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Caso studio — Dove siamo sulla mappa: il posizionamento di venti marche</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-01-caso-reale-comuni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Caso reale — Campionare un frame vero: i comuni italiani</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-02-caso-reale-ingrosso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Caso reale — Segmentare clienti veri: un distributore all’ingrosso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-03-caso-reale-yogurt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-04-caso-reale-regioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Caso reale — Dove conviene entrare: le regioni italiane</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1-glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A2-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Domande frequenti (FAQ)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Riferimenti bibliografici</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#cosa-fa-bene-un-llm-e-cosa-fa-male" id="toc-cosa-fa-bene-un-llm-e-cosa-fa-male" class="nav-link active" data-scroll-target="#cosa-fa-bene-un-llm-e-cosa-fa-male"><span class="header-section-number">7.1</span> Cosa fa bene un LLM (e cosa fa male)</a></li>
+  <li><a href="#quando-usarla-nel-ciclo-del-progetto" id="toc-quando-usarla-nel-ciclo-del-progetto" class="nav-link" data-scroll-target="#quando-usarla-nel-ciclo-del-progetto"><span class="header-section-number">7.2</span> Quando usarla nel ciclo del progetto</a></li>
+  <li><a href="#lanatomia-di-un-buon-prompt" id="toc-lanatomia-di-un-buon-prompt" class="nav-link" data-scroll-target="#lanatomia-di-un-buon-prompt"><span class="header-section-number">7.3</span> L’anatomia di un buon prompt</a>
+  <ul class="collapse">
+  <li><a href="#un-esempio-confrontato" id="toc-un-esempio-confrontato" class="nav-link" data-scroll-target="#un-esempio-confrontato"><span class="header-section-number">7.3.1</span> Un esempio confrontato</a></li>
+  </ul></li>
+  <li><a href="#regole-pratiche-per-un-buon-prompt" id="toc-regole-pratiche-per-un-buon-prompt" class="nav-link" data-scroll-target="#regole-pratiche-per-un-buon-prompt"><span class="header-section-number">7.4</span> Regole pratiche per un buon prompt</a>
+  <ul class="collapse">
+  <li><a href="#sii-specifico-non-generico" id="toc-sii-specifico-non-generico" class="nav-link" data-scroll-target="#sii-specifico-non-generico"><span class="header-section-number">7.4.1</span> 1. Sii specifico, non generico</a></li>
+  <li><a href="#dai-esempi-few-shot" id="toc-dai-esempi-few-shot" class="nav-link" data-scroll-target="#dai-esempi-few-shot"><span class="header-section-number">7.4.2</span> 2. Dai esempi (few-shot)</a></li>
+  <li><a href="#dichiara-cosa-non-vuoi" id="toc-dichiara-cosa-non-vuoi" class="nav-link" data-scroll-target="#dichiara-cosa-non-vuoi"><span class="header-section-number">7.4.3</span> 3. Dichiara cosa NON vuoi</a></li>
+  <li><a href="#itera" id="toc-itera" class="nav-link" data-scroll-target="#itera"><span class="header-section-number">7.4.4</span> 4. Itera</a></li>
+  <li><a href="#verifica-sempre-i-numeri" id="toc-verifica-sempre-i-numeri" class="nav-link" data-scroll-target="#verifica-sempre-i-numeri"><span class="header-section-number">7.4.5</span> 5. Verifica sempre i numeri</a></li>
+  <li><a href="#definisci-il-formato-di-output" id="toc-definisci-il-formato-di-output" class="nav-link" data-scroll-target="#definisci-il-formato-di-output"><span class="header-section-number">7.4.6</span> 6. Definisci il formato di output</a></li>
+  <li><a href="#una-richiesta-alla-volta" id="toc-una-richiesta-alla-volta" class="nav-link" data-scroll-target="#una-richiesta-alla-volta"><span class="header-section-number">7.4.7</span> 7. Una richiesta alla volta</a></li>
+  </ul></li>
+  <li><a href="#esempi-di-prompt-utili-per-le-fasi-del-progetto" id="toc-esempi-di-prompt-utili-per-le-fasi-del-progetto" class="nav-link" data-scroll-target="#esempi-di-prompt-utili-per-le-fasi-del-progetto"><span class="header-section-number">7.5</span> Esempi di prompt utili per le fasi del progetto</a>
+  <ul class="collapse">
+  <li><a href="#brainstorming-domande-del-questionario" id="toc-brainstorming-domande-del-questionario" class="nav-link" data-scroll-target="#brainstorming-domande-del-questionario"><span class="header-section-number">7.5.1</span> Brainstorming domande del questionario</a></li>
+  <li><a href="#naming-di-un-cluster-a-partire-dai-profili" id="toc-naming-di-un-cluster-a-partire-dai-profili" class="nav-link" data-scroll-target="#naming-di-un-cluster-a-partire-dai-profili"><span class="header-section-number">7.5.2</span> Naming di un cluster a partire dai profili</a></li>
+  <li><a href="#sintesi-di-unanalisi-bivariata" id="toc-sintesi-di-unanalisi-bivariata" class="nav-link" data-scroll-target="#sintesi-di-unanalisi-bivariata"><span class="header-section-number">7.5.3</span> Sintesi di un’analisi bivariata</a></li>
+  <li><a href="#generazione-di-strategie-operative-da-un-cluster" id="toc-generazione-di-strategie-operative-da-un-cluster" class="nav-link" data-scroll-target="#generazione-di-strategie-operative-da-un-cluster"><span class="header-section-number">7.5.4</span> Generazione di strategie operative da un cluster</a></li>
+  <li><a href="#frontespizio-e-impaginazione-del-report" id="toc-frontespizio-e-impaginazione-del-report" class="nav-link" data-scroll-target="#frontespizio-e-impaginazione-del-report"><span class="header-section-number">7.5.5</span> Frontespizio e impaginazione del report</a></li>
+  <li><a href="#rifinitura-stilistica-finale" id="toc-rifinitura-stilistica-finale" class="nav-link" data-scroll-target="#rifinitura-stilistica-finale"><span class="header-section-number">7.5.6</span> Rifinitura stilistica finale</a></li>
+  </ul></li>
+  <li><a href="#errori-comuni-da-evitare" id="toc-errori-comuni-da-evitare" class="nav-link" data-scroll-target="#errori-comuni-da-evitare"><span class="header-section-number">7.6</span> Errori comuni da evitare</a></li>
+  <li><a href="#responsabilità-e-aspetti-etici" id="toc-responsabilità-e-aspetti-etici" class="nav-link" data-scroll-target="#responsabilità-e-aspetti-etici"><span class="header-section-number">7.7</span> Responsabilità e aspetti etici</a></li>
+  <li><a href="#esempio-applicato-al-progetto" id="toc-esempio-applicato-al-progetto" class="nav-link" data-scroll-target="#esempio-applicato-al-progetto"><span class="header-section-number">7.8</span> Esempio applicato al progetto</a></li>
+  <li><a href="#checklist-autovalutativa-prima-della-consegna" id="toc-checklist-autovalutativa-prima-della-consegna" class="nav-link" data-scroll-target="#checklist-autovalutativa-prima-della-consegna"><span class="header-section-number">7.9</span> Checklist autovalutativa prima della consegna</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P-25-introduzione-progetto.html">Parte II — Progetto pratico</a></li><li class="breadcrumb-item"><a href="./P-25b-strumenti-ia.html"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Gli strumenti di intelligenza artificiale (IA) generativa (ChatGPT, Microsoft Copilot, Google Gemini, Claude, Perplexity, ecc.) sono oggi parte naturale del processo di scrittura di un report. Usati bene, possono <strong>accelerare</strong> la stesura, <strong>migliorare</strong> lo stile e aiutarvi a <strong>non bloccarvi</strong> davanti alla pagina bianca. Usati male, possono produrre report incoerenti, contenenti errori e con uno stile riconoscibilmente “artificiale”.</p>
+<p>Questo capitolo serve a darvi le coordinate per <strong>usarli al meglio nel progetto del corso</strong>, senza farveli usare contro.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>In una riga
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>L’IA è un assistente di scrittura, non un analista</strong>: scrive prosa al posto vostro, ma le analisi le fate voi in Jamovi e le interpretazioni le pensate voi a partire dai vostri risultati.</p>
+</div>
+</div>
+<section id="cosa-fa-bene-un-llm-e-cosa-fa-male" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="cosa-fa-bene-un-llm-e-cosa-fa-male"><span class="header-section-number">7.1</span> Cosa fa bene un LLM (e cosa fa male)</h2>
+<p>I modelli linguistici di grandi dimensioni (LLM, <em>large language models</em>) sono ottimi a manipolare testo, deboli su tutto il resto. Vale la pena tenere a mente i confini.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cosa fa bene ✓</th>
+<th>Cosa fa male ✗</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Riformulare un testo discorsivo in modo più scorrevole</td>
+<td>Eseguire calcoli statistici corretti</td>
+</tr>
+<tr class="even">
+<td>Sintetizzare un elenco puntato in un paragrafo</td>
+<td>Inventare “fonti accademiche” plausibili ma inesistenti</td>
+</tr>
+<tr class="odd">
+<td>Brainstorming di idee, titoli, naming di cluster</td>
+<td>Decidere quale analisi fare e come interpretarla</td>
+</tr>
+<tr class="even">
+<td>Trovare sinonimi, correggere refusi</td>
+<td>Distinguere correlazione da causazione senza che glielo facciate notare</td>
+</tr>
+<tr class="odd">
+<td>Tradurre testi (es. IT → EN)</td>
+<td>Garantire che ciò che scrive sia vero (è probabilistico, non veritiero)</td>
+</tr>
+<tr class="even">
+<td>Spiegare un concetto teorico a un livello scelto</td>
+<td>Mantenere coerenza su risposte molto lunghe</td>
+</tr>
+<tr class="odd">
+<td>Generare bozze di prompt strutturati</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Avviso</span>Allucinazioni: cosa sono, e perché vi servirà saperle riconoscere
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Gli LLM generano testo <strong>plausibile</strong>, non necessariamente <strong>vero</strong>. Una “allucinazione” è un’affermazione che suona convincente ma è falsa: una formula sbagliata, un riferimento bibliografico inventato, un numero diverso da quello che voi avete calcolato.</p>
+<p>Tutto ciò che l’IA scrive su <strong>dati numerici</strong> (medie, percentuali, p-value, loadings…) e su <strong>fonti</strong> (libri, articoli, URL) <strong>va verificato a mano</strong> prima di metterlo nel report. Per il vostro progetto la regola pratica è: <strong>l’IA non conosce i vostri dati</strong> a meno che non glieli forniate voi o non le diate accesso a una fonte che li contiene. Non date quindi per scontato che un commento prodotto senza accesso ai dati si riferisca ai vostri risultati effettivi: tutto ciò che dice di loro va verificato. Se le passate il file dei dati, prima toglietene le informazioni che permettono di riconoscere i rispondenti (vedi «Responsabilità e aspetti etici»).</p>
+</div>
+</div>
+</section>
+<section id="quando-usarla-nel-ciclo-del-progetto" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="quando-usarla-nel-ciclo-del-progetto"><span class="header-section-number">7.2</span> Quando usarla nel ciclo del progetto</h2>
+<p>Non tutte le fasi del progetto traggono lo stesso beneficio dall’IA. Ecco una mappa di consigli:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 43%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Fase</th>
+<th>Uso dell’IA?</th>
+<th>Cosa fare</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Scelta del tema</td>
+<td>Sì, per <strong>brainstorming</strong> iniziale</td>
+<td>Chiedi 10 temi di ricerca di mercato su un argomento che vi piace e vi incuriosisce; sceglierete voi quello migliore</td>
+</tr>
+<tr class="even">
+<td>Costruzione del questionario</td>
+<td>Sì, con <strong>vigilanza</strong></td>
+<td>Chiedi di proporre formulazioni alternative di una domanda; controlla che non introduca bias</td>
+</tr>
+<tr class="odd">
+<td>Raccolta dati</td>
+<td><strong>No</strong></td>
+<td>Le risposte devono venire da persone reali della vostra popolazione: non fate compilare il questionario all’IA e non fatele inventare o completare risposte (vedi il riquadro «Perché le risposte non si fanno scrivere all’IA»). L’IA può invece aiutarvi a diffondere il questionario: testo dell’invito, promemoria, idee per canali diversi</td>
+</tr>
+<tr class="even">
+<td>Pulizia dati</td>
+<td>Sì, con <strong>vigilanza</strong></td>
+<td>Prima di caricare il file togliete le informazioni che permettono di riconoscere i rispondenti (nomi, email, telefoni); controllate ogni operazione proposta prima di applicarla ai dati</td>
+</tr>
+<tr class="odd">
+<td>Analisi in Jamovi</td>
+<td><strong>No</strong></td>
+<td>Le analisi si fanno in Jamovi: ogni numero del report deve uscire dal file che consegnate, con le impostazioni scelte da voi (vedi il riquadro qui sotto)</td>
+</tr>
+<tr class="even">
+<td>Commento dei risultati</td>
+<td>Sì, <strong>solo per la forma</strong></td>
+<td>L’interpretazione è vostra. Un’interpretazione scritta dall’IA resta generica, buona per qualunque dataset: non conosce il contesto della vostra indagine, la popolazione e le ipotesi da cui siete partiti, ed è proprio il collegamento fra i numeri e quel contesto a dare valore al commento. L’IA può aiutare a trasformare in prosa il commento che avete già scritto a partire dall’output Jamovi</td>
+</tr>
+<tr class="odd">
+<td>Naming dei cluster</td>
+<td>Sì, come spunto</td>
+<td>Da rifinire sempre col contesto specifico del tuo dataset</td>
+</tr>
+<tr class="even">
+<td><strong>Stesura del report</strong></td>
+<td><strong>Sì</strong></td>
+<td>Riformulazione, sintesi, coerenza stilistica</td>
+</tr>
+<tr class="odd">
+<td>Frontespizio e impaginazione</td>
+<td><strong>Sì</strong></td>
+<td>Idee di layout, struttura del frontespizio, colori coerenti fra titoli e grafici, istruzioni per realizzarli nel programma che usate</td>
+</tr>
+<tr class="even">
+<td>Conclusioni e strategie operative</td>
+<td>Sì, come bozza</td>
+<td>Sempre filtrate dal vostro giudizio</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Avviso</span>Perché le risposte non si fanno scrivere all’IA
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Per arrivare a 120 risposte valide può venire la tentazione di far compilare qualche questionario all’IA, di farle inventare dei rispondenti o di farle completare le risposte lasciate in bianco. Il problema non è solo che non si fa: è che con quelle risposte <strong>non vi esce niente da raccontare nel report</strong>.</p>
+<ul>
+<li><strong>Le risposte si appiattiscono.</strong> Un modello linguistico tende a dare la risposta più probabile. Gli studi che lo hanno fatto rispondere al posto delle persone trovano risposte che variano molto meno di quelle reali, e su molte domande quasi sempre uguali, anche cambiando il profilo del rispondente simulato <span class="citation" data-cites="park2024diversity bisbee2024synthetic">(<a href="references.html#ref-park2024diversity" role="doc-biblioref">Park et al. 2024</a>; <a href="references.html#ref-bisbee2024synthetic" role="doc-biblioref">Bisbee et al. 2024</a>)</span>. Nel vostro file questo vuol dire colonne in cui quasi tutti rispondono, per esempio, 4 su una scala da 1 a 5.</li>
+<li><strong>Senza variabilità le analisi non hanno nulla da mostrare.</strong> Statistiche descrittive, tabelle incrociate, Analisi delle Componenti Principali (PCA, <em>Principal Component Analysis</em>) e cluster analysis lavorano tutte su quanto e come le persone rispondono in modo diverso. Se rispondono più o meno tutte allo stesso modo, i grafici sono piatti, fra i gruppi (per genere, età, frequenza…) non emergono differenze, le componenti non si riescono a interpretare e i cluster non si distinguono. Il report resterebbe senza risultati da commentare.</li>
+<li><strong>Quel poco che esce è lo stereotipo.</strong> Quando l’IA differenzia le risposte, lo fa secondo l’idea comune di un certo gruppo di persone, non secondo come quelle persone rispondono davvero <span class="citation" data-cites="wang2025flatten">(<a href="references.html#ref-wang2025flatten" role="doc-biblioref">Wang et al. 2025</a>)</span>. I gruppi che trovereste sono quelli che avevate già in mente, o che avete descritto nel prompt: nessuna scoperta, e conclusioni e strategie operative scontate.</li>
+<li><strong>Mescolate a risposte vere, peggiorano anche quelle.</strong> Le risposte inventate, molto simili fra loro, spingono i risultati verso il rispondente «medio» e possono formare un gruppo a sé nella cluster analysis: coprono proprio le differenze che le risposte vere avrebbero mostrato.</li>
+</ul>
+<p>Oltre a essere una falsificazione dei dati, quindi, è una scorciatoia che non porta da nessuna parte.</p>
+<p>Le risposte lasciate in bianco si trattano con i metodi descritti e annotati in <a href="./T-03-preparazione-dati.html#gestione-dei-valori-mancanti">Preparazione dei dati</a>, non chiedendo all’IA di indovinarle. Se le risposte non bastano, pianificate un margine e allargate la raccolta ad altri canali. Qui l’IA vi aiuta davvero: può scrivere con voi l’invito e i promemoria, o suggerirvi come raggiungere persone diverse da amici e compagni di corso.</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Perché le analisi si fanno in Jamovi e non con l’IA
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>I numeri devono essere verificabili.</strong> Insieme al report si consegna il file Jamovi con tutte le elaborazioni (<a href="./P-25-introduzione-progetto.html">§ P-25</a>), e ogni numero del report deve potersi ritrovare lì. Un risultato ottenuto da un’IA non lascia traccia nel file: nessuno, nemmeno voi, può controllarlo.</li>
+<li><strong>Un modello linguistico, da solo, non calcola: scrive.</strong> Produce numeri plausibili, che possono essere sbagliati anche quando sembrano precisi (vedi le allucinazioni, sopra). Alcuni strumenti eseguono davvero del codice, ma resta da capire quale codice e con quali impostazioni.</li>
+<li><strong>Le scelte sono vostre.</strong> Standardizzare o no, quale distanza e quale metodo di agglomerazione, quanti gruppi, quale rotazione: in Jamovi le impostate voi, e nel report le dovete giustificare. Un’IA le prende da sola, spesso senza dirlo.</li>
+<li><strong>Le convenzioni cambiano da un programma all’altro.</strong> Per esempio, alcuni programmi chiamano <em>loadings</em> quelli che nelle dispense sono i pesi, e il segno di una componente può risultare invertito (<a href="./T-05-pca.html">§ T-05</a>). I numeri prodotti altrove possono quindi non corrispondere a quelli che avete studiato e che trovate nel modulo <code>AnalisiMercato</code>.</li>
+<li><strong>Saper fare e leggere le analisi è l’obiettivo del corso.</strong> L’IA può aiutarvi a capire un output, per esempio spiegandovi che cosa significa una colonna di una tabella, ma l’analisi deve essere vostra.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="lanatomia-di-un-buon-prompt" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="lanatomia-di-un-buon-prompt"><span class="header-section-number">7.3</span> L’anatomia di un buon prompt</h2>
+<p>Un prompt efficace ha <strong>cinque ingredienti</strong> che è bene includere esplicitamente. Una sigla utile per ricordarli: <strong>RCCVO</strong> — Ruolo, Contesto, Compito, Vincoli, Output.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>I 5 ingredienti
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Ruolo</strong> che l’IA deve assumere (“Sei un esperto di ricerche di mercato…”)</li>
+<li><strong>Contesto</strong> della richiesta (cosa stai facendo, perché, su quali dati)</li>
+<li><strong>Compito</strong> preciso (cosa vuoi che produca, con verbo d’azione)</li>
+<li><strong>Vincoli</strong> (lunghezza, tono, formato, cosa non includere)</li>
+<li><strong>Output</strong> atteso (forma esatta della risposta)</li>
+</ol>
+</div>
+</div>
+<section id="un-esempio-confrontato" class="level3" data-number="7.3.1">
+<h3 data-number="7.3.1" class="anchored" data-anchor-id="un-esempio-confrontato"><span class="header-section-number">7.3.1</span> Un esempio confrontato</h3>
+<p>Mettiamo che vogliate trasformare un commento “a punti” sull’analisi bivariata in un paragrafo discorsivo. Confrontiamo un prompt scadente e uno strutturato.</p>
+<p><strong>Prompt scadente</strong> ❌</p>
+<blockquote class="blockquote">
+<p><em>“Scrivi un commento bello per il mio report sul corso che ho analizzato.”</em></p>
+</blockquote>
+<p>Cosa va male: non c’è ruolo, contesto, dati, lunghezza, tono. L’IA inventerà qualcosa di generico.</p>
+<p><strong>Prompt strutturato</strong> ✓</p>
+<blockquote class="blockquote">
+<p><em>“Sei un docente universitario che insegna analisi di mercato.</em></p>
+<p><em>Sto preparando un report (5 pagine, font Arial 10) per un corso di laurea triennale, sull’indagine condotta su 102 studenti di un corso di Economia. La variabile obiettivo è il numero di sessioni necessarie per superare l’esame.</em></p>
+<p><em>Riscrivi il commento dell’analisi bivariata che trovi sotto in forma discorsiva, senza elenchi puntati, mantenendo i valori numerici citati. Lunghezza massima 250 parole, tono professionale ma accessibile, niente frasi tipo “in conclusione” o “come si vede chiaramente”. Restituiscimi solo il testo finale, senza commenti.</em></p>
+<p><em>Bozza del commento:</em></p>
+<p><em>- Il voto medio decresce col numero di ripetizioni dell’esame…</em></p>
+<p><em>- (resto del commento puntato)</em>”</p>
+</blockquote>
+<p>Cosa va bene: ruolo (docente), contesto (corso, 102 studenti, dataset), compito (riscrittura), vincoli (250 parole, niente liste, niente frasi vuote), output (solo testo finale).</p>
+</section>
+</section>
+<section id="regole-pratiche-per-un-buon-prompt" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="regole-pratiche-per-un-buon-prompt"><span class="header-section-number">7.4</span> Regole pratiche per un buon prompt</h2>
+<p>Oltre alla struttura, vale la pena tenere a mente alcune regole.</p>
+<section id="sii-specifico-non-generico" class="level3" data-number="7.4.1">
+<h3 data-number="7.4.1" class="anchored" data-anchor-id="sii-specifico-non-generico"><span class="header-section-number">7.4.1</span> 1. Sii specifico, non generico</h3>
+<p>“Scrivi un commento” produce un commento generico. “Scrivi un paragrafo di 150 parole che spieghi come la frequenza alle lezioni è correlata col superamento dell’esame, usando i seguenti dati: …” produce un paragrafo specifico.</p>
+</section>
+<section id="dai-esempi-few-shot" class="level3" data-number="7.4.2">
+<h3 data-number="7.4.2" class="anchored" data-anchor-id="dai-esempi-few-shot"><span class="header-section-number">7.4.2</span> 2. Dai esempi (few-shot)</h3>
+<p>Se vuoi un certo stile, mostralo. <em>“Scrivi nello stile di questo paragrafo:”</em> + un paragrafo esempio funziona meglio di descrivere lo stile a parole.</p>
+</section>
+<section id="dichiara-cosa-non-vuoi" class="level3" data-number="7.4.3">
+<h3 data-number="7.4.3" class="anchored" data-anchor-id="dichiara-cosa-non-vuoi"><span class="header-section-number">7.4.3</span> 3. Dichiara cosa NON vuoi</h3>
+<p>Gli LLM tendono a usare frasi standard (“come si può notare”, “in sintesi”, “questo dimostra che…”). Se non le vuoi, <strong>vietalo esplicitamente</strong> nel prompt.</p>
+</section>
+<section id="itera" class="level3" data-number="7.4.4">
+<h3 data-number="7.4.4" class="anchored" data-anchor-id="itera"><span class="header-section-number">7.4.4</span> 4. Itera</h3>
+<p>Difficilmente la prima risposta è quella definitiva. Continua a chiedere modifiche puntuali:</p>
+<ul>
+<li>“Riscrivi il secondo paragrafo in modo più conciso, max 80 parole.”</li>
+<li>“Sostituisci ‘esamina’ con ‘analizza’.”</li>
+<li>“Aggiungi un riferimento esplicito al numero di studenti coinvolti (102).”</li>
+</ul>
+</section>
+<section id="verifica-sempre-i-numeri" class="level3" data-number="7.4.5">
+<h3 data-number="7.4.5" class="anchored" data-anchor-id="verifica-sempre-i-numeri"><span class="header-section-number">7.4.5</span> 5. Verifica sempre i numeri</h3>
+<p>Se citi nel prompt un valore “0,38” e nel testo l’IA restituisce “0,40”, è un’allucinazione. Rileggi sempre il testo confrontandolo coi tuoi numeri originali.</p>
+</section>
+<section id="definisci-il-formato-di-output" class="level3" data-number="7.4.6">
+<h3 data-number="7.4.6" class="anchored" data-anchor-id="definisci-il-formato-di-output"><span class="header-section-number">7.4.6</span> 6. Definisci il formato di output</h3>
+<p>Vuoi un paragrafo? Una lista puntata? Una tabella in Markdown? Un JSON? Dillo. Se non lo dici, l’IA sceglie da sé (e di solito sbaglia).</p>
+</section>
+<section id="una-richiesta-alla-volta" class="level3" data-number="7.4.7">
+<h3 data-number="7.4.7" class="anchored" data-anchor-id="una-richiesta-alla-volta"><span class="header-section-number">7.4.7</span> 7. Una richiesta alla volta</h3>
+<p>Prompt che chiedono di “rivedere lo stile, controllare i numeri, riformulare in modo più professionale e tagliare a 200 parole” tendono a far perdere qualche pezzo. Meglio una richiesta per messaggio, in iterazione.</p>
+</section>
+</section>
+<section id="esempi-di-prompt-utili-per-le-fasi-del-progetto" class="level2" data-number="7.5">
+<h2 data-number="7.5" class="anchored" data-anchor-id="esempi-di-prompt-utili-per-le-fasi-del-progetto"><span class="header-section-number">7.5</span> Esempi di prompt utili per le fasi del progetto</h2>
+<section id="brainstorming-domande-del-questionario" class="level3" data-number="7.5.1">
+<h3 data-number="7.5.1" class="anchored" data-anchor-id="brainstorming-domande-del-questionario"><span class="header-section-number">7.5.1</span> Brainstorming domande del questionario</h3>
+<blockquote class="blockquote">
+<p><em>“Sto costruendo un questionario per indagare le abitudini di consumo di caffè degli studenti universitari italiani. Generami 15 domande candidate, articolate in: 3 socio-demografiche, 6 comportamentali (frequenza, momento, luogo di consumo), 6 attitudinali (preferenze, fedeltà alla marca, sensibilità al prezzo). Per ogni domanda indica il tipo di risposta (scelta singola, Likert 1–5, numerica, aperta). Output: tabella Markdown con colonne ‘Tema’, ‘Domanda’, ‘Tipo’.”</em></p>
+</blockquote>
+</section>
+<section id="naming-di-un-cluster-a-partire-dai-profili" class="level3" data-number="7.5.2">
+<h3 data-number="7.5.2" class="anchored" data-anchor-id="naming-di-un-cluster-a-partire-dai-profili"><span class="header-section-number">7.5.2</span> Naming di un cluster a partire dai profili</h3>
+<blockquote class="blockquote">
+<p><em>“Sto facendo segmentazione clienti su una catena retail. Un cluster ha questi tratti caratteristici (z-score rispetto alla media globale): qualita_prima_di_prezzo +0,8, marca_conta_molto +0,9, fedele_alle_marche +0,7, cerco_sempre_le_offerte −0,9, reddito_k +0,5. Proponimi 3 possibili nomi sintetici (2–3 parole) per questo segmento, con una breve giustificazione (max 30 parole ciascuna). Output: lista numerata.”</em></p>
+</blockquote>
+</section>
+<section id="sintesi-di-unanalisi-bivariata" class="level3" data-number="7.5.3">
+<h3 data-number="7.5.3" class="anchored" data-anchor-id="sintesi-di-unanalisi-bivariata"><span class="header-section-number">7.5.3</span> Sintesi di un’analisi bivariata</h3>
+<blockquote class="blockquote">
+<p><em>“Sono un docente che sta preparando un commento da inserire in un report. Trasforma i seguenti 5 punti puntati in un paragrafo discorsivo di circa 180 parole, tono professionale, mantenendo i valori numerici citati. Niente frasi di chiusura tipo ‘in conclusione’.</em></p>
+<p><em>&lt;elenco puntato&gt;</em>”</p>
+</blockquote>
+</section>
+<section id="generazione-di-strategie-operative-da-un-cluster" class="level3" data-number="7.5.4">
+<h3 data-number="7.5.4" class="anchored" data-anchor-id="generazione-di-strategie-operative-da-un-cluster"><span class="header-section-number">7.5.4</span> Generazione di strategie operative da un cluster</h3>
+<blockquote class="blockquote">
+<p><em>“Ho identificato un cluster di ‘studenti pendolari poco coinvolti’, che frequentano &lt;50% lezioni, non partecipano al progetto di gruppo, danno valutazioni medio-basse al corso. Suggerisci 3 interventi concreti e realistici che un docente potrebbe attuare a livello di insegnamento per ridurre la ripetizione d’esame in questo segmento. Tono pragmatico, max 50 parole per intervento, no riferimenti generici alla ‘didattica innovativa’.”</em></p>
+</blockquote>
+</section>
+<section id="frontespizio-e-impaginazione-del-report" class="level3" data-number="7.5.5">
+<h3 data-number="7.5.5" class="anchored" data-anchor-id="frontespizio-e-impaginazione-del-report"><span class="header-section-number">7.5.5</span> Frontespizio e impaginazione del report</h3>
+<blockquote class="blockquote">
+<p><em>“Devo impaginare un report di 5 pagine in Word, con font Arial 10 e margini di 2,5 cm in alto e 2 cm sugli altri lati, su questo tema: &lt;tema&gt;. Proponimi tre idee di frontespizio (disposizione di titolo, sottotitolo, autore, matricola, anno accademico ed eventuale immagine) e una palette di due o tre colori sobri da usare sia nei titoli sia nei grafici. Per ogni idea spiegami passo per passo come realizzarla in Word.”</em></p>
+</blockquote>
+</section>
+<section id="rifinitura-stilistica-finale" class="level3" data-number="7.5.6">
+<h3 data-number="7.5.6" class="anchored" data-anchor-id="rifinitura-stilistica-finale"><span class="header-section-number">7.5.6</span> Rifinitura stilistica finale</h3>
+<blockquote class="blockquote">
+<p><em>“Rileggi il seguente paragrafo e migliora solo lo stile (scorrevolezza, varietà sintattica, ritmo), senza cambiare contenuto, lunghezza approssimativa o termini tecnici. Se trovi ripetizioni o frasi pesanti, riscrivile. Output: solo il testo rivisto, niente commenti.</em></p>
+<p><em>&lt;paragrafo&gt;</em>”</p>
+</blockquote>
+</section>
+</section>
+<section id="errori-comuni-da-evitare" class="level2" data-number="7.6">
+<h2 data-number="7.6" class="anchored" data-anchor-id="errori-comuni-da-evitare"><span class="header-section-number">7.6</span> Errori comuni da evitare</h2>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Avviso</span>I sette peccati capitali nell’uso dell’IA per il progetto
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ol type="1">
+<li><strong>Copia-incolla cieco</strong>. Mai inserire nel report un testo IA senza averlo riletto: spesso ci sono incongruenze, frasi inglesi maldestre, valori sbagliati.</li>
+<li><strong>Caricare dati personali, riservati o non autorizzati</strong> negli strumenti di IA. Le condizioni di trattamento dei dati cambiano fra servizi, piani e impostazioni, e cambiano nel tempo. Per il progetto non caricate dati personali identificabili (nomi, cognomi, email, codici fiscali) né informazioni riservate senza una base autorizzativa adeguata: quando possibile lavorate su dati anonimizzati o minimizzati, seguendo le indicazioni del corso e dell’Ateneo.</li>
+<li><strong>Affidarsi all’IA come unica fonte dei numeri</strong>. Medie, percentuali, test, PCA, indice di Rand corretto (ARI, <em>Adjusted Rand Index</em>) e ogni altro risultato vanno calcolati in Jamovi e devono essere riproducibili nell’analisi consegnata. L’IA può aiutare a spiegare o a controllare un procedimento, ma i numeri del report devono essere verificabili nel file consegnato.</li>
+<li><strong>Citare l’IA come fonte</strong>. “Secondo ChatGPT…” non è una citazione. Le fonti sono libri, articoli, dati reali.</li>
+<li><strong>Non rivedere il testo per coerenza</strong>. Più chiedete iterazioni a un’IA, più diverge dal vostro stile e dal tono concordato. Rileggete sempre il report finale dall’inizio alla fine.</li>
+<li><strong>Affidare all’IA decisioni metodologiche</strong>. “Quanti cluster tengo?” non è una domanda da fare a un LLM: la risposta va cercata negli indici e nel dendrogramma visti in <a href="./T-04-cluster-analysis.html">§ T-04</a>, letti sui vostri dati e alla luce dell’interpretabilità dei gruppi.</li>
+<li><strong>Pensare che l’IA “abbia capito” davvero</strong>. Gli LLM <strong>simulano</strong> comprensione: producono testo coerente con quello che gli avete dato. Se sbagliate il prompt, sbagliano la risposta.</li>
+</ol>
+</div>
+</div>
+</section>
+<section id="responsabilità-e-aspetti-etici" class="level2" data-number="7.7">
+<h2 data-number="7.7" class="anchored" data-anchor-id="responsabilità-e-aspetti-etici"><span class="header-section-number">7.7</span> Responsabilità e aspetti etici</h2>
+<p>Usare l’IA nel progetto non è vietato, anzi è consigliato. Restano però alcune regole.</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Buone pratiche
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li><strong>La responsabilità del contenuto è tua</strong>. Se nel report c’è un errore introdotto dall’IA che non hai controllato, è tuo l’errore, non dell’IA.</li>
+<li><strong>L’originalità del lavoro</strong> sta nei tuoi dati, nelle tue scelte metodologiche, nelle tue interpretazioni e nelle tue conclusioni — non nel testo letterale. L’IA può aiutarti con la <strong>forma</strong> e proporre spunti o bozze (temi, nomi, strategie), ma il <strong>contenuto sostanziale</strong> del report (dati, scelte, interpretazioni e conclusioni) deve essere tuo e verificato da te.</li>
+<li><strong>Privacy dei dati di indagine</strong>: prima di condividere qualunque cosa con l’IA, elimina nomi, email, indirizzi e ogni altro dato che identifica i rispondenti. Sostituire i nomi con etichette (“Studente A”) non basta a rendere anonimi i dati: in un gruppo piccolo anche età, genere e corso di studi, messi insieme, possono far riconoscere qualcuno. Quando puoi, condividi risultati aggregati su gruppi non troppo piccoli invece delle singole risposte.</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="esempio-applicato-al-progetto" class="level2" data-number="7.8">
+<h2 data-number="7.8" class="anchored" data-anchor-id="esempio-applicato-al-progetto"><span class="header-section-number">7.8</span> Esempio applicato al progetto</h2>
+<p>Nel <a href="./P-26-esempio-progetto.html">capitolo dell’esempio</a> si vede un caso concreto di uso dell’IA: per la stesura dell’analisi esplorativa, è stato usato Microsoft Copilot per trasformare un elenco puntato di osservazioni in un paragrafo discorsivo. Il prompt:</p>
+<blockquote class="blockquote">
+<p><em>“Devo scrivere il commento dell’analisi esplorativa per un report su un corso universitario. L’obiettivo è capire quali caratteristiche degli studenti sono associate al numero di sessioni necessarie per superare l’esame. Ti allego i risultati delle analisi (analisi bivariata.pdf) e le bozze dei commenti che ho scritto io (Analisi esplorativa.docx). Trasforma le mie bozze in un testo discorsivo, senza elenchi puntati, inserendo qualche valore preso dai risultati. Non aggiungere interpretazioni, cause o conclusioni che non siano già nelle mie bozze: se ti sembra che manchi qualcosa, segnalamelo a parte invece di scriverlo nel testo.”</em></p>
+</blockquote>
+<p>Perché è un buon prompt:</p>
+<ul>
+<li>Il <strong>contesto</strong> è chiaro (corso universitario, variabile target dichiarata).</li>
+<li>L’<strong>input</strong> è strutturato (bozza commenti + analisi numerica come allegati).</li>
+<li>Il <strong>compito</strong> è delimitato: riscrivere le bozze degli studenti, senza aggiungere interpretazioni, cause o conclusioni, e segnalare a parte ciò che sembra mancare. L’interpretazione resta degli studenti.</li>
+<li>L’<strong>output</strong> è vincolato (discorsivo, con valori, no elenchi).</li>
+</ul>
+<p>Cosa va fatto dopo:</p>
+<ul>
+<li>La bozza va <strong>vagliata criticamente</strong> anche con un buon prompt, perché l’IA può aggiungere lo stesso qualcosa di suo: vanno eliminate parti generiche e affermazioni non sostenute dai dati, per esempio la frase causale <em>“Chi lavora di più ha meno tempo da dedicare allo studio”</em> o l’idea che le ore di lavoro crescano col numero di ripetizioni. Le medie (2,42 ore al primo tentativo, 10,9 al secondo, 40,0 al quarto ma su un solo caso, 6,67 fra chi non ha ancora superato) non descrivono un andamento regolare e poggiano in parte su gruppi molto piccoli.</li>
+<li>I numeri e le tendenze descritte vanno <strong>verificati</strong> uno per uno contro l’output Jamovi.</li>
+<li>Lo stile va armonizzato col resto del report.</li>
+</ul>
+<p>Questo è il workflow tipico: <strong>non</strong> “chiedo all’IA un commento e lo metto nel report”, ma “uso l’IA come bozzatore, e poi sistemo”.</p>
+</section>
+<section id="checklist-autovalutativa-prima-della-consegna" class="level2" data-number="7.9">
+<h2 data-number="7.9" class="anchored" data-anchor-id="checklist-autovalutativa-prima-della-consegna"><span class="header-section-number">7.9</span> Checklist autovalutativa prima della consegna</h2>
+<p>Prima di consegnare, riguardatevi il report con queste domande:</p>
+<ul class="task-list">
+<li><label><input type="checkbox">Tutti i numeri citati nel testo coincidono con l’output Jamovi (file <code>.omv</code>)?</label></li>
+<li><label><input type="checkbox">Il tono è coerente in tutto il report (non ci sono paragrafi “scritti da un’altra penna”)?</label></li>
+<li><label><input type="checkbox">Le conclusioni e le strategie operative sono <strong>mie</strong>, derivate dai miei risultati?</label></li>
+<li><label><input type="checkbox">Non ho citato l’IA come fonte di affermazioni o dati?</label></li>
+<li><label><input type="checkbox">Se un revisore mi chiedesse “perché hai scelto k=4 cluster?”, saprei rispondere senza riaprire la chat?</label></li>
+</ul>
+<p>Se la risposta a tutte queste è “sì”, siete pronti.</p>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-bisbee2024synthetic" class="csl-entry" role="listitem">
+Bisbee, James, Joshua D. Clinton, Cassy Dorff, Brenton Kenkel, e Jennifer M. Larson. 2024. <span>«Synthetic Replacements for Human Survey Data? <span>The</span> Perils of Large Language Models»</span>. <em>Political Analysis</em> 32 (4): 401–16. <a href="https://doi.org/10.1017/pan.2024.5">https://doi.org/10.1017/pan.2024.5</a>.
+</div>
+<div id="ref-park2024diversity" class="csl-entry" role="listitem">
+Park, Peter S., Philipp Schoenegger, e Chongyang Zhu. 2024. <span>«Diminished Diversity-of-Thought in a Standard Large Language Model»</span>. <em>Behavior Research Methods</em> 56 (6): 5754–70. <a href="https://doi.org/10.3758/s13428-023-02307-x">https://doi.org/10.3758/s13428-023-02307-x</a>.
+</div>
+<div id="ref-wang2025flatten" class="csl-entry" role="listitem">
+Wang, Angelina, Jamie Morgenstern, e John P. Dickerson. 2025. <span>«Large Language Models That Replace Human Participants Can Harmfully Misportray and Flatten Identity Groups»</span>. <em>Nature Machine Intelligence</em> 7 (3): 400–411. <a href="https://doi.org/10.1038/s42256-025-00986-z">https://doi.org/10.1038/s42256-025-00986-z</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("^(?!https://github\.com/)");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./P-25-introduzione-progetto.html" class="pagination-link" aria-label="Introduzione al progetto del corso">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./P-26-esempio-progetto.html" class="pagination-link" aria-label="Esempio di realizzazione del progetto">
+        <span class="nav-page-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><code>AnalisiMercato</code> — Dispense del corso. © 2026 Luca Frigau, tutti i diritti riservati.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Realizzate con <a href="https://quarto.org">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

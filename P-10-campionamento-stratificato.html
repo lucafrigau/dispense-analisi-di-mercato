@@ -1,0 +1,1432 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>18&nbsp; Campionamento stratificato – Analisi di Mercato — Dispense del corso</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./P-11-campionamento-grappoli.html" rel="next">
+<link href="./P-09-campionamento-sistematico.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ef622e21aa483743907546df5fc19a86.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nessun risultato",
+    "search-matching-documents-text": "documenti trovati",
+    "search-copy-link-title": "Copiare il link nella ricerca",
+    "search-hide-matches-text": "Nascondere i risultati aggiuntivi",
+    "search-more-match-text": "ci sono altri risultati in questo documento",
+    "search-more-matches-text": "ulteriori risultati in questo documento",
+    "search-clear-button-title": "Pulire",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancellare",
+    "search-submit-button-title": "Inviare",
+    "search-label": "Ricerca"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P-01-cosa-e-analisimercato.html">Parte III — Software Jamovi</a></li><li class="breadcrumb-item"><a href="./P-10-campionamento-stratificato.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Ricerca" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisi di Mercato — Dispense del corso</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Attiva/disattiva la modalità oscura"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Ricerca"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefazione</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte I — Approfondimenti teorici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-01-introduzione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduzione alla ricerca di mercato quantitativa</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-02-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-03-preparazione-dati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-04-cluster-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-05-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte II — Progetto pratico</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25-introduzione-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25b-strumenti-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-26-esempio-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-27-report-finale.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Report finale del progetto di esempio</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III — Software Jamovi</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-01-cosa-e-analisimercato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Cos’è <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-02-installazione-jamovi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Installazione di Jamovi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-03-installazione-modulo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installazione del modulo <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-04-tour-interfaccia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tour dell’interfaccia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-06-fondamenti-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Workflow operativo del campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-07-numerosita-campionaria.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Numerosità campionaria</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-08-campionamento-casuale-semplice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Campionamento casuale semplice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-09-campionamento-sistematico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Campionamento sistematico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-10-campionamento-stratificato.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-11-campionamento-grappoli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Campionamento a grappoli</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-12-campionamento-due-stadi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Campionamento a due stadi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-13-campionamento-cpv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Campionamento con probabilità variabili (CPV)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-14-intervalli-confidenza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Intervalli di confidenza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15-design-effect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Design Effect</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-16-fondamenti-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Workflow operativo della cluster analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-17-distanze-agglomerazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Distanze e agglomerazione</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-18-scelta-k-dendrogramma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Scelta di k e dendrogramma</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-19-caratterizzazione-cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Caratterizzazione dei cluster</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-20-confronto-partizioni-ari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Confronto fra partizioni — Adjusted Rand Index</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-21-fondamenti-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Workflow operativo della PCA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-22-contributi-cos2-biplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Contributi, cos² e biplot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-23-rotazioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Rotazioni Varimax e Promax</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-24-variabili-supplementari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Variabili supplementari e mappa di posizionamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte IV — Casi studio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-01-caso-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-02-caso-segmentazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Caso studio — Segmentare il mercato: quattro gruppi che l’anagrafica non vede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-03-caso-posizionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Caso studio — Dove siamo sulla mappa: il posizionamento di venti marche</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-01-caso-reale-comuni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Caso reale — Campionare un frame vero: i comuni italiani</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-02-caso-reale-ingrosso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Caso reale — Segmentare clienti veri: un distributore all’ingrosso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-03-caso-reale-yogurt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-04-caso-reale-regioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Caso reale — Dove conviene entrare: le regioni italiane</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1-glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A2-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Domande frequenti (FAQ)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Riferimenti bibliografici</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#quando-usarlo" id="toc-quando-usarlo" class="nav-link active" data-scroll-target="#quando-usarlo"><span class="header-section-number">18.1</span> Quando usarlo</a></li>
+  <li><a href="#il-metodo-in-breve" id="toc-il-metodo-in-breve" class="nav-link" data-scroll-target="#il-metodo-in-breve"><span class="header-section-number">18.2</span> Il metodo in breve</a>
+  <ul class="collapse">
+  <li><a href="#allocazione" id="toc-allocazione" class="nav-link" data-scroll-target="#allocazione"><span class="header-section-number">18.2.1</span> Allocazione</a></li>
+  <li><a href="#dai-numeri-con-la-virgola-agli-interi-il-metodo-dei-resti-maggiori" id="toc-dai-numeri-con-la-virgola-agli-interi-il-metodo-dei-resti-maggiori" class="nav-link" data-scroll-target="#dai-numeri-con-la-virgola-agli-interi-il-metodo-dei-resti-maggiori"><span class="header-section-number">18.2.2</span> Dai numeri con la virgola agli interi: il metodo dei resti maggiori</a></li>
+  <li><a href="#quando-uno-strato-è-troppo-piccolo" id="toc-quando-uno-strato-è-troppo-piccolo" class="nav-link" data-scroll-target="#quando-uno-strato-è-troppo-piccolo"><span class="header-section-number">18.2.3</span> Quando uno strato è troppo piccolo</a></li>
+  </ul></li>
+  <li><a href="#linterfaccia" id="toc-linterfaccia" class="nav-link" data-scroll-target="#linterfaccia"><span class="header-section-number">18.3</span> L’interfaccia</a></li>
+  <li><a href="#esempio-pratico-allocazione-proporzionale" id="toc-esempio-pratico-allocazione-proporzionale" class="nav-link" data-scroll-target="#esempio-pratico-allocazione-proporzionale"><span class="header-section-number">18.4</span> Esempio pratico — Allocazione proporzionale</a></li>
+  <li><a href="#esempio-pratico-allocazione-di-neyman" id="toc-esempio-pratico-allocazione-di-neyman" class="nav-link" data-scroll-target="#esempio-pratico-allocazione-di-neyman"><span class="header-section-number">18.5</span> Esempio pratico — Allocazione di Neyman</a></li>
+  <li><a href="#variabili-di-stratificazione-multiple" id="toc-variabili-di-stratificazione-multiple" class="nav-link" data-scroll-target="#variabili-di-stratificazione-multiple"><span class="header-section-number">18.6</span> Variabili di stratificazione multiple</a></li>
+  <li><a href="#errori-comuni" id="toc-errori-comuni" class="nav-link" data-scroll-target="#errori-comuni"><span class="header-section-number">18.7</span> Errori comuni</a></li>
+  <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist"><span class="header-section-number">18.8</span> Checklist</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P-01-cosa-e-analisimercato.html">Parte III — Software Jamovi</a></li><li class="breadcrumb-item"><a href="./P-10-campionamento-stratificato.html"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-stratificato" class="quarto-section-identifier"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Menu:</strong> <em>Analisi → AnalisiMercato → Campionamento → Campionamento stratificato</em></p>
+<p>La popolazione è suddivisa in <span class="math inline">\(L\)</span> <strong>strati</strong> disgiunti (es. aree geografiche, fasce d’età); da ciascuno strato si estrae un sotto-campione <span class="math inline">\(n_j\)</span> in modo indipendente.</p>
+<section id="quando-usarlo" class="level2" data-number="18.1">
+<h2 data-number="18.1" class="anchored" data-anchor-id="quando-usarlo"><span class="header-section-number">18.1</span> Quando usarlo</h2>
+<ul>
+<li>Si vuole <strong>controllare la composizione del campione</strong> rispetto a una variabile categoriale rilevante (sesso, area), fissando in anticipo quante unità vengono da ciascuno strato invece di lasciarlo al caso.</li>
+<li>Si vogliono <strong>stime separate per ciascuno strato</strong> (analisi domain-specific).</li>
+<li>La varianza intra-strato è <strong>molto inferiore</strong> alla varianza inter-strato → il piano è efficiente.</li>
+</ul>
+</section>
+<section id="il-metodo-in-breve" class="level2" data-number="18.2">
+<h2 data-number="18.2" class="anchored" data-anchor-id="il-metodo-in-breve"><span class="header-section-number">18.2</span> Il metodo in breve</h2>
+<p>Sia la popolazione divisa in <span class="math inline">\(L\)</span> strati con dimensioni <span class="math inline">\(N_1, \ldots, N_L\)</span> (<span class="math inline">\(\sum N_j = N\)</span>). Per uno stimatore della media (il pedice ST sta per <em>stratificato</em>):</p>
+<p><span class="math display">\[
+\bar y_{\text{ST}} = \sum_{j=1}^{L} \frac{N_j}{N} \, \bar y_j
+\]</span></p>
+<p>con varianza</p>
+<p><span class="math display">\[
+V(\bar y_{\text{ST}}) = \sum_{j=1}^{L} \left(\frac{N_j}{N}\right)^2 \frac{\sigma_j^2}{n_j}\left(1 - \frac{n_j}{N_j}\right)
+\]</span></p>
+<section id="allocazione" class="level3" data-number="18.2.1">
+<h3 data-number="18.2.1" class="anchored" data-anchor-id="allocazione"><span class="header-section-number">18.2.1</span> Allocazione</h3>
+<p>Dato un budget totale <span class="math inline">\(n\)</span>, come allocarlo agli strati?</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 36%">
+<col style="width: 32%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metodo</th>
+<th>Formula</th>
+<th>Quando</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Proporzionale</strong></td>
+<td><span class="math inline">\(n_j = n \cdot N_j/N\)</span></td>
+<td>Default; strati con varianza simile</td>
+</tr>
+<tr class="even">
+<td><strong>Ottimale di Neyman</strong> <span class="citation" data-cites="neyman1934">(<a href="references.html#ref-neyman1934" role="doc-biblioref">Neyman 1934</a>)</span></td>
+<td><span class="math inline">\(n_j \propto N_j \sigma_j\)</span></td>
+<td>Strati con varianza fortemente diversa; minimizza la varianza totale a parità di <span class="math inline">\(n\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>L’allocazione di Neyman richiede una stima di <span class="math inline">\(\sigma_j\)</span> per ogni strato (variabile ausiliaria).</p>
+<p>Nell’allocazione proporzionale la frazione di campionamento è la stessa in tutti gli strati, <span class="math inline">\(f_j = n_j/N_j = n/N = f\)</span>: è la proprietà che la rende <em>autoponderata</em>. Attenzione però: vale per l’allocazione <strong>teorica</strong>. Poiché gli <span class="math inline">\(n_j\)</span> devono essere interi, le frazioni effettivamente realizzate — quelle riportate nella colonna <span class="math inline">\(f_j\)</span> della tabella <em>Allocazione per strato</em> — possono differire di poco fra strati. È l’effetto dell’arrotondamento, non un errore di calcolo.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Perché Neyman è ottimale
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Minimizzando <span class="math inline">\(V(\bar y_{\text{ST}})\)</span> vincolato a <span class="math inline">\(\sum n_j = n\)</span>, Lagrange dà <span class="math inline">\(n_j \propto N_j \sigma_j\)</span>. Intuitivamente: più dimensione → più peso; più variabilità intra-strato → più “investimento” per ridurla.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="dai-numeri-con-la-virgola-agli-interi-il-metodo-dei-resti-maggiori" class="level3" data-number="18.2.2">
+<h3 data-number="18.2.2" class="anchored" data-anchor-id="dai-numeri-con-la-virgola-agli-interi-il-metodo-dei-resti-maggiori"><span class="header-section-number">18.2.2</span> Dai numeri con la virgola agli interi: il metodo dei resti maggiori</h3>
+<p>L’allocazione teorica produce quasi sempre numeri non interi: con <span class="math inline">\(N_j = (23, 34, 43)\)</span> e <span class="math inline">\(n = 10\)</span> la proporzionale dà <span class="math inline">\((2{,}3;\ 3{,}4;\ 4{,}3)\)</span>. Prendendo la sola parte intera si arriva a <span class="math inline">\(2+3+4 = 9\)</span>: manca un’unità, e la regola con cui la si assegna cambia il campione.</p>
+<p><code>AnalisiMercato</code> usa il <strong>metodo dei resti maggiori</strong> (Hamilton): le unità mancanti vanno agli strati con la <strong>parte decimale più grande</strong>, cioè a quelli più penalizzati dal troncamento. Nell’esempio la parte decimale maggiore è quella del secondo strato (0,4), quindi l’allocazione finale è <span class="math inline">\((2, 4, 4)\)</span>.</p>
+<p>Sembra un dettaglio contabile, ma non lo è: assegnare l’unità mancante allo strato con più “posti liberi” darebbe <span class="math inline">\((2, 3, 5)\)</span>, cioè un campione sistematicamente sbilanciato verso gli strati grandi — l’esatto contrario di ciò che l’allocazione proporzionale dichiara di fare.</p>
+</section>
+<section id="quando-uno-strato-è-troppo-piccolo" class="level3" data-number="18.2.3">
+<h3 data-number="18.2.3" class="anchored" data-anchor-id="quando-uno-strato-è-troppo-piccolo"><span class="header-section-number">18.2.3</span> Quando uno strato è troppo piccolo</h3>
+<p>Se l’allocazione teorica chiede a uno strato più unità di quante ne contenga, quello strato viene censito (<span class="math inline">\(n_j = N_j\)</span>) e le unità rimaste sono <strong>ridistribuite fra gli strati non ancora saturi, in proporzione ai loro pesi teorici</strong> (<span class="math inline">\(N_j\)</span> nella proporzionale, <span class="math inline">\(N_j\sigma_j\)</span> in Neyman); il procedimento si ripete finché nessuno strato eccede la propria capacità. Il totale <span class="math inline">\(\sum_j n_j = n\)</span> è quindi sempre rispettato, ma le quote realizzate non sono più quelle della formula pura: se accade, dichiaratelo nel report metodologico.</p>
+<p>All’estremo opposto, l’allocazione teorica può assegnare a uno strato <strong>meno di un’unità</strong>: succede con uno strato molto piccolo sotto la proporzionale, o con uno strato a variabilità nulla sotto Neyman. Lasciarlo a zero significherebbe dare probabilità di inclusione nulla alle sue unità, e il disegno non sarebbe più probabilistico su tutta la popolazione.</p>
+<p>Il modulo impone quindi una <strong>rappresentanza minima</strong>: ogni strato non vuoto riceve almeno</p>
+<p><span class="math display">\[
+n_j \geq \min(2,\ N_j)
+\]</span></p>
+<p>cioè 2 unità — la numerosità più piccola che permette di stimare la variabilità <em>dentro</em> lo strato — e 1 soltanto se in popolazione lo strato ne contiene una sola.</p>
+<p>Il vincolo interviene <strong>solo quando serve</strong>. Se l’allocazione teorica rispetta già i minimi, il risultato non cambia e la proporzionale resta autoponderata. Se invece qualche strato resterebbe sotto soglia, quegli strati vengono portati al minimo e le unità restanti sono allocate fra gli altri con il criterio scelto: la colonna <em>Metodo</em> del riepilogo dichiara allora <strong>Proporzionale vincolata</strong> o <strong>Ottimale (Neyman) vincolata</strong>, e una nota sotto la tabella <em>Allocazione per strato</em> elenca gli strati interessati. In quel caso va detto nel report metodologico, perché le quote non sono più quelle della formula pura.</p>
+<p>Se la numerosità totale non basta nemmeno per i minimi — cioè se <span class="math inline">\(n\)</span> è minore della somma dei <span class="math inline">\(\min(2, N_j)\)</span> — l’analisi si ferma con un messaggio esplicito: le strade sono aumentare <span class="math inline">\(n\)</span> oppure accorpare i livelli più rari prima di stratificare.</p>
+</section>
+</section>
+<section id="linterfaccia" class="level2" data-number="18.3">
+<h2 data-number="18.3" class="anchored" data-anchor-id="linterfaccia"><span class="header-section-number">18.3</span> L’interfaccia</h2>
+<div class="screenshot">
+<div id="fig-st-opzioni" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-st-opzioni-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/screenshots/P-10-campionamento-stratificato__panel-opzioni.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-st-opzioni-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;18.1: Pannello opzioni — Stratificato
+</figcaption>
+</figure>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 37%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Opzione</th>
+<th>Default</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Variabili di stratificazione</strong></td>
+<td>—</td>
+<td>Una o più; l’incrocio genera gli strati</td>
+</tr>
+<tr class="even">
+<td><strong>Variabile ausiliaria</strong></td>
+<td>—</td>
+<td>Numerica. Il campo resta <strong>disattivato</strong> finché il metodo è “Proporzionale”: si abilita scegliendo “Ottimale di Neyman”, per cui è obbligatoria</td>
+</tr>
+<tr class="odd">
+<td><strong>Variabile identificativa</strong></td>
+<td>—</td>
+<td>Opzionale</td>
+</tr>
+<tr class="even">
+<td><strong>Metodo di allocazione</strong></td>
+<td>Proporzionale</td>
+<td>Proporzionale (n_j ∝ N_j) / Ottimale di Neyman (n_j ∝ N_j · σ_j)</td>
+</tr>
+<tr class="odd">
+<td><strong>Modalità / n / f</strong></td>
+<td>n=30</td>
+<td>Numerosità totale</td>
+</tr>
+<tr class="even">
+<td><strong>Seed</strong></td>
+<td>1</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Estrai il campione</strong></td>
+<td>—</td>
+<td>Colonna <code>in_STpr</code> o <code>in_STott</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="esempio-pratico-allocazione-proporzionale" class="level2" data-number="18.4">
+<h2 data-number="18.4" class="anchored" data-anchor-id="esempio-pratico-allocazione-proporzionale"><span class="header-section-number">18.4</span> Esempio pratico — Allocazione proporzionale</h2>
+<p><strong>Obiettivo.</strong> Estrarre 500 clienti stratificando per <code>area</code> (5 livelli) in modo proporzionale alla dimensione dello strato.</p>
+<p><strong>Passi:</strong></p>
+<ol type="1">
+<li>Aprire <code>popolazione_clienti.csv</code>.</li>
+<li>Analisi → AnalisiMercato → Campionamento → Campionamento stratificato.</li>
+<li><em>Variabili di stratificazione</em> → <code>area</code>.</li>
+<li><em>Metodo di allocazione</em> → Proporzionale.</li>
+<li><em>n</em> → 500; <em>Seed</em> → 20260521.</li>
+</ol>
+<div class="jamovi-output">
+<p><strong>Allocazione per strato</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Strato</th>
+<th>N_j</th>
+<th>W_j</th>
+<th>σ_j</th>
+<th>n_j</th>
+<th>f_j = n_j / N_j</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Centro</td>
+<td>956</td>
+<td>0,19</td>
+<td>—</td>
+<td>96</td>
+<td>0,10</td>
+</tr>
+<tr class="even">
+<td>Isole</td>
+<td>535</td>
+<td>0,11</td>
+<td>—</td>
+<td>53</td>
+<td>0,10</td>
+</tr>
+<tr class="odd">
+<td>Nord-Est</td>
+<td>1.056</td>
+<td>0,21</td>
+<td>—</td>
+<td>106</td>
+<td>0,10</td>
+</tr>
+<tr class="even">
+<td>Nord-Ovest</td>
+<td>1.410</td>
+<td>0,28</td>
+<td>—</td>
+<td>141</td>
+<td>0,10</td>
+</tr>
+<tr class="odd">
+<td>Sud</td>
+<td>1.043</td>
+<td>0,21</td>
+<td>—</td>
+<td>104</td>
+<td>0,10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="screenshot">
+<div id="fig-st-prop" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-st-prop-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/screenshots/P-10-campionamento-stratificato__output-proporzionale.png" class="img-fluid figure-img" style="width:75.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-st-prop-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;18.2: Output stratificato proporzionale
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="esempio-pratico-allocazione-di-neyman" class="level2" data-number="18.5">
+<h2 data-number="18.5" class="anchored" data-anchor-id="esempio-pratico-allocazione-di-neyman"><span class="header-section-number">18.5</span> Esempio pratico — Allocazione di Neyman</h2>
+<p><strong>Obiettivo.</strong> Stessi 500 clienti, ma con l’allocazione di Neyman sulla <code>spesa_annua</code>, per vedere come reagisce l’allocazione alle differenze di variabilità fra aree.</p>
+<p><strong>Passi:</strong></p>
+<ol type="1">
+<li>Stessa analisi; cambiare <em>Metodo di allocazione</em> → Ottimale di Neyman.</li>
+<li><em>Variabile ausiliaria</em> → <code>spesa_annua</code>.</li>
+</ol>
+<div class="jamovi-output">
+<p>Il modulo calcola <span class="math inline">\(\sigma_j\)</span> in ogni strato e ridistribuisce: gli strati con maggiore variabilità ricevono più unità. Nei nostri dati sintetici le deviazioni standard della spesa per area sono molto simili (colonna <span class="math inline">\(\sigma_j\)</span>: da 548 a 591 €), quindi l’allocazione cambia poco: il Nord-Ovest, lo strato più variabile, passa da 141 a 146 unità, gli altri ne perdono una o due (le Isole, le meno variabili, scendono da 53 a 51). Neyman rende davvero solo quando le <span class="math inline">\(\sigma_j\)</span> differiscono molto fra strati.</p>
+<p>Confrontare la colonna <span class="math inline">\(n_j\)</span> nelle due esecuzioni: in Neyman, gli strati ad alta varianza “rubano” unità a quelli a bassa varianza.</p>
+</div>
+<div class="screenshot">
+<div id="fig-st-neyman" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-st-neyman-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/screenshots/P-10-campionamento-stratificato__output-neyman.png" class="img-fluid figure-img" style="width:75.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-st-neyman-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;18.3: Output stratificato ottimale di Neyman
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="variabili-di-stratificazione-multiple" class="level2" data-number="18.6">
+<h2 data-number="18.6" class="anchored" data-anchor-id="variabili-di-stratificazione-multiple"><span class="header-section-number">18.6</span> Variabili di stratificazione multiple</h2>
+<p>Con più variabili di stratificazione (per esempio <code>area</code> × <code>sesso</code>) gli strati sono le <strong>combinazioni dei loro livelli</strong>: 5 aree × 2 sessi = 10 strati. Il campione rispetta quindi le <strong>quote congiunte</strong>, cioè la quota di ogni combinazione (le donne del Nord-Ovest, gli uomini del Sud…), e non solo la distribuzione di ciascuna variabile presa da sola.</p>
+<p>Il numero di strati cresce in fretta: con una terza variabile a 4 livelli si passa a 40. Prima di estrarre conviene controllare quante unità ha ogni combinazione nella popolazione, con una tabella di contingenza (<em>Analisi → Frequenze → Tabelle di Contingenza → Campioni Indipendenti</em>). Con celle piccole l’allocazione darebbe a molti strati meno di 2 unità e il modulo le porterebbe alla rappresentanza minima vista sopra, allontanando le quote da quelle del criterio scelto. Se le combinazioni sono troppe o troppo piccole, si accorpano livelli (per esempio fasce d’età più ampie) o si stratifica solo sulle variabili più legate al fenomeno da stimare.</p>
+</section>
+<section id="errori-comuni" class="level2" data-number="18.7">
+<h2 data-number="18.7" class="anchored" data-anchor-id="errori-comuni"><span class="header-section-number">18.7</span> Errori comuni</h2>
+<ul>
+<li>❌ <strong>Stratificare per variabili poco correlate con <span class="math inline">\(y\)</span></strong>: non guadagna nulla rispetto al casuale semplice e complica la gestione.</li>
+<li>❌ <strong>Neyman con variabile ausiliaria incompleta</strong>: non basta <em>avere</em> la variabile ausiliaria, serve che in <strong>ogni</strong> strato ci siano almeno due valori validi. Altrimenti <span class="math inline">\(\sigma_j\)</span> non è stimabile e il modulo <strong>rifiuta</strong> l’analisi nominando gli strati problematici. La differenza concettuale è importante: <em>“non so quanto varia”</em> non è <em>“non varia”</em>. Con la vecchia convenzione <span class="math inline">\(\sigma_j = 0\)</span> quello strato avrebbe ricevuto peso nullo, cioè <span class="math inline">\(n_j = 0\)</span>, uscendo dal campione come se fosse perfettamente omogeneo — un errore grave e silenzioso. Le vie d’uscita sono tre: completare i dati ausiliari, cambiare variabile ausiliaria, oppure ripiegare sull’allocazione proporzionale, che <span class="math inline">\(\sigma_j\)</span> non lo usa. Restano invece legittimi e non bloccanti lo strato con una sola unità in popolazione (<span class="math inline">\(N_j = 1\)</span>: la variabilità interna è davvero nulla) e lo strato in cui <span class="math inline">\(\sigma_j\)</span> è stata stimata e vale zero (valori tutti identici: è un’informazione, non un buco).</li>
+<li>❌ <strong>Dimenticare che cosa succede quando uno strato satura</strong>: l’allocazione viene “tagliata” a <span class="math inline">\(n_j = N_j\)</span> e le unità residue sono ridistribuite fra gli strati non saturi in proporzione ai pesi teorici, non in base alla capacità residua.</li>
+<li>❌ <strong>Confondere stratificazione (ex-ante) con post-stratificazione</strong> (ex-post): la prima è un disegno, la seconda una correzione.</li>
+</ul>
+</section>
+<section id="checklist" class="level2" data-number="18.8">
+<h2 data-number="18.8" class="anchored" data-anchor-id="checklist"><span class="header-section-number">18.8</span> Checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Le variabili di stratificazione sono effettivamente rilevanti per il fenomeno.</label></li>
+<li><label><input type="checkbox">Ogni strato ha <span class="math inline">\(N_j \gg n_j\)</span> atteso.</label></li>
+<li><label><input type="checkbox">Se Neyman: la variabile ausiliaria è proxy ragionevole di <span class="math inline">\(y\)</span>.</label></li>
+<li><label><input type="checkbox">Seed fissato.</label></li>
+</ul>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-neyman1934" class="csl-entry" role="listitem">
+Neyman, Jerzy. 1934. <span>«On the Two Different Aspects of the Representative Method»</span>. <em>Journal of the Royal Statistical Society</em> 97 (4): 558–625.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("^(?!https://github\.com/)");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./P-09-campionamento-sistematico.html" class="pagination-link" aria-label="Campionamento sistematico">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Campionamento sistematico</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./P-11-campionamento-grappoli.html" class="pagination-link" aria-label="Campionamento a grappoli">
+        <span class="nav-page-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Campionamento a grappoli</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><code>AnalisiMercato</code> — Dispense del corso. © 2026 Luca Frigau, tutti i diritti riservati.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Realizzate con <a href="https://quarto.org">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

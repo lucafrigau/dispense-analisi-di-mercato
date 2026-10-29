@@ -1,0 +1,2322 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>4&nbsp; Cluster Analysis – Analisi di Mercato — Dispense del corso</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./T-05-pca.html" rel="next">
+<link href="./T-03-preparazione-dati.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ef622e21aa483743907546df5fc19a86.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nessun risultato",
+    "search-matching-documents-text": "documenti trovati",
+    "search-copy-link-title": "Copiare il link nella ricerca",
+    "search-hide-matches-text": "Nascondere i risultati aggiuntivi",
+    "search-more-match-text": "ci sono altri risultati in questo documento",
+    "search-more-matches-text": "ulteriori risultati in questo documento",
+    "search-clear-button-title": "Pulire",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancellare",
+    "search-submit-button-title": "Inviare",
+    "search-label": "Ricerca"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./T-01-introduzione.html">Parte I — Approfondimenti teorici</a></li><li class="breadcrumb-item"><a href="./T-04-cluster-analysis.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Ricerca" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisi di Mercato — Dispense del corso</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Attiva/disattiva la modalità oscura"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Ricerca"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefazione</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I — Approfondimenti teorici</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-01-introduzione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduzione alla ricerca di mercato quantitativa</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-02-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-03-preparazione-dati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-04-cluster-analysis.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-05-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte II — Progetto pratico</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25-introduzione-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25b-strumenti-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-26-esempio-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-27-report-finale.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Report finale del progetto di esempio</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte III — Software Jamovi</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-01-cosa-e-analisimercato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Cos’è <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-02-installazione-jamovi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Installazione di Jamovi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-03-installazione-modulo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installazione del modulo <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-04-tour-interfaccia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tour dell’interfaccia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-06-fondamenti-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Workflow operativo del campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-07-numerosita-campionaria.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Numerosità campionaria</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-08-campionamento-casuale-semplice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Campionamento casuale semplice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-09-campionamento-sistematico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Campionamento sistematico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-10-campionamento-stratificato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-11-campionamento-grappoli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Campionamento a grappoli</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-12-campionamento-due-stadi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Campionamento a due stadi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-13-campionamento-cpv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Campionamento con probabilità variabili (CPV)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-14-intervalli-confidenza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Intervalli di confidenza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15-design-effect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Design Effect</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-16-fondamenti-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Workflow operativo della cluster analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-17-distanze-agglomerazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Distanze e agglomerazione</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-18-scelta-k-dendrogramma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Scelta di k e dendrogramma</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-19-caratterizzazione-cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Caratterizzazione dei cluster</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-20-confronto-partizioni-ari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Confronto fra partizioni — Adjusted Rand Index</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-21-fondamenti-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Workflow operativo della PCA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-22-contributi-cos2-biplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Contributi, cos² e biplot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-23-rotazioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Rotazioni Varimax e Promax</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-24-variabili-supplementari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Variabili supplementari e mappa di posizionamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte IV — Casi studio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-01-caso-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-02-caso-segmentazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Caso studio — Segmentare il mercato: quattro gruppi che l’anagrafica non vede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-03-caso-posizionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Caso studio — Dove siamo sulla mappa: il posizionamento di venti marche</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-01-caso-reale-comuni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Caso reale — Campionare un frame vero: i comuni italiani</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-02-caso-reale-ingrosso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Caso reale — Segmentare clienti veri: un distributore all’ingrosso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-03-caso-reale-yogurt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-04-caso-reale-regioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Caso reale — Dove conviene entrare: le regioni italiane</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1-glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A2-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Domande frequenti (FAQ)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Riferimenti bibliografici</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#approccio-gerarchico-agglomerativo" id="toc-approccio-gerarchico-agglomerativo" class="nav-link active" data-scroll-target="#approccio-gerarchico-agglomerativo"><span class="header-section-number">4.1</span> Approccio gerarchico agglomerativo</a></li>
+  <li><a href="#distanze-euclidea-o-manhattan" id="toc-distanze-euclidea-o-manhattan" class="nav-link" data-scroll-target="#distanze-euclidea-o-manhattan"><span class="header-section-number">4.2</span> Distanze: Euclidea o Manhattan?</a>
+  <ul class="collapse">
+  <li><a href="#distanza-euclidea" id="toc-distanza-euclidea" class="nav-link" data-scroll-target="#distanza-euclidea"><span class="header-section-number">4.2.1</span> Distanza Euclidea</a></li>
+  <li><a href="#distanza-di-manhattan" id="toc-distanza-di-manhattan" class="nav-link" data-scroll-target="#distanza-di-manhattan"><span class="header-section-number">4.2.2</span> Distanza di Manhattan</a></li>
+  <li><a href="#confronto-diretto" id="toc-confronto-diretto" class="nav-link" data-scroll-target="#confronto-diretto"><span class="header-section-number">4.2.3</span> Confronto diretto</a></li>
+  </ul></li>
+  <li><a href="#il-problema-delle-correlazioni-e-mahalanobis" id="toc-il-problema-delle-correlazioni-e-mahalanobis" class="nav-link" data-scroll-target="#il-problema-delle-correlazioni-e-mahalanobis"><span class="header-section-number">4.3</span> Il problema delle correlazioni e Mahalanobis</a>
+  <ul class="collapse">
+  <li><a href="#sovrastima-o-sottostima-delle-distanze" id="toc-sovrastima-o-sottostima-delle-distanze" class="nav-link" data-scroll-target="#sovrastima-o-sottostima-delle-distanze"><span class="header-section-number">4.3.1</span> Sovrastima o sottostima delle distanze</a></li>
+  <li><a href="#cluster-distorti" id="toc-cluster-distorti" class="nav-link" data-scroll-target="#cluster-distorti"><span class="header-section-number">4.3.2</span> Cluster distorti</a></li>
+  <li><a href="#peso-sbilanciato-delle-variabili" id="toc-peso-sbilanciato-delle-variabili" class="nav-link" data-scroll-target="#peso-sbilanciato-delle-variabili"><span class="header-section-number">4.3.3</span> Peso sbilanciato delle variabili</a></li>
+  <li><a href="#outlier-multivariati-nascosti" id="toc-outlier-multivariati-nascosti" class="nav-link" data-scroll-target="#outlier-multivariati-nascosti"><span class="header-section-number">4.3.4</span> Outlier multivariati nascosti</a></li>
+  <li><a href="#distanza-di-mahalanobis-la-soluzione" id="toc-distanza-di-mahalanobis-la-soluzione" class="nav-link" data-scroll-target="#distanza-di-mahalanobis-la-soluzione"><span class="header-section-number">4.3.5</span> Distanza di Mahalanobis: la soluzione</a></li>
+  </ul></li>
+  <li><a href="#sec-gower" id="toc-sec-gower" class="nav-link" data-scroll-target="#sec-gower"><span class="header-section-number">4.4</span> Distanza di Gower per dati misti</a></li>
+  <li><a href="#indici-di-similarità-per-dati-binari-sokal-michener-vs-jaccard" id="toc-indici-di-similarità-per-dati-binari-sokal-michener-vs-jaccard" class="nav-link" data-scroll-target="#indici-di-similarità-per-dati-binari-sokal-michener-vs-jaccard"><span class="header-section-number">4.5</span> Indici di similarità per dati binari: Sokal-Michener vs Jaccard</a>
+  <ul class="collapse">
+  <li><a href="#sokal-michener" id="toc-sokal-michener" class="nav-link" data-scroll-target="#sokal-michener"><span class="header-section-number">4.5.1</span> Sokal-Michener</a></li>
+  <li><a href="#jaccard" id="toc-jaccard" class="nav-link" data-scroll-target="#jaccard"><span class="header-section-number">4.5.2</span> Jaccard</a></li>
+  <li><a href="#esempio" id="toc-esempio" class="nav-link" data-scroll-target="#esempio"><span class="header-section-number">4.5.3</span> Esempio</a></li>
+  </ul></li>
+  <li><a href="#sec-ari" id="toc-sec-ari" class="nav-link" data-scroll-target="#sec-ari"><span class="header-section-number">4.6</span> Adjusted Rand Index (ARI)</a>
+  <ul class="collapse">
+  <li><a href="#esempio-di-calcolo" id="toc-esempio-di-calcolo" class="nav-link" data-scroll-target="#esempio-di-calcolo"><span class="header-section-number">4.6.1</span> Esempio di calcolo</a></li>
+  </ul></li>
+  <li><a href="#rmsstd-una-misura-di-compattezza-dei-cluster" id="toc-rmsstd-una-misura-di-compattezza-dei-cluster" class="nav-link" data-scroll-target="#rmsstd-una-misura-di-compattezza-dei-cluster"><span class="header-section-number">4.7</span> RMSSTD: una misura di compattezza dei cluster</a>
+  <ul class="collapse">
+  <li><a href="#esempio-numerico" id="toc-esempio-numerico" class="nav-link" data-scroll-target="#esempio-numerico"><span class="header-section-number">4.7.1</span> Esempio numerico</a></li>
+  <li><a href="#andamento-al-variare-di-k-e-confronto-con-lr2" id="toc-andamento-al-variare-di-k-e-confronto-con-lr2" class="nav-link" data-scroll-target="#andamento-al-variare-di-k-e-confronto-con-lr2"><span class="header-section-number">4.7.2</span> Andamento al variare di <span class="math inline">\(k\)</span> e confronto con l’<span class="math inline">\(R^2\)</span></a></li>
+  </ul></li>
+  <li><a href="#i-cinque-metodi-di-agglomerazione" id="toc-i-cinque-metodi-di-agglomerazione" class="nav-link" data-scroll-target="#i-cinque-metodi-di-agglomerazione"><span class="header-section-number">4.8</span> I cinque metodi di agglomerazione</a>
+  <ul class="collapse">
+  <li><a href="#sec-forme-dendrogrammi" id="toc-sec-forme-dendrogrammi" class="nav-link" data-scroll-target="#sec-forme-dendrogrammi"><span class="header-section-number">4.8.1</span> Che forma prende il dendrogramma</a></li>
+  </ul></li>
+  <li><a href="#sec-scelta-k" id="toc-sec-scelta-k" class="nav-link" data-scroll-target="#sec-scelta-k"><span class="header-section-number">4.9</span> Scelta del numero di cluster</a></li>
+  <li><a href="#limiti-del-clustering-gerarchico" id="toc-limiti-del-clustering-gerarchico" class="nav-link" data-scroll-target="#limiti-del-clustering-gerarchico"><span class="header-section-number">4.10</span> Limiti del clustering gerarchico</a></li>
+  <li><a href="#sec-kmedie" id="toc-sec-kmedie" class="nav-link" data-scroll-target="#sec-kmedie"><span class="header-section-number">4.11</span> Approccio non gerarchico: le k-medie</a>
+  <ul class="collapse">
+  <li><a href="#lobiettivo" id="toc-lobiettivo" class="nav-link" data-scroll-target="#lobiettivo"><span class="header-section-number">4.11.1</span> L’obiettivo</a></li>
+  <li><a href="#lalgoritmo" id="toc-lalgoritmo" class="nav-link" data-scroll-target="#lalgoritmo"><span class="header-section-number">4.11.2</span> L’algoritmo</a></li>
+  <li><a href="#il-punto-debole-il-minimo-è-locale" id="toc-il-punto-debole-il-minimo-è-locale" class="nav-link" data-scroll-target="#il-punto-debole-il-minimo-è-locale"><span class="header-section-number">4.11.3</span> Il punto debole: il minimo è locale</a></li>
+  <li><a href="#che-cosa-presuppone" id="toc-che-cosa-presuppone" class="nav-link" data-scroll-target="#che-cosa-presuppone"><span class="header-section-number">4.11.4</span> Che cosa presuppone</a></li>
+  </ul></li>
+  <li><a href="#sec-confronto-approcci" id="toc-sec-confronto-approcci" class="nav-link" data-scroll-target="#sec-confronto-approcci"><span class="header-section-number">4.12</span> Gerarchico o non gerarchico?</a></li>
+  <li><a href="#bibliografia-di-riferimento" id="toc-bibliografia-di-riferimento" class="nav-link" data-scroll-target="#bibliografia-di-riferimento"><span class="header-section-number">4.13</span> Bibliografia di riferimento</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./T-01-introduzione.html">Parte I — Approfondimenti teorici</a></li><li class="breadcrumb-item"><a href="./T-04-cluster-analysis.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>L’obiettivo della <strong>cluster analysis</strong> è dividere un insieme di unità in gruppi (cluster) tali che le unità dello stesso gruppo siano fra loro <strong>simili</strong> e diverse dalle unità degli altri gruppi. È lo strumento centrale per la <strong>segmentazione di mercato</strong>.</p>
+<p>I metodi si dividono in due famiglie. Quelli <strong>gerarchici</strong> costruiscono una sequenza di partizioni annidate, dalla più fine alla più grossolana, e lasciano la scelta di <span class="math inline">\(k\)</span> alla fine; quelli <strong>non gerarchici</strong> (o <em>partitivi</em>) prendono <span class="math inline">\(k\)</span> come dato di partenza e cercano direttamente la migliore partizione in <span class="math inline">\(k\)</span> gruppi. La parte pratica del corso usa la prima famiglia, che è quella implementata in <code>AnalisiMercato</code>; la seconda è descritta più avanti (<a href="#sec-kmedie" class="quarto-xref"><span>Sezione 4.11</span></a>) perché serve a capire quando l’approccio gerarchico non basta, e il confronto fra le due chiude il capitolo (<a href="#sec-confronto-approcci" class="quarto-xref"><span>Sezione 4.12</span></a>).</p>
+<section id="approccio-gerarchico-agglomerativo" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="approccio-gerarchico-agglomerativo"><span class="header-section-number">4.1</span> Approccio gerarchico agglomerativo</h2>
+<p>La versione <strong>gerarchica agglomerativa</strong> procede così: a ogni passo si fondono i due cluster più “vicini” finché tutte le unità sono in un unico cluster. Il risultato è un <strong>dendrogramma</strong> che si “taglia” a un’altezza scelta per ottenere <span class="math inline">\(k\)</span> gruppi.</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A["1. Scelta della distanza&lt;br/&gt;d(x,y)"] --&gt; B["2. Scelta del metodo&lt;br/&gt;di agglomerazione"]
+    B --&gt; C["3. Costruzione del&lt;br/&gt;dendrogramma"]
+    C --&gt; D["4. Scelta di k"]
+    D --&gt; E["5. Caratterizzazione&lt;br/&gt;dei cluster"]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>La <a href="#fig-agglomerazione" class="quarto-xref">Figura&nbsp;<span>4.1</span></a> mostra la procedura su otto unità. Si parte con otto gruppi di una sola unità ciascuno; a ogni passo si cerca la coppia di gruppi più vicina e la si fonde in un gruppo solo, e la distanza a cui la fusione avviene diventa l’<strong>altezza</strong> a cui i due rami si uniscono nel dendrogramma. Le prime fusioni riguardano unità quasi sovrapposte e avvengono quindi ad altezze piccole; le ultime uniscono gruppi ormai lontani e avvengono in alto. Tagliare il dendrogramma a una certa altezza equivale a interrompere l’agglomerazione appena prima della fusione successiva: il numero di rami intersecati dal taglio è il numero <span class="math inline">\(k\)</span> di gruppi che si ottiene.</p>
+<div id="fig-agglomerazione" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-agglomerazione-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/agglomerazione-passo-passo.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-agglomerazione-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.1: L’agglomerazione su otto unità. <strong>In alto</strong>, tre istantanee della procedura: al passo 0 ogni unità è un gruppo a sé (in grigio); dopo due fusioni si sono formati i gruppi <span class="math inline">\(\{A,B\}\)</span> e <span class="math inline">\(\{D,E\}\)</span>; dopo cinque fusioni restano tre gruppi. <strong>In basso</strong>, il dendrogramma corrispondente, con i due tagli (linee tratteggiate) che riproducono gli stati mostrati sopra.
+</figcaption>
+</figure>
+</div>
+<p>Nel dendrogramma della <a href="#fig-agglomerazione" class="quarto-xref">Figura&nbsp;<span>4.1</span></a> il taglio a tre gruppi cade in un intervallo di altezze molto ampio: da 1,07 a 3,53 non avviene alcuna fusione. È il segnale che quella partizione è netta: i tre gruppi restano gli stessi per un lungo tratto dell’agglomerazione.</p>
+</section>
+<section id="distanze-euclidea-o-manhattan" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="distanze-euclidea-o-manhattan"><span class="header-section-number">4.2</span> Distanze: Euclidea o Manhattan?</h2>
+<p>La scelta della metrica di distanza dipende dal contesto, dalla natura dei dati e dall’obiettivo dell’analisi.</p>
+<div id="fig-eu-man" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-eu-man-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/euclidea-vs-manhattan.png" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-eu-man-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.2: Le due distanze, applicate agli stessi due punti A e B. L’Euclidea è la lunghezza del segmento “in linea retta” fra A e B (teorema di Pitagora). La Manhattan è la somma degli spostamenti orizzontale e verticale: equivale al numero di “isolati” da percorrere in una griglia stradale (da cui il nome). Esistono infiniti percorsi a gradini diversi, tutti con la stessa lunghezza Manhattan.
+</figcaption>
+</figure>
+</div>
+<section id="distanza-euclidea" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="distanza-euclidea"><span class="header-section-number">4.2.1</span> Distanza Euclidea</h3>
+<p>Due osservazioni <span class="math inline">\(\mathbf{x} = (x_1, \dots, x_p)\)</span> e <span class="math inline">\(\mathbf{y} = (y_1, \dots, y_p)\)</span> sono descritte dalle stesse <span class="math inline">\(p\)</span> variabili, ed è su quelle <span class="math inline">\(p\)</span> variabili che si calcola la distanza:</p>
+<p><span class="math display">\[
+d_E(\mathbf{x}, \mathbf{y}) = \sqrt{\sum_{j=1}^p (x_j - y_j)^2}
+\]</span></p>
+<p>È la misura geometrica “diretta” della distanza tra due punti.</p>
+<p><strong>Quando usarla:</strong></p>
+<ol type="1">
+<li><strong>Dati continui</strong> rappresentanti quantità misurabili su scale continue (lunghezza, peso, temperatura).</li>
+<li><strong>Scale confrontabili</strong>: se le variabili hanno unità di misura o dispersioni molto diverse, conviene standardizzarle prima di calcolare la distanza. Attenzione però: la standardizzazione rende confrontabili le scale, <strong>non</strong> elimina la correlazione fra le variabili — di quella si occupa la Mahalanobis, più avanti.</li>
+<li><strong>Gruppi compatti e «tondi»</strong>: è la scelta standard quando ci si attende gruppi raccolti attorno al proprio centro. Per la distanza euclidea uno scostamento conta allo stesso modo in qualunque direzione: i punti che stanno a una data distanza da un centro formano un cerchio (una sfera, con tre o più variabili). Per questo funziona meglio con gruppi tondi che con gruppi allungati lungo una diagonale, come quelli che si formano quando le variabili sono molto correlate fra loro.</li>
+</ol>
+<p><strong>Limitazioni:</strong></p>
+<ul>
+<li>Sensibile alle scale diverse (richiede standardizzazione).</li>
+<li>Influenza forte degli outlier: il quadrato amplifica i punti lontani.</li>
+</ul>
+</section>
+<section id="distanza-di-manhattan" class="level3" data-number="4.2.2">
+<h3 data-number="4.2.2" class="anchored" data-anchor-id="distanza-di-manhattan"><span class="header-section-number">4.2.2</span> Distanza di Manhattan</h3>
+<p><span class="math display">\[
+d_M(\mathbf{x}, \mathbf{y}) = \sum_{j=1}^p |x_j - y_j|
+\]</span></p>
+<p>Detta anche <em>distanza city block</em> o <em>del taxi</em>, somma le differenze assolute lungo ogni dimensione.</p>
+<p><strong>Quando usarla:</strong></p>
+<ol type="1">
+<li><strong>Variabili quantitative</strong> quando una distanza <span class="math inline">\(L_1\)</span> è appropriata, <strong>conteggi</strong> e variabili quantitative discrete; eventualmente <strong>variabili ordinali trattate come scale a intervalli</strong>, cioè quando è ragionevole considerare equidistanti le modalità (per esempio una scala di accordo da 1 a 5). Non è invece appropriato applicarla a una <strong>nominale</strong> sostituendo le categorie con numeri arbitrari: quei codici introdurrebbero distanze che nel fenomeno non esistono (per le nominali ci sono Gower e le distanze di matching, più avanti).</li>
+<li><strong>Cluster rettangolari</strong> in modelli a griglia o in spazi discreti.</li>
+<li><strong>Molte variabili</strong>: quando le variabili sono tante (decine o più), le distanze fra le osservazioni tendono a diventare tutte simili. L’osservazione più vicina e quella più lontana finiscono quasi alla stessa distanza, e i gruppi si distinguono a fatica: è il fenomeno chiamato <strong>maledizione della dimensionalità</strong>. In alcuni casi la Manhattan conserva un po’ più di differenza fra distanze piccole e grandi rispetto all’Euclidea, ma non risolve il problema: anche con lei le distanze si avvicinano fra loro al crescere del numero di variabili <span class="math inline">\(p\)</span>.</li>
+<li><strong>Dati con outlier</strong>: meno influenzata da valori estremi (non amplifica col quadrato).</li>
+</ol>
+<p><strong>Limitazioni:</strong></p>
+<ul>
+<li>Come l’Euclidea, dipende dalle unità di misura: con variabili su scale diverse vanno prima standardizzate.</li>
+<li>Il risultato dipende dall’orientamento degli assi e da come le variabili sono state rappresentate: funziona bene quando le direzioni delle coordinate hanno un significato proprio.</li>
+<li>Non si abbina bene ai metodi di Ward e del centroide, che ragionano in termini di devianza e quindi di geometria euclidea: il dendrogramma si calcola comunque, ma il criterio perde la sua interpretazione (<a href="./P-17-distanze-agglomerazione.html">§ P-17</a>).</li>
+</ul>
+</section>
+<section id="confronto-diretto" class="level3" data-number="4.2.3">
+<h3 data-number="4.2.3" class="anchored" data-anchor-id="confronto-diretto"><span class="header-section-number">4.2.3</span> Confronto diretto</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 32%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Criterio</th>
+<th>Euclidea</th>
+<th>Manhattan</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Formula</strong></td>
+<td><span class="math inline">\(\sqrt{\sum (x_i - y_i)^2}\)</span></td>
+<td><span class="math inline">\(\sum |x_i - y_i|\)</span></td>
+</tr>
+<tr class="even">
+<td><strong>Quando</strong></td>
+<td>Quantitative su scale confrontabili, gruppi compatti</td>
+<td>Conteggi e discrete, ordinali trattate come scale a intervalli, molte variabili</td>
+</tr>
+<tr class="odd">
+<td><strong>Outlier</strong></td>
+<td>Molto sensibile</td>
+<td>Meno sensibile</td>
+</tr>
+<tr class="even">
+<td><strong>Molte variabili</strong></td>
+<td>Le distanze diventano tutte simili</td>
+<td>Distingue un po’ meglio, ma ha lo stesso problema</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="il-problema-delle-correlazioni-e-mahalanobis" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="il-problema-delle-correlazioni-e-mahalanobis"><span class="header-section-number">4.3</span> Il problema delle correlazioni e Mahalanobis</h2>
+<p>Ignorare le correlazioni tra variabili (come fa l’Euclidea) può portare a problemi significativi.</p>
+<div id="fig-mahalanobis" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-mahalanobis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/mahalanobis-vs-euclidea.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-mahalanobis-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.3: Stessa nuvola di dati (variabili correlate, <span class="math inline">\(\rho = 0{,}85\)</span>), due punti P1 e P2 alla <strong>stessa distanza Euclidea</strong> dall’origine (<span class="math inline">\(2{,}83\)</span>). L’Euclidea (cerchio blu tratteggiato) li considera equivalenti. La Mahalanobis (ellisse rossa) “segue” la forma della nuvola: P1, che cade lungo la direzione naturale dei dati, ha distanza <span class="math inline">\(2{,}08\)</span> (appena oltre il bordo dell’ellisse, che segna la distanza 2: è quindi ancora compatibile con la nuvola); P2, ortogonale alla nuvola, ha distanza <span class="math inline">\(7{,}30\)</span> (molto più lontano, quindi outlier). L’Euclidea non vedrebbe questa differenza.
+</figcaption>
+</figure>
+</div>
+<section id="sovrastima-o-sottostima-delle-distanze" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="sovrastima-o-sottostima-delle-distanze"><span class="header-section-number">4.3.1</span> Sovrastima o sottostima delle distanze</h3>
+<p>Se due variabili sono correlate, non apportano informazioni del tutto indipendenti. Calcolare la distanza ignorando queste correlazioni può portare a:</p>
+<ul>
+<li><strong>Sovrastima</strong>: variabili correlate contribuiscono come se fossero indipendenti, amplificando inutilmente la distanza.</li>
+<li><strong>Sottostima</strong>: un punto che si scosta in direzione contraria alla correlazione (come P2 nella <a href="#fig-mahalanobis" class="quarto-xref">Figura&nbsp;<span>4.3</span></a>) risulta, per l’Euclidea, lontano quanto uno che segue la direzione naturale dei dati (P1), mentre è molto più anomalo.</li>
+</ul>
+<p><strong>Esempio.</strong> Altezza e peso sono correlati positivamente. L’Euclidea li considera dimensioni indipendenti: un cambiamento su entrambe può apparire più “lontano” di quanto sia realmente.</p>
+</section>
+<section id="cluster-distorti" class="level3" data-number="4.3.2">
+<h3 data-number="4.3.2" class="anchored" data-anchor-id="cluster-distorti"><span class="header-section-number">4.3.2</span> Cluster distorti</h3>
+<p>La distanza euclidea tratta tutte le direzioni dello spazio (standardizzato) allo stesso modo. Di conseguenza i metodi costruiti su centroidi e somme dei quadrati euclidee tendono a favorire gruppi <strong>compatti e approssimativamente sferici</strong>, mentre con variabili fortemente correlate i gruppi hanno spesso forma <strong>ellittica</strong>: le separazioni che ne risultano possono essere sbagliate. L’Euclidea in sé non è un modello probabilistico e non <em>assume</em> letteralmente una distribuzione sferica; è il criterio di raggruppamento, applicato con quella geometria, a comportarsi così.</p>
+</section>
+<section id="peso-sbilanciato-delle-variabili" class="level3" data-number="4.3.3">
+<h3 data-number="4.3.3" class="anchored" data-anchor-id="peso-sbilanciato-delle-variabili"><span class="header-section-number">4.3.3</span> Peso sbilanciato delle variabili</h3>
+<p>La distanza euclidea somma i contributi delle singole variabili come se ognuna portasse un’informazione a sé. Se più variabili misurano in pratica la stessa cosa, quella cosa entra nel conto più volte.</p>
+<p><strong>Esempio.</strong> Un questionario ha tre domande sulla sensibilità al prezzo, fortemente correlate fra loro, e una sola sulla qualità. Due clienti che differiscono di un punto nell’atteggiamento verso il prezzo differiscono di circa un punto su tutte e tre le domande, e la loro distanza vale <span class="math inline">\(\sqrt{1^2 + 1^2 + 1^2} \approx 1{,}73\)</span>. Due clienti che differiscono di un punto sulla qualità distano invece 1. Il prezzo pesa quasi il doppio solo perché è misurato da più domande, e la qualità, misurata da una sola, risulta sottorappresentata.</p>
+<p>La standardizzazione non corregge questo squilibrio: rende uguali le varianze delle singole variabili, non il numero di variabili dedicate a ciascun aspetto. I rimedi sono scegliere la base della segmentazione evitando variabili ridondanti, riassumere quelle che misurano lo stesso aspetto in un indice, oppure usare una distanza che tenga conto delle correlazioni, come la Mahalanobis.</p>
+</section>
+<section id="outlier-multivariati-nascosti" class="level3" data-number="4.3.4">
+<h3 data-number="4.3.4" class="anchored" data-anchor-id="outlier-multivariati-nascosti"><span class="header-section-number">4.3.4</span> Outlier multivariati nascosti</h3>
+<p>Un punto può risultare anomalo rispetto alla <strong>struttura congiunta</strong> delle variabili pur non avendo valori estremi su nessuna singola coordinata. Una distanza euclidea dal centroide può non evidenziarlo, perché non tiene conto della struttura di covarianza; la Mahalanobis misura invece quanto quel punto sia anomalo rispetto alla geometria complessiva della distribuzione.</p>
+</section>
+<section id="distanza-di-mahalanobis-la-soluzione" class="level3" data-number="4.3.5">
+<h3 data-number="4.3.5" class="anchored" data-anchor-id="distanza-di-mahalanobis-la-soluzione"><span class="header-section-number">4.3.5</span> Distanza di Mahalanobis: la soluzione</h3>
+<p><span class="math display">\[
+d_{\text{Mah}}(\mathbf{x}, \mathbf{y}) = \sqrt{(\mathbf{x}-\mathbf{y})^\top \Sigma^{-1} (\mathbf{x}-\mathbf{y})}
+\]</span></p>
+<p>dove <span class="math inline">\(\Sigma\)</span> è la matrice di covarianza delle variabili. In pratica <span class="math inline">\(\Sigma\)</span> si stima dai dati, e la distanza è affidabile solo quanto quella stima: la matrice deve essere invertibile (niente variabili collineari, più osservazioni che variabili) e pochi outlier bastano a deformarla, e con essa tutte le distanze. Inoltre la Mahalanobis standardizza gli scostamenti lungo le direzioni principali della covarianza: dà quindi più peso agli scostamenti lungo le direzioni di bassa varianza, che possono contenere soprattutto rumore e rendere la misura instabile.</p>
+<p>La Mahalanobis:</p>
+<ol type="1">
+<li><strong>Tiene conto della correlazione</strong> fra variabili (usa <span class="math inline">\(\Sigma\)</span>).</li>
+<li><strong>Normalizza scale e varianze</strong> automaticamente.</li>
+<li><strong>Identifica outlier multivariati</strong>.</li>
+</ol>
+<p><strong>Torniamo all’esempio del prezzo.</strong> Supponiamo per semplicità che le quattro domande abbiano varianza 1, che le tre sul prezzo siano correlate fra loro con <span class="math inline">\(r = 0{,}8\)</span> e che quella sulla qualità non sia correlata con le altre. Le tre domande sul prezzo si muovono quasi sempre insieme: nei dati la direzione in cui crescono tutte e tre ha una varianza molto grande, perché somma tre variabili che vanno d’accordo. La Mahalanobis misura ogni spostamento in rapporto alla variabilità dei dati in quella direzione, e quindi tratta lo spostamento di un punto su tutte e tre le domande come un solo cambiamento di atteggiamento verso il prezzo. I due clienti che con l’Euclidea distavano 1,73 ora distano 1,07, quasi quanto i due che differiscono di un punto sulla qualità, che restano a distanza 1: il prezzo torna a contare circa una volta sola. Con correlazione perfetta le due distanze coinciderebbero.</p>
+<p>Il rovescio della medaglia è quello già detto sopra. Uno spostamento <em>contro</em> la correlazione, per esempio un punto in più su una sola delle tre domande sul prezzo, nei dati è raro, e la Mahalanobis lo considera grande (1,86), anche quando è soltanto un’incoerenza nelle risposte. Per questo dà molto peso alle direzioni di bassa varianza, che possono contenere soprattutto rumore.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Quando ignorare le correlazioni è accettabile
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Variabili indipendenti o quasi indipendenti.</li>
+<li>Correlazioni trascurabili o rimosse via pre-processing.</li>
+<li>Contesti in cui la semplicità computazionale è prioritaria.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-gower" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="sec-gower"><span class="header-section-number">4.4</span> Distanza di Gower per dati misti</h2>
+<p>Euclidea, Manhattan e Mahalanobis richiedono tutte variabili quantitative. Nelle segmentazioni di mercato, però, la base contiene spesso insieme spesa e area geografica, età e tipo di cliente: variabili quantitative, ordinali e nominali nello stesso dataset. La <strong>distanza di Gower</strong> <span class="citation" data-cites="gower1971general">(<a href="references.html#ref-gower1971general" role="doc-biblioref">Gower 1971</a>)</span> serve esattamente a questo caso.</p>
+<p>L’idea è calcolare una dissimilarità <strong>variabile per variabile</strong>, ciascuna con la regola adatta al proprio tipo e riportata su una scala comune <span class="math inline">\([0,1]\)</span>, e poi combinarle in una media pesata. Per due unità <span class="math inline">\(i\)</span> e <span class="math inline">\(l\)</span>:</p>
+<p><span class="math display">\[
+d_G(i, l) = \frac{\sum_j w_{il}^{(j)} \, d_{il}^{(j)}}{\sum_j w_{il}^{(j)}}
+\]</span></p>
+<p>dove <span class="math inline">\(d_{il}^{(j)} \in [0,1]\)</span> è la dissimilarità sulla variabile <span class="math inline">\(j\)</span> e <span class="math inline">\(w_{il}^{(j)}\)</span> il peso con cui entra nella media. Il peso vale 1 se le due unità si possono confrontare sulla variabile <span class="math inline">\(j\)</span> e 0 altrimenti: quando il dato manca in una delle due, oppure quando la variabile è una binaria di presenza/assenza e l’attributo manca in entrambe (<strong>co-assenza</strong>). Il modulo elimina già prima del calcolo le unità con almeno un valore mancante nelle variabili della base, quindi nelle sue analisi un peso vale 0 solo per una co-assenza. Il contributo della singola variabile è:</p>
+<ul>
+<li><strong>quantitativa</strong>: la differenza assoluta divisa per il campo di variazione della variabile, <span class="math inline">\(d_j = |x_j - y_j| / R_j\)</span>, con <span class="math inline">\(R_j = \max_j - \min_j\)</span> calcolato su tutte le unità;</li>
+<li><strong>nominale</strong>: <span class="math inline">\(d_j = 0\)</span> se le due unità hanno la stessa modalità, <span class="math inline">\(d_j = 1\)</span> altrimenti (è il <em>simple matching</em>, cioè l’indice di Sokal-Michener della sezione successiva). Vale anche per una variabile a due modalità entrambe informative, come il sesso;</li>
+<li><strong>binaria di presenza/assenza</strong> (possiede un’auto elettrica, ha acquistato il prodotto): <span class="math inline">\(d_j = 0\)</span> se l’attributo è presente in entrambe le unità (<strong>co-presenza</strong>), <span class="math inline">\(d_j = 1\)</span> se è presente in una sola; la co-assenza non entra nel confronto (peso 0), come nell’indice di Jaccard;</li>
+<li><strong>ordinale</strong>: la modalità viene sostituita dal proprio rango e trattata come una quantitativa.</li>
+</ul>
+<p>La co-assenza resta fuori perché dice poco: che due clienti non possiedano un’auto elettrica non li rende simili, e se contasse come un accordo due unità risulterebbero vicine per tutto ciò che non hanno. Quale binaria sia di presenza/assenza e quale abbia due modalità entrambe informative non si capisce dai dati: lo decide chi fa l’analisi. Nel modulo le binarie di presenza/assenza vanno nella casella <em>Binarie di presenza/assenza</em>, codificate 0/1 (<a href="./P-17-distanze-agglomerazione.html">§ P-17</a>); le altre restano nella base della segmentazione.</p>
+<p>La <a href="#fig-gower" class="quarto-xref">Figura&nbsp;<span>4.4</span></a> segue il calcolo su due clienti descritti da cinque variabili di tre tipi diversi. Ogni variabile produce il proprio numero fra 0 e 1 con la regola del proprio tipo — e sono numeri che restano confrontabili fra loro proprio perché ciascuno è stato riportato sulla stessa scala. Le due unità dell’esempio abitano nella stessa area (dissimilarità 0) ma appartengono a tipi diversi (dissimilarità 1), differiscono di poco per età (0,18) e molto per spesa (0,53), e stanno a un solo gradino di distanza sui tre livelli della frequenza d’acquisto (0,50). La distanza di Gower è la media di questi cinque contributi.</p>
+<div id="fig-gower" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-gower-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/gower-dati-misti.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-gower-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.4: Il calcolo della distanza di Gower fra due clienti. A sinistra i valori osservati; a destra la dissimilarità parziale di ciascuna variabile, con la regola applicata. La linea verticale rossa è la loro media, cioè la distanza di Gower fra le due unità: qui 0,44 su una scala che va da 0 (unità identiche su tutte le variabili) a 1 (massima differenza possibile su tutte).
+</figcaption>
+</figure>
+</div>
+<p>Il vantaggio è evidente: si lavora direttamente su dati misti senza trasformare arbitrariamente tutto in numerico. Restano due cautele. La prima: la divisione per il campo di variazione è già una normalizzazione, quindi <strong>standardizzare le variabili prima di usare Gower non serve</strong>: con questa distanza la casella <em>Standardizza le variabili</em> del modulo non ha alcun effetto. La seconda: ogni variabile contribuisce secondo la propria normalizzazione e il proprio peso, quindi la composizione della base conta, ed è il significato sostantivo delle variabili a dover guidare la scelta della metrica e di eventuali pesi. Se si inseriscono otto item Likert sullo stesso atteggiamento e una sola variabile di spesa, la distanza sarà governata dagli atteggiamenti, non perché siano più importanti ma perché sono più numerosi.</p>
+<p>Gower è l’unica metrica del modulo adatta ai dataset misti: è il motivo per cui la base della segmentazione accetta anche variabili categoriali (<a href="./P-17-distanze-agglomerazione.html">§ P-17</a>). Va ricordato però che gli indici basati sulla devianza rispetto ai centroidi — <span class="math inline">\(R^2\)</span>, deviazione standard media dei gruppi (RMSSTD, <em>Root-Mean-Square Standard Deviation</em>), indice di Caliński-Harabasz (CH) — non sono definiti su una base non interamente quantitativa: per la scelta di <span class="math inline">\(k\)</span> restano il dendrogramma e il Delta G.</p>
+</section>
+<section id="indici-di-similarità-per-dati-binari-sokal-michener-vs-jaccard" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="indici-di-similarità-per-dati-binari-sokal-michener-vs-jaccard"><span class="header-section-number">4.5</span> Indici di similarità per dati binari: Sokal-Michener vs Jaccard</h2>
+<p>Per dati binari (presenza/assenza, sì/no codificato 0/1) si ricorre a indici di similarità specifici.</p>
+<div id="fig-sokal-jaccard" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-sokal-jaccard-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/sokal-jaccard-schema.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-sokal-jaccard-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.5: Confronto fra due profili binari di lunghezza 8 (sopra). Per ogni posizione si classifica il tipo di concordanza: <span class="math inline">\((1,1)\)</span> verde = “entrambi presenti”, <span class="math inline">\((0,0)\)</span> blu = “entrambi assenti”, <span class="math inline">\((1,0)\)</span> o <span class="math inline">\((0,1)\)</span> rosso = “discordanze”. I conteggi (sotto) entrano nelle due formule: Sokal-Michener conta entrambi gli accordi (positivi + negativi), Jaccard conta solo gli accordi positivi.
+</figcaption>
+</figure>
+</div>
+<section id="sokal-michener" class="level3" data-number="4.5.1">
+<h3 data-number="4.5.1" class="anchored" data-anchor-id="sokal-michener"><span class="header-section-number">4.5.1</span> Sokal-Michener</h3>
+<p><span class="math display">\[
+S_{\text{SM}} = \frac{a + d}{a + b + c + d}
+\]</span></p>
+<p>dove <span class="math inline">\(a\)</span> = coppie (1,1), <span class="math inline">\(d\)</span> = coppie (0,0), <span class="math inline">\(b\)</span> = coppie (1,0), <span class="math inline">\(c\)</span> = coppie (0,1), e il pedice SM sta per Sokal-Michener.</p>
+<p><strong>Quando:</strong> sia gli accordi positivi (1,1) sia quelli negativi (0,0) sono rilevanti. Tipico nei questionari con risposte binarie, dove “no” condivisi sono informativi quanto “sì” condivisi.</p>
+</section>
+<section id="jaccard" class="level3" data-number="4.5.2">
+<h3 data-number="4.5.2" class="anchored" data-anchor-id="jaccard"><span class="header-section-number">4.5.2</span> Jaccard</h3>
+<p><span class="math display">\[
+S_J = \frac{a}{a + b + c}
+\]</span></p>
+<p>Ignora le coppie (0,0).</p>
+<p><strong>Quando:</strong> dati di presenza/assenza dove gli “zero” condivisi non sono informativi. Tipico in matrici sparse (es. presenza di specie in habitat, item acquistati).</p>
+</section>
+<section id="esempio" class="level3" data-number="4.5.3">
+<h3 data-number="4.5.3" class="anchored" data-anchor-id="esempio"><span class="header-section-number">4.5.3</span> Esempio</h3>
+<p>Due profili: <span class="math inline">\([1, 0, 1, 1, 0]\)</span> e <span class="math inline">\([1, 0, 1, 0, 0]\)</span>.</p>
+<ul>
+<li><span class="math inline">\(a = 2\)</span> (posizioni 1 e 3), <span class="math inline">\(d = 2\)</span> (posizioni 2 e 5), <span class="math inline">\(b = 1\)</span> (posizione 4), <span class="math inline">\(c = 0\)</span>.</li>
+<li><span class="math inline">\(S_{\text{SM}} = (2+2)/5 = 0{,}80\)</span>.</li>
+<li><span class="math inline">\(S_J = 2/(2+1+0) = 0{,}67\)</span>.</li>
+</ul>
+<p>Jaccard è più “severa” perché non considera l’accordo sugli zeri.</p>
+</section>
+</section>
+<section id="sec-ari" class="level2" data-number="4.6">
+<h2 data-number="4.6" class="anchored" data-anchor-id="sec-ari"><span class="header-section-number">4.6</span> Adjusted Rand Index (ARI)</h2>
+<p>L’<strong>indice di Rand</strong> (RI, <em>Rand Index</em>) valuta la percentuale di coppie classificate in modo consistente in due partizioni:</p>
+<p><span class="math display">\[
+\text{RI} = \frac{a + d}{\binom{n}{2}}
+\]</span></p>
+<p>dove <span class="math inline">\(a\)</span> = coppie nello stesso cluster in entrambe, <span class="math inline">\(d\)</span> = coppie in cluster diversi in entrambe.</p>
+<p><strong>Limite:</strong> tende a dare punteggi alti anche per partizioni casuali, soprattutto con molti cluster.</p>
+<p>L’<strong>indice di Rand corretto</strong> (ARI, <em>Adjusted Rand Index</em>) corregge il RI considerando il caso atteso di partizioni casuali:</p>
+<p><span class="math display">\[
+\text{ARI} = \frac{\text{RI} - \mathbb{E}[\text{RI}]}{\max(\text{RI}) - \mathbb{E}[\text{RI}]}
+\]</span></p>
+<p>La forma operativa che si usa per il calcolo concreto, a partire dalla tabella di contingenza fra le due partizioni, è:</p>
+<p><span class="math display">\[
+\text{ARI} = \frac{\displaystyle \sum_{ij}\binom{n_{ij}}{2} - \frac{\left[\sum_i \binom{a_i}{2}\right]\left[\sum_j \binom{b_j}{2}\right]}{\binom{n}{2}}}
+{\displaystyle \frac{1}{2}\left[\sum_i \binom{a_i}{2} + \sum_j \binom{b_j}{2}\right] - \frac{\left[\sum_i \binom{a_i}{2}\right]\left[\sum_j \binom{b_j}{2}\right]}{\binom{n}{2}}}
+\]</span></p>
+<p>dove <span class="math inline">\(n_{ij}\)</span> è il numero di osservazioni che cadono nel cluster <span class="math inline">\(i\)</span> della partizione 1 e nel cluster <span class="math inline">\(j\)</span> della partizione 2, <span class="math inline">\(a_i = \sum_j n_{ij}\)</span> (totale di riga) e <span class="math inline">\(b_j = \sum_i n_{ij}\)</span> (totale di colonna).</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Valore ARI</th>
+<th>Significato</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Partizioni identiche</td>
+</tr>
+<tr class="even">
+<td>≈ 0</td>
+<td>Concordanza casuale (irrilevante)</td>
+</tr>
+<tr class="odd">
+<td>&lt; 0</td>
+<td>Concordanza peggiore del caso (rarissimo)</td>
+</tr>
+</tbody>
+</table>
+<section id="esempio-di-calcolo" class="level3" data-number="4.6.1">
+<h3 data-number="4.6.1" class="anchored" data-anchor-id="esempio-di-calcolo"><span class="header-section-number">4.6.1</span> Esempio di calcolo</h3>
+<p>L’idea operativa dell’ARI è: per ogni <strong>coppia</strong> di osservazioni si guarda se cadono nello <strong>stesso cluster</strong> (1) o in cluster <strong>diversi</strong> (0), separatamente nelle due partizioni. Poi si contano le <strong>concordanze</strong> (entrambi 0 o entrambi 1).</p>
+<p>Consideriamo <span class="math inline">\(n = 6\)</span> osservazioni numerate da 1 a 6 e due partizioni:</p>
+<ul>
+<li><strong>Partizione P1</strong>: <span class="math inline">\(\{1, 2, 3\}\)</span> e <span class="math inline">\(\{4, 5, 6\}\)</span> — due cluster da 3 osservazioni.</li>
+<li><strong>Partizione P2</strong>: <span class="math inline">\(\{1, 2, 3\}\)</span>, <span class="math inline">\(\{4, 5\}\)</span>, <span class="math inline">\(\{6\}\)</span> — il primo cluster coincide con P1, il secondo si è “spezzato” in due.</li>
+</ul>
+<section id="passo-1-matrice-66-degli-indicatori-per-coppia" class="level4" data-number="4.6.1.1">
+<h4 data-number="4.6.1.1" class="anchored" data-anchor-id="passo-1-matrice-66-degli-indicatori-per-coppia"><span class="header-section-number">4.6.1.1</span> Passo 1 — Matrice 6×6 degli indicatori per coppia</h4>
+<p>Costruiamo una matrice <span class="math inline">\(6 \times 6\)</span> in cui ogni cella <span class="math inline">\((i, j)\)</span> con <span class="math inline">\(i \neq j\)</span> dice se le osservazioni <span class="math inline">\(i\)</span> e <span class="math inline">\(j\)</span> sono nello <strong>stesso cluster</strong> (1) o no (0). Per risparmiare spazio mettiamo nella <strong>stessa</strong> tabella entrambe le partizioni: il <strong>triangolo superiore</strong> (cella con <span class="math inline">\(i &lt; j\)</span>) per P1, il <strong>triangolo inferiore</strong> (<span class="math inline">\(i &gt; j\)</span>) per P2.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th style="text-align: center;"><strong>1</strong></th>
+<th style="text-align: center;"><strong>2</strong></th>
+<th style="text-align: center;"><strong>3</strong></th>
+<th style="text-align: center;"><strong>4</strong></th>
+<th style="text-align: center;"><strong>5</strong></th>
+<th style="text-align: center;"><strong>6</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><strong>1</strong></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;"><span style="color:#1f4e79">1</span></td>
+<td style="text-align: center;"><span style="color:#1f4e79">1</span></td>
+<td style="text-align: center;"><span style="color:#1f4e79">0</span></td>
+<td style="text-align: center;"><span style="color:#1f4e79">0</span></td>
+<td style="text-align: center;"><span style="color:#1f4e79">0</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>2</strong></td>
+<td style="text-align: center;"><span style="color:#2d8659">1</span></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;"><span style="color:#1f4e79">1</span></td>
+<td style="text-align: center;"><span style="color:#1f4e79">0</span></td>
+<td style="text-align: center;"><span style="color:#1f4e79">0</span></td>
+<td style="text-align: center;"><span style="color:#1f4e79">0</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>3</strong></td>
+<td style="text-align: center;"><span style="color:#2d8659">1</span></td>
+<td style="text-align: center;"><span style="color:#2d8659">1</span></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;"><span style="color:#1f4e79">0</span></td>
+<td style="text-align: center;"><span style="color:#1f4e79">0</span></td>
+<td style="text-align: center;"><span style="color:#1f4e79">0</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>4</strong></td>
+<td style="text-align: center;"><span style="color:#2d8659">0</span></td>
+<td style="text-align: center;"><span style="color:#2d8659">0</span></td>
+<td style="text-align: center;"><span style="color:#2d8659">0</span></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;"><span style="color:#1f4e79">1</span></td>
+<td style="text-align: center;"><span style="color:#1f4e79">1</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><strong>5</strong></td>
+<td style="text-align: center;"><span style="color:#2d8659">0</span></td>
+<td style="text-align: center;"><span style="color:#2d8659">0</span></td>
+<td style="text-align: center;"><span style="color:#2d8659">0</span></td>
+<td style="text-align: center;"><span style="color:#2d8659">1</span></td>
+<td style="text-align: center;">—</td>
+<td style="text-align: center;"><span style="color:#1f4e79">1</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><strong>6</strong></td>
+<td style="text-align: center;"><span style="color:#2d8659">0</span></td>
+<td style="text-align: center;"><span style="color:#2d8659">0</span></td>
+<td style="text-align: center;"><span style="color:#2d8659">0</span></td>
+<td style="text-align: center;"><span style="color:#2d8659">0</span></td>
+<td style="text-align: center;"><span style="color:#2d8659">0</span></td>
+<td style="text-align: center;">—</td>
+</tr>
+</tbody>
+</table>
+<p>Legenda: <span style="color:#1f4e79">blu = P1 (sopra)</span>, <span style="color:#2d8659">verde = P2 (sotto)</span>.</p>
+</section>
+<section id="passo-2-confrontare-le-coppie-e-contare-le-concordanze" class="level4" data-number="4.6.1.2">
+<h4 data-number="4.6.1.2" class="anchored" data-anchor-id="passo-2-confrontare-le-coppie-e-contare-le-concordanze"><span class="header-section-number">4.6.1.2</span> Passo 2 — Confrontare le coppie e contare le concordanze</h4>
+<p>Per ognuna delle <span class="math inline">\(\binom{6}{2} = 15\)</span> coppie distinte <span class="math inline">\((i, j)\)</span> con <span class="math inline">\(i &lt; j\)</span> confrontiamo il valore in P1 e in P2:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Coppia</th>
+<th style="text-align: center;">P1</th>
+<th style="text-align: center;">P2</th>
+<th style="text-align: center;">Tipo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">(1,2)</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><strong>(1,1)</strong> — <span class="math inline">\(a\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">(1,3)</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><strong>(1,1)</strong> — <span class="math inline">\(a\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">(1,4)</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>(0,0)</strong> — <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">(1,5)</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>(0,0)</strong> — <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">(1,6)</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>(0,0)</strong> — <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">(2,3)</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><strong>(1,1)</strong> — <span class="math inline">\(a\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">(2,4)</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>(0,0)</strong> — <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">(2,5)</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>(0,0)</strong> — <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">(2,6)</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>(0,0)</strong> — <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">(3,4)</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>(0,0)</strong> — <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">(3,5)</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>(0,0)</strong> — <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">(3,6)</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;"><strong>(0,0)</strong> — <span class="math inline">\(d\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">(4,5)</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;"><strong>(1,1)</strong> — <span class="math inline">\(a\)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">(4,6)</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">(1,0) — <span class="math inline">\(b\)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">(5,6)</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">(1,0) — <span class="math inline">\(b\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Conteggio finale:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Tipo</th>
+<th>Significato</th>
+<th style="text-align: center;">Numero</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(a\)</span></td>
+<td>coppia (1,1) — stesso cluster in entrambe</td>
+<td style="text-align: center;"><strong>4</strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(d\)</span></td>
+<td>coppia (0,0) — diverso in entrambe</td>
+<td style="text-align: center;"><strong>9</strong></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(b\)</span></td>
+<td>coppia (1,0) — stesso in P1, diverso in P2</td>
+<td style="text-align: center;"><strong>2</strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(c\)</span></td>
+<td>coppia (0,1) — diverso in P1, stesso in P2</td>
+<td style="text-align: center;"><strong>0</strong></td>
+</tr>
+<tr class="odd">
+<td></td>
+<td><strong>Totale</strong></td>
+<td style="text-align: center;"><strong>15</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="passo-3-rand-index-ri" class="level4" data-number="4.6.1.3">
+<h4 data-number="4.6.1.3" class="anchored" data-anchor-id="passo-3-rand-index-ri"><span class="header-section-number">4.6.1.3</span> Passo 3 — Rand Index (RI)</h4>
+<p>Il Rand Index è semplicemente la frazione di coppie <strong>concordanti</strong> (entrambi 0 o entrambi 1) sul totale:</p>
+<p><span class="math display">\[
+\text{RI} = \frac{a + d}{\binom{n}{2}} = \frac{4 + 9}{15} = \frac{13}{15} \approx 0{,}867
+\]</span></p>
+<p>Cioè l’87% delle coppie è classificato nello stesso modo dalle due partizioni. Sembra un valore alto, ma il RI tende a essere “gonfiato” — specie quando i cluster sono molti — perché molte coppie cadono automaticamente in cluster diversi anche per puro caso.</p>
+</section>
+<section id="passo-4-adjusted-rand-index-ari" class="level4" data-number="4.6.1.4">
+<h4 data-number="4.6.1.4" class="anchored" data-anchor-id="passo-4-adjusted-rand-index-ari"><span class="header-section-number">4.6.1.4</span> Passo 4 — Adjusted Rand Index (ARI)</h4>
+<p>L’ARI corregge il RI per il valore atteso sotto modello ipergeometrico (partizioni indipendenti). Servono tre grandezze, tutte già implicite nel conteggio precedente:</p>
+<ul>
+<li>coppie stesso cluster in P1: <span class="math inline">\(a + b = 4 + 2 = 6\)</span></li>
+<li>coppie stesso cluster in P2: <span class="math inline">\(a + c = 4 + 0 = 4\)</span></li>
+<li>totale coppie: <span class="math inline">\(\binom{6}{2} = 15\)</span></li>
+</ul>
+<p>Termine atteso:</p>
+<p><span class="math display">\[
+\mathbb{E} = \frac{(a+b)(a+c)}{\binom{n}{2}} = \frac{6 \cdot 4}{15} = 1{,}6
+\]</span></p>
+<p>Numeratore e denominatore dell’ARI:</p>
+<p><span class="math display">\[
+\text{Num} = a - \mathbb{E} = 4 - 1{,}6 = 2{,}4
+\]</span></p>
+<p><span class="math display">\[
+\text{Den} = \tfrac{1}{2}\bigl[(a+b) + (a+c)\bigr] - \mathbb{E} = \tfrac{1}{2}(6 + 4) - 1{,}6 = 3{,}4
+\]</span></p>
+<p><strong>Risultato:</strong></p>
+<p><span class="math display">\[
+\boxed{\text{ARI} = \frac{2{,}4}{3{,}4} \approx 0{,}71}
+\]</span></p>
+<p>Confronto con RI: il Rand Index dava 0,87, l’Adjusted Rand Index dà 0,71. La differenza è proprio la <strong>correzione per il caso atteso</strong>: il RI sovrastimava l’accordo perché molte coppie (specie nel triangolo P1=0, P2=0) sono “facilmente” classificate diverse anche da partizioni indipendenti.</p>
+</section>
+<section id="tre-casi-di-confronto-sul-medesimo-esempio" class="level4" data-number="4.6.1.5">
+<h4 data-number="4.6.1.5" class="anchored" data-anchor-id="tre-casi-di-confronto-sul-medesimo-esempio"><span class="header-section-number">4.6.1.5</span> Tre casi di confronto sul medesimo esempio</h4>
+<p>Mantenendo P1 = <span class="math inline">\(\{1,2,3\}, \{4,5,6\}\)</span>, vediamo come cambiano RI e ARI variando P2:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 35%">
+<col style="width: 13%">
+<col style="width: 13%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>P2 alternativa</th>
+<th>Significato</th>
+<th style="text-align: center;">RI</th>
+<th style="text-align: center;">ARI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\{1,2,3\}, \{4,5,6\}\)</span></td>
+<td>Identica a P1</td>
+<td style="text-align: center;"><strong>1,00</strong></td>
+<td style="text-align: center;"><strong>1,00</strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\{1,2,3\}, \{4,5\}, \{6\}\)</span></td>
+<td>Quasi identica</td>
+<td style="text-align: center;">0,87</td>
+<td style="text-align: center;"><strong>0,71</strong></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\{1,2\}, \{3,4\}, \{5,6\}\)</span></td>
+<td>Cluster sfalsati</td>
+<td style="text-align: center;">0,67</td>
+<td style="text-align: center;"><strong>0,24</strong></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\{1,4\}, \{2,5\}, \{3,6\}\)</span></td>
+<td>Strutturalmente opposta</td>
+<td style="text-align: center;">0,40</td>
+<td style="text-align: center;"><strong>−0,36</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Tre cose da notare:</p>
+<ol type="1">
+<li><strong>RI non è mai inferiore all’ARI</strong> (nella tabella coincidono solo nella prima riga, con partizioni identiche): la correzione per il caso atteso “sgonfia” il valore — l’ARI è una misura più severa e onesta.</li>
+<li><strong>L’ARI scende verso zero più velocemente del RI</strong>: per partizioni “casuali” l’ARI tende a 0, mentre il RI resta lontano da zero (circa 0,5 con due gruppi, e sempre più vicino a 1 quando i gruppi aumentano), e per questo può ingannare.</li>
+<li><strong>ARI può essere negativo</strong>, RI no: l’ultima riga (partizione opposta) dà ARI = −0,36 (peggio del caso), mentre il RI è 0,40 — un valore che a un’occhiata superficiale sembrerebbe “discreto” e invece nasconde una concordanza inferiore a quella casuale.</li>
+</ol>
+<p>Per questo nei confronti fra partizioni si preferisce sempre l’ARI.</p>
+</section>
+</section>
+</section>
+<section id="rmsstd-una-misura-di-compattezza-dei-cluster" class="level2" data-number="4.7">
+<h2 data-number="4.7" class="anchored" data-anchor-id="rmsstd-una-misura-di-compattezza-dei-cluster"><span class="header-section-number">4.7</span> RMSSTD: una misura di compattezza dei cluster</h2>
+<p>La <strong>Root-Mean-Square Standard Deviation</strong> (RMSSTD) misura la “compattezza media” dei cluster:</p>
+<p><span class="math display">\[
+\text{RMSSTD} = \sqrt{\frac{\sum_{h=1}^{k} \sum_{i \in C_h} \sum_{j=1}^p (x_{ij} - \bar{x}_{hj})^2}{\sum_{h=1}^{k} (n_h - 1)\, p}}
+\]</span></p>
+<p>dove:</p>
+<ul>
+<li><span class="math inline">\(k\)</span> = numero di cluster</li>
+<li><span class="math inline">\(C_h\)</span> = insieme delle unità del cluster <span class="math inline">\(h\)</span>, e <span class="math inline">\(n_h\)</span> il loro numero</li>
+<li><span class="math inline">\(p\)</span> = numero di variabili</li>
+<li><span class="math inline">\(\bar x_{hj}\)</span> = media della variabile <span class="math inline">\(j\)</span> nel cluster <span class="math inline">\(h\)</span></li>
+</ul>
+<p><strong>Numeratore</strong> = devianza entro i gruppi (WSS, <em>within sum of squares</em>), cioè la somma dei quadrati degli scarti di ogni unità dalle medie del proprio cluster; <strong>denominatore</strong> = gradi di libertà, <span class="math inline">\(n_h - 1\)</span> per ogni cluster e per ciascuna delle <span class="math inline">\(p\)</span> variabili. Poiché <span class="math inline">\(\sum_h (n_h - 1) = n - k\)</span>, la formula si scrive anche</p>
+<p><span class="math display">\[
+\text{RMSSTD} = \sqrt{\frac{\text{WSS}}{(n - k)\, p}}
+\]</span></p>
+<p>ed è una deviazione standard: la dispersione tipica di una variabile dentro un cluster, nella stessa unità di misura delle variabili.</p>
+<p><strong>Lettura:</strong></p>
+<ul>
+<li>Valore <strong>basso</strong> → cluster compatti (punti vicini alle medie dei cluster).</li>
+<li>Valore <strong>alto</strong> → cluster dispersi.</li>
+<li>Fra partizioni con lo <strong>stesso numero di cluster</strong>, per esempio ottenute con metodi diversi, è più compatta quella con l’RMSSTD più basso. Al crescere di <span class="math inline">\(k\)</span>, invece, l’RMSSTD tende a diminuire comunque, perché gruppi più piccoli sono anche più omogenei: per scegliere <span class="math inline">\(k\)</span> non si cerca il valore più basso, ma il punto oltre il quale la discesa rallenta.</li>
+</ul>
+<section id="esempio-numerico" class="level3" data-number="4.7.1">
+<h3 data-number="4.7.1" class="anchored" data-anchor-id="esempio-numerico"><span class="header-section-number">4.7.1</span> Esempio numerico</h3>
+<p>Due cluster, <span class="math inline">\(p = 2\)</span> variabili, <span class="math inline">\(n_1 = n_2 = 3\)</span>. Calcoli:</p>
+<ul>
+<li>Cluster 1, dispersione: <span class="math inline">\(2{,}67\)</span>.</li>
+<li>Cluster 2, dispersione: <span class="math inline">\(1{,}33\)</span>.</li>
+<li>Gradi di libertà totali: <span class="math inline">\((3-1) \cdot 2 + (3-1) \cdot 2 = 8\)</span>.</li>
+<li><span class="math inline">\(\text{RMSSTD} = \sqrt{(2{,}67 + 1{,}33) / 8} = \sqrt{0{,}5} \approx 0{,}707\)</span>.</li>
+</ul>
+</section>
+<section id="andamento-al-variare-di-k-e-confronto-con-lr2" class="level3" data-number="4.7.2">
+<h3 data-number="4.7.2" class="anchored" data-anchor-id="andamento-al-variare-di-k-e-confronto-con-lr2"><span class="header-section-number">4.7.2</span> Andamento al variare di <span class="math inline">\(k\)</span> e confronto con l’<span class="math inline">\(R^2\)</span></h3>
+<p>L’RMSSTD si legge quasi sempre insieme all’<span class="math inline">\(R^2\)</span>, la quota della devianza totale (TSS, <em>total sum of squares</em>) spiegata dalla partizione:</p>
+<p><span class="math display">\[
+R^2 = 1 - \frac{\text{WSS}}{\text{TSS}}
+\]</span></p>
+<p>Le due misure partono dalla stessa grandezza, la WSS, e la guardano da lati opposti: l’<span class="math inline">\(R^2\)</span> dice quanta variabilità la partizione ha già spiegato, l’RMSSTD quanta ne resta dentro i gruppi. Sostituendo <span class="math inline">\(\text{WSS} = (1 - R^2)\,\text{TSS}\)</span> nella formula dell’RMSSTD:</p>
+<p><span class="math display">\[
+\text{RMSSTD} = \sqrt{\frac{(1 - R^2)\,\text{TSS}}{(n - k)\, p}}
+\]</span></p>
+<p>Quando l’<span class="math inline">\(R^2\)</span> sale molto, l’RMSSTD scende molto, e viceversa: se c’è un gomito netto, di solito le due curve lo mostrano allo stesso <span class="math inline">\(k\)</span>. Non è però garantito, perché la radice quadrata e il fattore <span class="math inline">\(n-k\)</span> cambiano la forma della curva dell’RMSSTD: un gomito poco marcato può cadere in punti diversi sulle due curve.</p>
+<div id="fig-rmsstd-r2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-rmsstd-r2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/rmsstd-vs-r2.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-rmsstd-r2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.6: <span class="math inline">\(R^2\)</span> e RMSSTD al variare del numero di gruppi <span class="math inline">\(k\)</span>, sugli stessi dati (a sinistra, colorati secondo la partizione a <span class="math inline">\(k = 4\)</span>, che coincide con i quattro gruppi generati). Le due curve hanno il gomito nello stesso punto, <span class="math inline">\(k = 4\)</span> (linea tratteggiata): l’<span class="math inline">\(R^2\)</span> sale fino a 0,94 e poi resta quasi piatto; l’RMSSTD scende fino a 0,50, la deviazione standard con cui sono stati generati i gruppi (linea punteggiata), e poi continua a diminuire, più lentamente.
+</figcaption>
+</figure>
+</div>
+<p>La <a href="#fig-rmsstd-r2" class="quarto-xref">Figura&nbsp;<span>4.6</span></a> lo mostra su 100 unità divise in quattro gruppi di 25, generati con deviazione standard 0,5 attorno a quattro centri (sono gli stessi dati della <a href="#fig-scelta-k" class="quarto-xref">Figura&nbsp;<span>4.12</span></a>, più avanti). Il dendrogramma è costruito con Ward e distanza euclidea; per ogni <span class="math inline">\(k\)</span> si taglia l’albero e si calcolano le due misure.</p>
+<ul>
+<li><strong>Con un solo gruppo</strong> (<span class="math inline">\(k = 1\)</span>) l’<span class="math inline">\(R^2\)</span> vale 0 e l’RMSSTD vale 2,06: è la deviazione standard dei dati senza alcuna divisione, che comprende anche le differenze fra i gruppi.</li>
+<li><strong>Da 1 a 4 gruppi</strong> l’<span class="math inline">\(R^2\)</span> sale a 0,48, 0,73 e 0,94 e l’RMSSTD scende a 1,50, 1,09 e 0,50. A ogni taglio il dendrogramma separa gruppi veri, e la variabilità fra quei gruppi passa da “residua” a “spiegata”.</li>
+<li><strong>A <span class="math inline">\(k = 4\)</span></strong> l’RMSSTD vale 0,50, proprio la deviazione standard con cui sono stati generati i gruppi: trovati i gruppi veri, quello che resta è la variabilità interna a ciascuno.</li>
+<li><strong>Oltre <span class="math inline">\(k = 4\)</span></strong> l’<span class="math inline">\(R^2\)</span> guadagna poco più di 3 punti percentuali fino a <span class="math inline">\(k = 10\)</span> (da 0,943 a 0,975) e la curva sembra piatta, mentre l’RMSSTD continua a scendere in modo visibile, da 0,50 a 0,34. Non è una contraddizione: spezzare gruppi già compatti riduce sempre un po’ la dispersione interna. Rispetto alla variabilità totale la riduzione è piccola, ma rispetto a quello che restava è grande: la parte non spiegata, <span class="math inline">\(1 - R^2\)</span>, passa da 0,057 a 0,025, meno della metà. L’<span class="math inline">\(R^2\)</span> schiaccia questa riduzione vicino a 1, l’RMSSTD la mostra. Per questo sull’RMSSTD il gomito si riconosce dal cambio di pendenza, non da una curva che smette di scendere.</li>
+</ul>
+<p>Con <strong>variabili standardizzate</strong>, come di solito nella segmentazione, ogni variabile ha varianza 1 e la devianza totale vale <span class="math inline">\((n-1)\,p\)</span>. La relazione diventa</p>
+<p><span class="math display">\[
+\text{RMSSTD} = \sqrt{(1 - R^2)\,\frac{n-1}{n-k}}
+\]</span></p>
+<p>e, con <span class="math inline">\(n\)</span> grande rispetto a <span class="math inline">\(k\)</span>, il rapporto <span class="math inline">\((n-1)/(n-k)\)</span> è quasi 1: l’RMSSTD è in pratica <span class="math inline">\(\sqrt{1 - R^2}\)</span>. Con un solo gruppo vale 1, e in generale si legge come frazione della deviazione standard di ciascuna variabile: un RMSSTD di 0,6 vuol dire che dentro i gruppi le variabili variano, in media, circa il 60% di quanto variano nell’intero campione.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><span class="math inline">\(R^2\)</span></th>
+<th>RMSSTD</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Che cosa misura</td>
+<td>La variabilità spiegata dai cluster</td>
+<td>La variabilità che resta dentro i cluster</td>
+</tr>
+<tr class="even">
+<td>Scala</td>
+<td>Quota fra 0 e 1, senza unità di misura</td>
+<td>Deviazione standard, nell’unità di misura delle variabili</td>
+</tr>
+<tr class="odd">
+<td>Con <span class="math inline">\(k = 1\)</span></td>
+<td>0</td>
+<td>La deviazione standard dei dati (1 con variabili standardizzate)</td>
+</tr>
+<tr class="even">
+<td>Al crescere di <span class="math inline">\(k\)</span></td>
+<td>Non diminuisce mai, se le partizioni sono annidate come nel gerarchico</td>
+<td>Di solito diminuisce, ma può risalire leggermente quando un’ulteriore divisione riduce pochissimo la WSS, perché si riduce anche il denominatore <span class="math inline">\(n - k\)</span></td>
+</tr>
+<tr class="odd">
+<td>Che cosa cercare</td>
+<td>Il gomito</td>
+<td>Il cambio di pendenza; il valore dice anche quanto sono dispersi i gruppi</td>
+</tr>
+</tbody>
+</table>
+<p>In pratica l’RMSSTD non aggiunge all’<span class="math inline">\(R^2\)</span> un criterio indipendente, perché viene dalla stessa WSS: di solito indica lo stesso gomito. Quello che aggiunge è la scala, perché dice quanto sono dispersi i gruppi nell’unità di misura delle variabili. Nel modulo i grafici dei due indici si ottengono insieme agli altri criteri per la scelta di <span class="math inline">\(k\)</span> (<a href="./P-18-scelta-k-dendrogramma.html">§ P-18</a>).</p>
+</section>
+</section>
+<section id="i-cinque-metodi-di-agglomerazione" class="level2" data-number="4.8">
+<h2 data-number="4.8" class="anchored" data-anchor-id="i-cinque-metodi-di-agglomerazione"><span class="header-section-number">4.8</span> I cinque metodi di agglomerazione</h2>
+<p>A ogni passo si fondono i due cluster più vicini. La definizione di “vicino fra cluster” cambia col <strong>metodo</strong>:</p>
+<div id="fig-metodi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-metodi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/metodi-agglomerazione.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-metodi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.7: I cinque metodi visti graficamente sullo stesso insieme di punti (cluster C1 in blu, C2 in rosso). Il segmento o l’oggetto verde in ciascun pannello indica la grandezza che il metodo usa come “distanza fra C1 e C2”. Legame singolo: la coppia di punti più vicini. Legame completo: la coppia più lontana. Legame medio: la media su tutte le coppie. Centroide: la distanza fra i baricentri. Ward: il “centroide comune” che minimizza l’aumento della devianza entro i gruppi (WSS, <em>within sum of squares</em>) dopo la fusione.
+</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 43%">
+<col style="width: 30%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Metodo</th>
+<th>Definizione</th>
+<th>Effetto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Legame singolo</strong></td>
+<td><span class="math inline">\(\min d(x, y)\)</span> fra unità dei due cluster</td>
+<td>Cluster lunghi, “incatenati”</td>
+</tr>
+<tr class="even">
+<td><strong>Legame completo</strong></td>
+<td><span class="math inline">\(\max d(x, y)\)</span></td>
+<td>Cluster compatti, con diametro massimo contenuto</td>
+</tr>
+<tr class="odd">
+<td><strong>Legame medio</strong></td>
+<td>Media di <span class="math inline">\(d(x, y)\)</span></td>
+<td>Compromesso</td>
+</tr>
+<tr class="even">
+<td><strong>Centroide</strong></td>
+<td>Distanza fra i centroidi</td>
+<td>Può produrre inversioni del dendrogramma</td>
+</tr>
+<tr class="odd">
+<td><strong>Ward</strong></td>
+<td>Minimizza l’aumento della WSS</td>
+<td>Cluster di varianza simile; <strong>default nella maggior parte dei casi</strong></td>
+</tr>
+</tbody>
+</table>
+<section id="sec-forme-dendrogrammi" class="level3" data-number="4.8.1">
+<h3 data-number="4.8.1" class="anchored" data-anchor-id="sec-forme-dendrogrammi"><span class="header-section-number">4.8.1</span> Che forma prende il dendrogramma</h3>
+<p>La colonna “Effetto” della tabella non è un’etichetta astratta: si <strong>vede</strong> nella forma del dendrogramma. Conviene guardare due situazioni opposte, perché la lezione che se ne trae è diversa. In entrambe la distanza è l’Euclidea e l’unica cosa che cambia da un pannello all’altro è il metodo di agglomerazione.</p>
+<section id="con-gruppi-netti-i-cinque-metodi-concordano" class="level4" data-number="4.8.1.1">
+<h4 data-number="4.8.1.1" class="anchored" data-anchor-id="con-gruppi-netti-i-cinque-metodi-concordano"><span class="header-section-number">4.8.1.1</span> Con gruppi netti, i cinque metodi concordano</h4>
+<p>Il primo caso è quello “facile”, ed è anche quello più frequente nei dati di scuola: tre gruppi compatti, ben separati, senza punti intermedi e senza outlier (<a href="#fig-forme-netti" class="quarto-xref">Figura&nbsp;<span>4.8</span></a>). Qui la distanza minima fra due gruppi diversi (<span class="math inline">\(3{,}8\)</span>) è circa una volta e mezza la massima distanza interna a un gruppo (<span class="math inline">\(2{,}5\)</span>): la struttura è abbastanza marcata perché qualunque regola di fusione ragionevole la ritrovi.</p>
+<div id="fig-forme-netti" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-forme-netti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/forme-dendrogrammi-netti.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-forme-netti-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.8: Tre gruppi compatti e ben separati, analizzati con i cinque metodi. Tutti e cinque i dendrogrammi hanno la stessa struttura: tre blocchi fittissimi a bassa altezza, poi due sole fusioni molto in alto per unirli. Il taglio a <span class="math inline">\(k = 3\)</span> (linea tratteggiata) cade in una fascia vuota in tutti i pannelli e restituisce sempre la stessa partizione <span class="math inline">\(15-15-15\)</span>, coincidente con i gruppi veri. Nessun metodo produce inversioni. L’unica cosa che cambia davvero è la scala dell’asse verticale: l’ultima fusione avviene a quota <span class="math inline">\(4{,}9\)</span> col legame singolo, <span class="math inline">\(8{,}4\)</span> col completo, <span class="math inline">\(26{,}6\)</span> con Ward.
+</figcaption>
+</figure>
+</div>
+<p>Due indicazioni operative da questo caso:</p>
+<ul>
+<li><strong>Un dendrogramma con un “vuoto” evidente prima delle ultime fusioni è il segnale che i gruppi ci sono davvero.</strong> Il salto fra l’altezza delle fusioni interne ai gruppi e quella delle fusioni fra gruppi è ciò che gli indici della sezione seguente traducono in numeri.</li>
+<li><strong>La sensibilità al cambio di metodo è un utile controllo esplorativo.</strong> Se soluzioni ottenute con distanze o linkage diversi risultano molto concordanti, la partizione è poco sensibile a quelle specifiche scelte metodologiche; se cambia molto, la segmentazione dipende fortemente da esse. Un accordo elevato fra algoritmi non dimostra però da solo che la struttura sia «vera», stabile nella popolazione o replicabile su nuovi dati. In <code>AnalisiMercato</code> si cambia voce nel menu <em>Metodo di agglomerazione</em>, si salva la colonna dei cluster e si confrontano le due partizioni con l’Adjusted Rand Index (<a href="#sec-ari" class="quarto-xref"><span>Sezione 4.6</span></a>): qui l’ARI vale 1 per tutte e dieci le coppie di metodi.</li>
+</ul>
+</section>
+<section id="con-struttura-ambigua-è-il-metodo-a-decidere" class="level4" data-number="4.8.1.2">
+<h4 data-number="4.8.1.2" class="anchored" data-anchor-id="con-struttura-ambigua-è-il-metodo-a-decidere"><span class="header-section-number">4.8.1.2</span> Con struttura ambigua, è il metodo a decidere</h4>
+<p>Il secondo caso è costruito apposta per mettere i metodi in disaccordo. La <a href="#fig-forme-dendrogrammi" class="quarto-xref">Figura&nbsp;<span>4.9</span></a> usa gli stessi cinque metodi su dati fatti di due nuclei ben separati, una fila di punti che li unisce come un <strong>ponte</strong>, e due <strong>outlier</strong> lontani da tutto. È una configurazione volutamente scomoda, ma non irrealistica: il ponte è il caso dei rispondenti “a metà strada” fra due segmenti, e gli outlier sono i clienti anomali che nessuna indagine reale evita.</p>
+<div id="fig-forme-dendrogrammi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-forme-dendrogrammi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/forme-dendrogrammi.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-forme-dendrogrammi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.9: Gli stessi dati (in alto a sinistra: due nuclei uniti da un ponte, più due outlier) analizzati con i cinque metodi di agglomerazione.
+</figcaption>
+</figure>
+</div>
+<p>Nel <strong>legame singolo</strong> basta che esista una catena di punti vicini perché due gruppi si fondano: il ponte fa collassare i due nuclei in un unico cluster e il dendrogramma assume la tipica forma “a scala”, con moltissime fusioni a bassa altezza e pochi rami lunghi. Il <strong>legame completo</strong> guarda la coppia più lontana e quindi ignora il ponte: i due nuclei restano separati fino in cima e le altezze di fusione sono molto più elevate. Il <strong>legame medio</strong> sta in mezzo ai due. Il <strong>centroide</strong> produce qui due <strong>inversioni</strong>, cioè fusioni che avvengono più in basso della fusione precedente: la più evidente è in cima, dove l’ultima fusione, a quota <span class="math inline">\(4{,}81\)</span>, sta sotto la penultima, a quota <span class="math inline">\(5{,}29\)</span>. <strong>Ward</strong> genera i rami più bilanciati, ma va letto sulla sua scala: le altezze non sono distanze fra punti ma una trasformazione dell’incremento <span class="math inline">\(\Delta W\)</span> della devianza interna provocato dalla fusione (con <code>ward.D2</code>, il metodo usato dal modulo, l’altezza vale <span class="math inline">\(\sqrt{2\,\Delta W}\)</span>), che cresce con la numerosità dei gruppi fusi: per questo sono numericamente molto più grandi.</p>
+<p>Tre letture da portare a casa:</p>
+<ul>
+<li><strong>L’altezza dell’asse verticale non è confrontabile fra metodi.</strong> Nell’esempio il legame singolo arriva a <span class="math inline">\(\approx 4{,}4\)</span>, il completo a <span class="math inline">\(\approx 9\)</span>, Ward a <span class="math inline">\(\approx 24\)</span>: sono le stesse identiche distanze fra punti, riassunte con regole diverse. Un dendrogramma “più alto” non descrive dati più eterogenei.</li>
+<li><strong>L’incatenamento del legame singolo è un comportamento, non un errore.</strong> È esattamente ciò che serve per riconoscere gruppi di forma allungata o irregolare; è invece dannoso quando i segmenti di mercato che cerchiamo sono addensamenti compatti, perché una manciata di rispondenti intermedi basta a saldare due segmenti distinti.</li>
+<li><strong>Le inversioni del centroide vanno riconosciute a colpo d’occhio.</strong> Fra i cinque metodi, il centroide è l’unico che può produrle (lo stesso vale per il metodo della mediana, che il modulo non offre). Che cosa sono e perché nascono è spiegato qui sotto.</li>
+</ul>
+<p><strong>Che cos’è un’inversione.</strong> In un dendrogramma l’altezza di un nodo è la distanza a cui si sono fusi i due gruppi che quel nodo unisce. Con il legame singolo, completo e medio e con Ward ogni fusione avviene a un’altezza maggiore o uguale a quella della fusione precedente: salendo nell’albero le altezze crescono sempre. Si ha un’<strong>inversione</strong> quando una fusione avviene <em>più in basso</em> della fusione precedente.</p>
+<p><strong>Perché il centroide la produce.</strong> Con il centroide la distanza fra due gruppi è la distanza fra i loro baricentri. Quando due gruppi si fondono, il nuovo baricentro cade fra i due vecchi, e può essere più vicino a un terzo gruppo di quanto lo fosse ciascuno dei due. Bastano tre punti per vederlo (<a href="#fig-inversione-centroide" class="quarto-xref">Figura&nbsp;<span>4.10</span></a>). A e B distano 1,00, mentre C dista 1,03 sia da A sia da B: la coppia più vicina è A–B, che si fonde per prima a quota 1,00. Il baricentro del nuovo gruppo è il punto medio M fra A e B, e C dista da M soltanto 0,90. La seconda fusione, fra {A, B} e C, avviene quindi a quota 0,90, <em>più in basso</em> della prima. Nel dendrogramma il ramo che parte dal nodo {A, B} deve scendere per raggiungere la fusione con C: è questo «ramo che scende» il segno dell’inversione.</p>
+<div id="fig-inversione-centroide" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-inversione-centroide-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/inversione-centroide.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-inversione-centroide-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.10: Un’inversione con tre soli punti. A sinistra: A e B sono la coppia più vicina (1,00) e si fondono per prime; il loro baricentro M dista da C soltanto 0,90, meno della distanza fra A e B. A destra: il dendrogramma del centroide. La prima fusione è a quota 1,00, la seconda a quota 0,90, e il ramo che collega il nodo {A, B} alla fusione con C scende invece di salire. La linea a quota 0,90 passa dietro al ramo di B senza toccarlo.
+</figcaption>
+</figure>
+</div>
+<p><strong>Nella figura con il ponte.</strong> In cima al dendrogramma del centroide della <a href="#fig-forme-dendrogrammi" class="quarto-xref">Figura&nbsp;<span>4.9</span></a> succede la stessa cosa. Alla penultima fusione, a quota 5,29, si uniscono le due metà della nuvola: a sinistra il nucleo A con due punti del ponte, a destra il nucleo B con il resto del ponte e l’outlier in basso. L’outlier in alto resta fuori, perché dista 5,43 dal baricentro della metà di sinistra e 5,53 da quello della metà di destra, più di quanto le due metà distino fra loro. Ma il baricentro della nuvola riunita cade nel mezzo, quasi sotto di lui, a distanza 4,81. L’ultima fusione avviene così a quota 4,81, più in basso della penultima: è il punto C dell’esempio, con le due metà al posto di A e B. La seconda inversione è minuscola e nel disegno quasi invisibile: due piccoli gruppi del nucleo A si fondono a quota 0,517, subito dopo una fusione a quota 0,534.</p>
+<p><strong>Che cosa comporta.</strong> Con un’inversione le altezze non sono più una scala affidabile. Un taglio orizzontale a quota 5, per esempio, troverebbe le due metà della nuvola ancora separate, perché si uniscono a 5,29, e l’outlier già unito a tutto il resto, perché si unisce a 4,81: una contraddizione, perché l’outlier si è unito a un gruppo che a quella quota non esiste ancora. Il modulo, infatti, non taglia l’albero ad altezza fissa ma secondo il numero di gruppi richiesto, che segue l’ordine delle fusioni e resta ben definito anche con le inversioni. Gli indici costruiti sulle altezze, invece, ne risentono: il Delta G a <span class="math inline">\(k = 2\)</span> vale <span class="math inline">\(4{,}81 - 5{,}29 = -0{,}48\)</span>, e un Delta G negativo è il segnale numerico di un’inversione.</p>
+<p>La conseguenza pratica arriva quando si taglia l’albero. La <a href="#fig-partizioni-metodi" class="quarto-xref">Figura&nbsp;<span>4.11</span></a> mostra le partizioni a <span class="math inline">\(k = 3\)</span> ottenute dai cinque dendrogrammi precedenti.</p>
+<div id="fig-partizioni-metodi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-partizioni-metodi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/partizioni-metodi.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-partizioni-metodi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.11: Gli stessi dati tagliati a <span class="math inline">\(k = 3\)</span>, metodo per metodo, con fra parentesi le dimensioni dei tre gruppi.
+</figcaption>
+</figure>
+</div>
+<p>Il legame singolo restituisce <span class="math inline">\(43-1-1\)</span>: un unico grande cluster che ingloba entrambi i nuclei e il ponte, più i due outlier promossi a “segmenti” di una unità ciascuno — una partizione inutilizzabile per una segmentazione. Legame completo, legame medio e centroide separano correttamente i due nuclei (<span class="math inline">\(24-20-1\)</span>), spartendosi il ponte, e isolano un solo outlier. Ward produce qui la partizione più bilanciata nelle numerosità (<span class="math inline">\(20-13-12\)</span>) ma spezza il nucleo di sinistra. Attenzione a leggerlo come l’obiettivo del metodo: Ward sceglie a ogni passo la fusione che comporta il <strong>minore incremento della devianza interna</strong>, e questo favorisce gruppi compatti e, su certi dataset, anche di ampiezza simile — ma non impone cluster di uguale numerosità.</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Quanto pesa il metodo dipende dai dati
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Il confronto fra le due figure è la sintesi della sezione. Con gruppi netti (<a href="#fig-forme-netti" class="quarto-xref">Figura&nbsp;<span>4.8</span></a>) i cinque metodi danno la stessa identica partizione: il metodo è quasi indifferente. Con una struttura ambigua (<a href="#fig-forme-dendrogrammi" class="quarto-xref">Figura&nbsp;<span>4.9</span></a>), sugli <strong>stessi dati e con la stessa distanza</strong>, il segmento maggiore passa da 43 rispondenti col legame singolo a 20 con Ward. Non sapendo in anticipo in quale dei due mondi ci si trovi, la scelta del metodo di agglomerazione va dichiarata e giustificata insieme a quella della distanza — e messa alla prova rilanciando l’analisi con un metodo diverso, non provata a caso finché “escono” gruppi di ampiezza gradevole. In <code>AnalisiMercato</code> entrambe le scelte si fanno nel pannello della Cluster Analysis Gerarchica, e sono riportate nell’intestazione dei risultati proprio perché rientrano nella documentazione dell’analisi (<a href="P-17-distanze-agglomerazione.html" class="quarto-xref"><span>Capitolo 25</span></a>).</p>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Ward + Euclidea: il default
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Per dati quantitativi, <strong>Ward + distanza euclidea</strong> è una combinazione naturale e teoricamente ben fondata, perché il criterio di Ward è formulato in termini di incremento della somma dei quadrati entro i cluster: è per questo che <code>AnalisiMercato</code> la propone come default. Non esiste però una combinazione universalmente «più robusta»: distanza e metodo di agglomerazione vanno scelti in base alla geometria dei dati e all’obiettivo dell’analisi.</p>
+<p>La distanza di <strong>Mahalanobis</strong> si riconduce a una distanza euclidea dopo una trasformazione lineare (<em>whitening</em>), purché la matrice di covarianza sia ben definita: in quel caso Ward conserva la propria interpretazione nello spazio trasformato. Con <strong>Manhattan, Gower o Jaccard</strong>, invece, il dendrogramma si calcola ma non va letto come minimizzazione della devianza interna.</p>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="sec-scelta-k" class="level2" data-number="4.9">
+<h2 data-number="4.9" class="anchored" data-anchor-id="sec-scelta-k"><span class="header-section-number">4.9</span> Scelta del numero di cluster</h2>
+<p>Non esiste un <span class="math inline">\(k\)</span> “vero” oggettivo. Si ricorre a una <strong>convergenza di indici</strong>:</p>
+<div id="fig-scelta-k" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-scelta-k-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/scelta-k-dendrogramma.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-scelta-k-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.12: Esempio su un dataset sintetico con 4 cluster ben separati. Sopra il dendrogramma (Ward + Euclidea) con la linea di taglio a <span class="math inline">\(k=4\)</span>. Sotto, i 4 indici al variare di <span class="math inline">\(k\)</span>: <span class="math inline">\(R^2\)</span> ha gomito a 4, RMSSTD si appiattisce dopo 4, <span class="math inline">\(\Delta G\)</span> ha picco netto a <span class="math inline">\(k=4\)</span>, l’indice CH ha massimo a 4. Tutti gli indici puntano alla stessa soluzione (linea rossa tratteggiata).
+</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Indice</th>
+<th>Cosa cerca</th>
+<th>Lettura</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>R²</strong></td>
+<td>Quota di varianza spiegata</td>
+<td>Cresce con <span class="math inline">\(k\)</span>; cercare il “gomito”</td>
+</tr>
+<tr class="even">
+<td><strong>RMSSTD</strong></td>
+<td>Compattezza dei cluster</td>
+<td>Tende a diminuire al crescere di <span class="math inline">\(k\)</span>; cercare il punto oltre il quale i miglioramenti sono modesti</td>
+</tr>
+<tr class="odd">
+<td><strong>Delta G</strong></td>
+<td><span class="math inline">\(H_k - H_{k+1}\)</span>, con <span class="math inline">\(H_k\)</span> altezza della fusione da <span class="math inline">\(k\)</span> a <span class="math inline">\(k-1\)</span> gruppi</td>
+<td>Un picco a <span class="math inline">\(k\)</span> suggerisce di tenere <span class="math inline">\(k\)</span> cluster (<a href="./P-18-scelta-k-dendrogramma.html">§ P-18</a>)</td>
+</tr>
+<tr class="even">
+<td><strong>Indice CH</strong></td>
+<td><span class="math inline">\(\frac{\text{BSS}/(k-1)}{\text{WSS}/(n-k)}\)</span>, con BSS devianza fra i gruppi (<em>between sum of squares</em>)</td>
+<td>Valori maggiori indicano una partizione migliore secondo il criterio CH; il massimo fra i <span class="math inline">\(k\)</span> esaminati suggerisce una possibile scelta, da valutare con gli altri indici e con l’interpretabilità dei cluster</td>
+</tr>
+</tbody>
+</table>
+<p>Insieme al <strong>dendrogramma</strong> (taglio visivo dove il salto fra fusioni successive è più ampio), questi indici aiutano a decidere <span class="math inline">\(k\)</span> in modo informato.</p>
+</section>
+<section id="limiti-del-clustering-gerarchico" class="level2" data-number="4.10">
+<h2 data-number="4.10" class="anchored" data-anchor-id="limiti-del-clustering-gerarchico"><span class="header-section-number">4.10</span> Limiti del clustering gerarchico</h2>
+<ul>
+<li><strong>Costo computazionale</strong>: la matrice delle dissimilarità richiede <span class="math inline">\(O(n^2)\)</span> di <strong>memoria</strong>. Anche il tempo di calcolo cresce rapidamente con <span class="math inline">\(n\)</span>, ma la complessità temporale esatta dipende dall’algoritmo e dall’implementazione del metodo gerarchico. Oltre <span class="math inline">\(n \approx 5\,000\)</span> il problema diventa pesante; oltre <span class="math inline">\(n \approx 10\,000\)</span> è impraticabile senza tecniche specifiche.</li>
+<li><strong>Sensibilità agli outlier</strong>: un outlier può restare isolato e formare un cluster a sé, come accade col legame singolo nella <a href="#fig-partizioni-metodi" class="quarto-xref">Figura&nbsp;<span>4.11</span></a>, oppure venire assorbito in un gruppo di cui sposta il centroide, come accade lì con Ward.</li>
+<li><strong>Decisioni soggettive</strong>: la scelta di distanza, metodo, <span class="math inline">\(k\)</span> è guidata dai dati e dal contesto, non automatica.</li>
+</ul>
+<p>A queste limitazioni si può rispondere con:</p>
+<ul>
+<li><strong>pre-processing motivato</strong> (trattamento degli outlier, standardizzazione quando le scale lo richiedono);</li>
+<li><strong>confronto fra partizioni alternative delle stesse unità</strong> con l’ARI (<a href="./P-20-confronto-partizioni-ari.html">§ P-20</a>).</li>
+</ul>
+</section>
+<section id="sec-kmedie" class="level2" data-number="4.11">
+<h2 data-number="4.11" class="anchored" data-anchor-id="sec-kmedie"><span class="header-section-number">4.11</span> Approccio non gerarchico: le k-medie</h2>
+<p>Il metodo gerarchico costruisce <strong>tutte</strong> le partizioni, da <span class="math inline">\(n\)</span> gruppi a uno solo, e lascia a chi analizza il compito di sceglierne una tagliando il dendrogramma. Le <strong>k-medie</strong> <span class="citation" data-cites="macqueen1967">(<a href="references.html#ref-macqueen1967" role="doc-biblioref">MacQueen 1967</a>)</span> fanno l’opposto: il numero di gruppi <span class="math inline">\(k\)</span> è deciso prima di cominciare, e l’algoritmo cerca direttamente la migliore partizione in <span class="math inline">\(k\)</span> gruppi, senza costruire alcuna gerarchia.</p>
+<section id="lobiettivo" class="level3" data-number="4.11.1">
+<h3 data-number="4.11.1" class="anchored" data-anchor-id="lobiettivo"><span class="header-section-number">4.11.1</span> L’obiettivo</h3>
+<p>Data una partizione <span class="math inline">\(C = \{C_1, \ldots, C_k\}\)</span> delle <span class="math inline">\(n\)</span> unità, si chiama <strong>devianza interna</strong> (o <em>within sum of squares</em>) la somma delle distanze al quadrato di ogni unità dal centroide del proprio gruppo:</p>
+<p><span class="math display">\[
+W(C) = \sum_{h=1}^{k} \sum_{i \in C_h} \lVert \mathbf{x}_i - \bar{\mathbf{x}}_h \rVert^2
+\qquad \text{con} \qquad
+\bar{\mathbf{x}}_h = \frac{1}{n_h} \sum_{i \in C_h} \mathbf{x}_i
+\]</span></p>
+<p>Le k-medie cercano la partizione in <span class="math inline">\(k\)</span> gruppi che rende <span class="math inline">\(W(C)\)</span> <strong>minima</strong>: gruppi compatti attorno al proprio centro. È la stessa quantità che il metodo di Ward fa crescere il meno possibile a ogni fusione — i due metodi inseguono lo stesso obiettivo con strategie diverse, e ci torniamo più avanti (<a href="#sec-confronto-approcci" class="quarto-xref"><span>Sezione 4.12</span></a>).</p>
+<p>Provarle tutte non è un’opzione: il numero di modi di dividere <span class="math inline">\(n\)</span> unità in <span class="math inline">\(k\)</span> gruppi non vuoti esplode ben oltre qualsiasi capacità di calcolo (già con <span class="math inline">\(n = 25\)</span> e <span class="math inline">\(k = 4\)</span> si superano i <span class="math inline">\(10^{13}\)</span>). Serve quindi un algoritmo che scenda verso un buon minimo senza esplorare tutto.</p>
+</section>
+<section id="lalgoritmo" class="level3" data-number="4.11.2">
+<h3 data-number="4.11.2" class="anchored" data-anchor-id="lalgoritmo"><span class="header-section-number">4.11.2</span> L’algoritmo</h3>
+<p>La procedura, dovuta nella sua forma standard a <span class="citation" data-cites="lloyd1982">Lloyd (<a href="references.html#ref-lloyd1982" role="doc-biblioref">1982</a>)</span>, alterna due mosse molto semplici:</p>
+<ol type="1">
+<li><strong>Inizializzazione.</strong> Si scelgono <span class="math inline">\(k\)</span> punti di partenza come centroidi provvisori: tipicamente <span class="math inline">\(k\)</span> unità estratte a caso dai dati.</li>
+<li><strong>Assegnazione.</strong> Ogni unità viene assegnata al centroide più vicino. Si ottengono così <span class="math inline">\(k\)</span> gruppi.</li>
+<li><strong>Aggiornamento.</strong> Ogni centroide viene ricalcolato come media delle unità che gli sono state assegnate, e quindi si sposta.</li>
+<li><strong>Ripetizione.</strong> Con i centroidi nella nuova posizione, alcune unità risultano ora più vicine a un centroide diverso: si torna al punto 2, finché non scatta uno dei criteri di arresto descritti sotto.</li>
+</ol>
+<div id="fig-kmedie" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kmedie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/kmedie-passo-passo.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kmedie-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.13: Le k-medie su 180 unità, con <span class="math inline">\(k = 3\)</span>. I cerchi grandi con il bordo bianco sono i centroidi. Il passo di assegnazione (pannelli 2 e 4) collega ogni unità al proprio centroide; il passo di aggiornamento (pannello 3) sposta ogni centroide sulla media del suo gruppo — i cerchi vuoti sono le posizioni precedenti. Alla quarta iterazione nessuna unità cambia più gruppo e l’algoritmo si ferma per convergenza. L’ultimo pannello mostra la devianza interna dopo ogni assegnazione, misurata rispetto ai centroidi del momento: scende a ogni passo e poi resta ferma.
+</figcaption>
+</figure>
+</div>
+<p><strong>Quando ci si ferma.</strong> Si ripetono assegnazione e aggiornamento finché non vale uno di tre criteri:</p>
+<ol type="1">
+<li><strong>Convergenza</strong>: nessuna unità cambia gruppo rispetto all’iterazione precedente. Da quel momento i centroidi non si spostano più e ogni nuova iterazione darebbe lo stesso risultato. Nella <a href="#fig-kmedie" class="quarto-xref">Figura&nbsp;<span>4.13</span></a> succede alla quarta iterazione.</li>
+<li><strong>Numero massimo di iterazioni</strong>: un tetto fissato in anticipo, che ferma l’algoritmo anche se non è arrivato alla convergenza. È una rete di sicurezza: in R è l’argomento <code>iter.max</code> di <code>kmeans()</code>, che vale 10 se non lo si cambia. Quando l’algoritmo si ferma per questo motivo R lo segnala con un avviso, e conviene alzare il tetto e rilanciare.</li>
+<li><strong>Soglia di guadagno</strong>: ci si ferma quando un’iterazione migliora la soluzione di pochissimo, cioè quando la devianza interna <span class="math inline">\(W\)</span>, o lo spostamento dei centroidi, cala meno di una soglia fissata in anticipo (la <em>tolleranza</em>). Nelle ultime iterazioni cambiano gruppo al più poche unità al confine fra due gruppi: continuare costerebbe calcoli senza cambiare davvero la soluzione.</li>
+</ol>
+<p>Che la convergenza prima o poi arrivi non è un caso fortunato ma una garanzia: <strong>nessuna delle due mosse può far crescere <span class="math inline">\(W\)</span></strong>. L’assegnazione manda ogni unità al centroide più vicino, quindi non può che ridurre (o lasciare invariata) la sua distanza; l’aggiornamento sostituisce il centro con la media, e la media è per definizione il punto che rende minima la somma delle distanze al quadrato dalle unità del gruppo. Ogni volta che un’unità cambia gruppo <span class="math inline">\(W\)</span> scende (a parità di distanza, infatti, un’unità resta dove si trova), quindi una partizione già vista non può ripresentarsi; e poiché le partizioni possibili sono in numero finito, la convergenza arriva dopo un numero finito di iterazioni. Quante dipende dai dati: spesso poche, ma su dataset grandi e poco strutturati anche centinaia. Per questo serve il tetto del secondo criterio.</p>
+<p>L’argomento chiarisce anche un vincolo che spesso passa inosservato: il passo di aggiornamento è ottimale <strong>perché</strong> la distanza usata è quella euclidea. Con una distanza diversa la media non è più il centro che minimizza la somma delle distanze, e la garanzia cade. È il motivo per cui le k-medie richiedono variabili quantitative e metrica euclidea, e per cui su dati misti si ricorre a una loro variante, le <strong>k-medoidi</strong> <span class="citation" data-cites="kaufman1990">(algoritmo <em>Partitioning Around Medoids</em> o PAM, <a href="references.html#ref-kaufman1990" role="doc-biblioref">Kaufman e Rousseeuw 1990</a>)</span>, in cui il centro di ogni gruppo non è una media ma una delle unità osservate — il <em>medoide</em> — e la distanza può essere qualsiasi, Gower compresa.</p>
+</section>
+<section id="il-punto-debole-il-minimo-è-locale" class="level3" data-number="4.11.3">
+<h3 data-number="4.11.3" class="anchored" data-anchor-id="il-punto-debole-il-minimo-è-locale"><span class="header-section-number">4.11.3</span> Il punto debole: il minimo è locale</h3>
+<p>La garanzia di convergenza dice che l’algoritmo si ferma, <strong>non</strong> che si ferma nel punto migliore. La partizione finale è un minimo <em>locale</em> di <span class="math inline">\(W\)</span>: da lì né l’assegnazione né l’aggiornamento la cambiano più, ma altrove può esistere una partizione con devianza interna molto più bassa. E quale minimo locale si raggiunga dipende interamente da dove si è partiti.</p>
+<div id="fig-kmedie-init" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-kmedie-init-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-cluster/kmedie-inizializzazione.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-kmedie-init-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;4.14: Gli stessi dati della figura precedente, con due inizializzazioni diverse. A sinistra la soluzione migliore. A destra una partenza sfortunata porta a spezzare in due il gruppo isolato e a fondere i due gruppi vicini: la devianza interna risultante è quasi doppia, ma l’algoritmo è comunque bloccato, perché né l’assegnazione né l’aggiornamento la modificano più. In basso, l’esito di 200 partenze casuali sugli stessi dati: un quarto finisce in una soluzione peggiore di quella migliore. I colori identificano i cluster trovati, non gruppi noti a priori.
+</figcaption>
+</figure>
+</div>
+<p>La contromisura è elementare e va sempre applicata: <strong>ripetere il lancio molte volte</strong> con inizializzazioni diverse e tenere la soluzione con la devianza interna più bassa. Nelle implementazioni standard è il parametro <code>nstart</code> (in R, <code>kmeans(x, centers = k, nstart = 50)</code>): il valore di default è 1, cioè il caso peggiore, e va sempre alzato. In alternativa si usano inizializzazioni non completamente casuali, come <strong>k-means++</strong> <span class="citation" data-cites="arthur2007">(<a href="references.html#ref-arthur2007" role="doc-biblioref">Arthur e Vassilvitskii 2007</a>)</span>, che sceglie i punti di partenza lontani fra loro riducendo di molto la probabilità di finire in un minimo scadente, o si parte dai centroidi di una soluzione gerarchica.</p>
+<p>Ne segue una proprietà da dichiarare sempre nel report: <strong>le k-medie non sono deterministiche</strong>. Due esecuzioni della stessa analisi sugli stessi dati possono restituire partizioni diverse se il seme casuale cambia. Il seme va quindi fissato e documentato, esattamente come per l’estrazione di un campione.</p>
+</section>
+<section id="che-cosa-presuppone" class="level3" data-number="4.11.4">
+<h3 data-number="4.11.4" class="anchored" data-anchor-id="che-cosa-presuppone"><span class="header-section-number">4.11.4</span> Che cosa presuppone</h3>
+<p>Il criterio della devianza interna non è neutrale: privilegia gruppi <strong>compatti, di forma approssimativamente sferica e di dimensione simile</strong>. Un gruppo allungato viene spesso spezzato in due, e un gruppo molto più numeroso degli altri tende a “perdere” le sue unità periferiche a favore dei gruppi vicini più piccoli. Valgono poi le stesse cautele dell’euclidea: le variabili vanno standardizzate quando le scale sono diverse, e gli outlier vanno trattati prima, perché la media non è robusta e un solo punto lontano sposta il centroide di tutto il gruppo.</p>
+<p>Infine <span class="math inline">\(k\)</span> va deciso in anticipo. Gli indici già visti per il gerarchico (<a href="#sec-scelta-k" class="quarto-xref"><span>Sezione 4.9</span></a>) — <span class="math inline">\(R^2\)</span>, RMSSTD, indice CH — si calcolano anche qui, ma con una differenza importante: mentre nel gerarchico le partizioni a <span class="math inline">\(k\)</span> e a <span class="math inline">\(k+1\)</span> gruppi sono annidate per costruzione, con le k-medie ogni <span class="math inline">\(k\)</span> richiede un’analisi indipendente e le soluzioni a <span class="math inline">\(k\)</span> e <span class="math inline">\(k+1\)</span> gruppi possono non avere alcuna relazione fra loro. Il <span class="math inline">\(\Delta G\)</span> e il dendrogramma, che presuppongono la gerarchia, qui non esistono.</p>
+</section>
+</section>
+<section id="sec-confronto-approcci" class="level2" data-number="4.12">
+<h2 data-number="4.12" class="anchored" data-anchor-id="sec-confronto-approcci"><span class="header-section-number">4.12</span> Gerarchico o non gerarchico?</h2>
+<p>I due approcci non sono in concorrenza: rispondono bene a domande diverse.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Gerarchico agglomerativo</strong></th>
+<th><strong>Non gerarchico (k-medie)</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Cosa produce</strong></td>
+<td>L’intera sequenza di partizioni, da <span class="math inline">\(n\)</span> gruppi a 1</td>
+<td>Una sola partizione, in <span class="math inline">\(k\)</span> gruppi</td>
+</tr>
+<tr class="even">
+<td><strong>Scelta di <span class="math inline">\(k\)</span></strong></td>
+<td>Dopo, leggendo il dendrogramma e gli indici</td>
+<td>Prima, come dato di partenza</td>
+</tr>
+<tr class="odd">
+<td><strong>Determinismo</strong></td>
+<td>Sì: stessi dati e stesse opzioni, stessa soluzione</td>
+<td>No: dipende dall’inizializzazione, va fissato il seme</td>
+</tr>
+<tr class="even">
+<td><strong>Numerosità gestibile</strong></td>
+<td>Fino a qualche migliaio di unità (<span class="math inline">\(O(n^2)\)</span> di memoria)</td>
+<td>Centinaia di migliaia e oltre (<span class="math inline">\(O(nkt)\)</span>)</td>
+</tr>
+<tr class="odd">
+<td><strong>Dati e distanze</strong></td>
+<td>Una matrice di dissimilarità qualsiasi: Euclidea, Manhattan, Gower, Jaccard. Non ogni combinazione con il metodo è appropriata: Ward e centroide presuppongono una geometria euclidea</td>
+<td>Solo quantitative con distanza euclidea (per gli altri casi: k-medoidi)</td>
+</tr>
+<tr class="even">
+<td><strong>Revisione delle scelte</strong></td>
+<td>Nessuna: una fusione sbagliata non si annulla più</td>
+<td>A ogni iterazione le unità possono cambiare gruppo</td>
+</tr>
+<tr class="odd">
+<td><strong>Forma dei gruppi</strong></td>
+<td>Dipende dal metodo: il legame singolo segue forme allungate, Ward cerca gruppi compatti</td>
+<td>Gruppi compatti e di dimensione simile</td>
+</tr>
+<tr class="even">
+<td><strong>Outlier</strong></td>
+<td>Formano cluster minuscoli, visibili nel dendrogramma</td>
+<td>Vengono comunque assorbiti in un gruppo, spostandone il centroide</td>
+</tr>
+<tr class="odd">
+<td><strong>Lettura dei risultati</strong></td>
+<td>Il dendrogramma mostra anche la struttura intermedia</td>
+<td>Solo l’assegnazione finale e i centroidi</td>
+</tr>
+</tbody>
+</table>
+<p>Due differenze meritano un commento, perché sono quelle che pesano davvero nella pratica.</p>
+<p>La prima è l’<strong>irreversibilità</strong>. Il metodo gerarchico è <em>greedy</em>: a ogni passo prende la decisione migliore nell’immediato e non la rimette mai in discussione. Se due unità vengono fuse presto per effetto del rumore, resteranno insieme in tutte le partizioni successive, anche quando a posteriori si vedrebbe che appartengono a gruppi diversi. Le k-medie, al contrario, riassegnano ogni unità a ogni iterazione e possono correggere un errore iniziale — ma solo entro il <span class="math inline">\(k\)</span> fissato, e solo fino al minimo locale in cui capitano.</p>
+<p>La seconda è che <strong>Ward e le k-medie ottimizzano lo stesso criterio</strong>, la devianza interna, con strategie diverse: Ward in modo sequenziale e vincolato dalla gerarchia, le k-medie in modo iterativo e libero. Da qui la strategia combinata più usata nelle segmentazioni di mercato, quando la numerosità lo consente:</p>
+<ol type="1">
+<li>si esegue un’analisi <strong>gerarchica con Ward</strong> su un campione gestibile, e si sceglie <span class="math inline">\(k\)</span> con dendrogramma e indici;</li>
+<li>si calcolano i <strong>centroidi</strong> dei <span class="math inline">\(k\)</span> gruppi così ottenuti;</li>
+<li>si lanciano le <strong>k-medie</strong> usando quei centroidi come inizializzazione, estendendo eventualmente la partizione a tutte le unità.</li>
+</ol>
+<p>Il primo passo risolve il problema che le k-medie non sanno affrontare (quanti gruppi), il terzo quello che il gerarchico non sa affrontare (rivedere le assegnazioni, e lavorare su molte unità). Va però ricordato che il risultato finale è una partizione ottenuta in due tempi: nel report si dichiarano entrambi i passaggi, il seme usato e il numero di inizializzazioni.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Nel modulo <code>AnalisiMercato</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><code>AnalisiMercato</code> implementa l’approccio <strong>gerarchico</strong>: le k-medie sono trattate qui per il confronto, e perché è a loro che rimanda il messaggio che il modulo mostra quando il dataset è troppo grande perché la matrice delle distanze sia calcolabile (<a href="./P-16-fondamenti-clustering.html">§ P-16</a>). In quel caso le strade sono due: lavorare su un sotto-campione, restando nel modulo, oppure passare a un metodo non gerarchico con un altro strumento.</p>
+</div>
+</div>
+</section>
+<section id="bibliografia-di-riferimento" class="level2" data-number="4.13">
+<h2 data-number="4.13" class="anchored" data-anchor-id="bibliografia-di-riferimento"><span class="header-section-number">4.13</span> Bibliografia di riferimento</h2>
+<ul>
+<li><span class="citation" data-cites="everitt2011cluster">Everitt et al. (<a href="references.html#ref-everitt2011cluster" role="doc-biblioref">2011</a>)</span> — testo classico.</li>
+<li><span class="citation" data-cites="ward1963hierarchical">Ward (<a href="references.html#ref-ward1963hierarchical" role="doc-biblioref">1963</a>)</span> — il metodo originale.</li>
+<li><span class="citation" data-cites="calinski1974">Caliński e Harabasz (<a href="references.html#ref-calinski1974" role="doc-biblioref">1974</a>)</span> — l’indice CH.</li>
+<li><span class="citation" data-cites="hubert1985comparing">Hubert e Arabie (<a href="references.html#ref-hubert1985comparing" role="doc-biblioref">1985</a>)</span> — Adjusted Rand Index.</li>
+<li><span class="citation" data-cites="gower1971general">Gower (<a href="references.html#ref-gower1971general" role="doc-biblioref">1971</a>)</span> — coefficiente generale di Gower per dati misti.</li>
+<li><span class="citation" data-cites="macqueen1967">MacQueen (<a href="references.html#ref-macqueen1967" role="doc-biblioref">1967</a>)</span> — le k-medie; <span class="citation" data-cites="lloyd1982">Lloyd (<a href="references.html#ref-lloyd1982" role="doc-biblioref">1982</a>)</span> per l’algoritmo nella forma oggi standard.</li>
+<li><span class="citation" data-cites="kaufman1990">Kaufman e Rousseeuw (<a href="references.html#ref-kaufman1990" role="doc-biblioref">1990</a>)</span> — k-medoidi (PAM) e clustering su dissimilarità qualsiasi.</li>
+<li><span class="citation" data-cites="arthur2007">Arthur e Vassilvitskii (<a href="references.html#ref-arthur2007" role="doc-biblioref">2007</a>)</span> — k-means++, inizializzazione che riduce il rischio di minimi locali scadenti.</li>
+</ul>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-arthur2007" class="csl-entry" role="listitem">
+Arthur, David, e Sergei Vassilvitskii. 2007. <span>«<span>k-means++</span>: The Advantages of Careful Seeding»</span>. <em>Proceedings of the Eighteenth Annual ACM-SIAM Symposium on Discrete Algorithms</em>, 1027–35.
+</div>
+<div id="ref-calinski1974" class="csl-entry" role="listitem">
+Caliński, Tadeusz, e Jerzy Harabasz. 1974. <span>«A Dendrite Method for Cluster Analysis»</span>. <em>Communications in Statistics</em> 3 (1): 1–27.
+</div>
+<div id="ref-everitt2011cluster" class="csl-entry" role="listitem">
+Everitt, Brian S., Sabine Landau, Morven Leese, e Daniel Stahl. 2011. <em>Cluster Analysis</em>. 5th ed. John Wiley &amp; Sons.
+</div>
+<div id="ref-gower1971general" class="csl-entry" role="listitem">
+Gower, John C. 1971. <span>«A General Coefficient of Similarity and Some of Its Properties»</span>. <em>Biometrics</em> 27 (4): 857–71.
+</div>
+<div id="ref-hubert1985comparing" class="csl-entry" role="listitem">
+Hubert, Lawrence, e Phipps Arabie. 1985. <span>«Comparing Partitions»</span>. <em>Journal of Classification</em> 2: 193–218.
+</div>
+<div id="ref-kaufman1990" class="csl-entry" role="listitem">
+Kaufman, Leonard, e Peter J. Rousseeuw. 1990. <em>Finding Groups in Data: An Introduction to Cluster Analysis</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-lloyd1982" class="csl-entry" role="listitem">
+Lloyd, Stuart P. 1982. <span>«Least Squares Quantization in PCM»</span>. <em>IEEE Transactions on Information Theory</em> 28 (2): 129–37.
+</div>
+<div id="ref-macqueen1967" class="csl-entry" role="listitem">
+MacQueen, James. 1967. <span>«Some Methods for Classification and Analysis of Multivariate Observations»</span>. <em>Proceedings of the Fifth Berkeley Symposium on Mathematical Statistics and Probability</em> (Berkeley) 1: 281–97.
+</div>
+<div id="ref-ward1963hierarchical" class="csl-entry" role="listitem">
+Ward, Joe H. 1963. <span>«Hierarchical Grouping to Optimize an Objective Function»</span>. <em>Journal of the American Statistical Association</em> 58 (301): 236–44.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("^(?!https://github\.com/)");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./T-03-preparazione-dati.html" class="pagination-link" aria-label="Preparazione e pulizia dei dati">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./T-05-pca.html" class="pagination-link" aria-label="Analisi delle Componenti Principali">
+        <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><code>AnalisiMercato</code> — Dispense del corso. © 2026 Luca Frigau, tutti i diritti riservati.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Realizzate con <a href="https://quarto.org">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

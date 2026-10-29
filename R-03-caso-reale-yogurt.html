@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>38&nbsp; Caso reale — Il posizionamento nutrizionale degli yogurt – Analisi di Mercato — Dispense del corso</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./R-04-caso-reale-regioni.html" rel="next">
+<link href="./R-02-caso-reale-ingrosso.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ef622e21aa483743907546df5fc19a86.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nessun risultato",
+    "search-matching-documents-text": "documenti trovati",
+    "search-copy-link-title": "Copiare il link nella ricerca",
+    "search-hide-matches-text": "Nascondere i risultati aggiuntivi",
+    "search-more-match-text": "ci sono altri risultati in questo documento",
+    "search-more-matches-text": "ulteriori risultati in questo documento",
+    "search-clear-button-title": "Pulire",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancellare",
+    "search-submit-button-title": "Inviare",
+    "search-label": "Ricerca"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./C-01-caso-campionamento.html">Parte IV — Casi studio</a></li><li class="breadcrumb-item"><a href="./R-03-caso-reale-yogurt.html"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Ricerca" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisi di Mercato — Dispense del corso</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Attiva/disattiva la modalità oscura"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Ricerca"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefazione</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte I — Approfondimenti teorici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-01-introduzione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduzione alla ricerca di mercato quantitativa</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-02-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-03-preparazione-dati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-04-cluster-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-05-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte II — Progetto pratico</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25-introduzione-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25b-strumenti-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-26-esempio-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-27-report-finale.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Report finale del progetto di esempio</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte III — Software Jamovi</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-01-cosa-e-analisimercato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Cos’è <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-02-installazione-jamovi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Installazione di Jamovi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-03-installazione-modulo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installazione del modulo <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-04-tour-interfaccia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tour dell’interfaccia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-06-fondamenti-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Workflow operativo del campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-07-numerosita-campionaria.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Numerosità campionaria</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-08-campionamento-casuale-semplice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Campionamento casuale semplice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-09-campionamento-sistematico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Campionamento sistematico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-10-campionamento-stratificato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-11-campionamento-grappoli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Campionamento a grappoli</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-12-campionamento-due-stadi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Campionamento a due stadi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-13-campionamento-cpv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Campionamento con probabilità variabili (CPV)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-14-intervalli-confidenza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Intervalli di confidenza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15-design-effect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Design Effect</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-16-fondamenti-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Workflow operativo della cluster analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-17-distanze-agglomerazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Distanze e agglomerazione</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-18-scelta-k-dendrogramma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Scelta di k e dendrogramma</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-19-caratterizzazione-cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Caratterizzazione dei cluster</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-20-confronto-partizioni-ari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Confronto fra partizioni — Adjusted Rand Index</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-21-fondamenti-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Workflow operativo della PCA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-22-contributi-cos2-biplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Contributi, cos² e biplot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-23-rotazioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Rotazioni Varimax e Promax</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-24-variabili-supplementari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Variabili supplementari e mappa di posizionamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV — Casi studio</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-01-caso-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-02-caso-segmentazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Caso studio — Segmentare il mercato: quattro gruppi che l’anagrafica non vede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-03-caso-posizionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Caso studio — Dove siamo sulla mappa: il posizionamento di venti marche</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-01-caso-reale-comuni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Caso reale — Campionare un frame vero: i comuni italiani</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-02-caso-reale-ingrosso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Caso reale — Segmentare clienti veri: un distributore all’ingrosso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-03-caso-reale-yogurt.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-04-caso-reale-regioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Caso reale — Dove conviene entrare: le regioni italiane</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1-glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A2-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Domande frequenti (FAQ)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Riferimenti bibliografici</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#la-situazione" id="toc-la-situazione" class="nav-link active" data-scroll-target="#la-situazione"><span class="header-section-number">38.1</span> La situazione</a></li>
+  <li><a href="#passo-1-prima-dellanalisi-i-controlli" id="toc-passo-1-prima-dellanalisi-i-controlli" class="nav-link" data-scroll-target="#passo-1-prima-dellanalisi-i-controlli"><span class="header-section-number">38.2</span> Passo 1 — Prima dell’analisi, i controlli</a></li>
+  <li><a href="#passo-2-la-pca" id="toc-passo-2-la-pca" class="nav-link" data-scroll-target="#passo-2-la-pca"><span class="header-section-number">38.3</span> Passo 2 — La PCA</a></li>
+  <li><a href="#passo-3-la-mappa-e-una-verifica-di-coerenza" id="toc-passo-3-la-mappa-e-una-verifica-di-coerenza" class="nav-link" data-scroll-target="#passo-3-la-mappa-e-una-verifica-di-coerenza"><span class="header-section-number">38.4</span> Passo 3 — La mappa, e una verifica di coerenza</a></li>
+  <li><a href="#passo-4-di-chi-non-fidarsi" id="toc-passo-4-di-chi-non-fidarsi" class="nav-link" data-scroll-target="#passo-4-di-chi-non-fidarsi"><span class="header-section-number">38.5</span> Passo 4 — Di chi non fidarsi</a></li>
+  <li><a href="#che-cosa-ha-aggiunto-la-pca" id="toc-che-cosa-ha-aggiunto-la-pca" class="nav-link" data-scroll-target="#che-cosa-ha-aggiunto-la-pca"><span class="header-section-number">38.6</span> Che cosa ha aggiunto la PCA</a></li>
+  <li><a href="#le-funzioni-usate" id="toc-le-funzioni-usate" class="nav-link" data-scroll-target="#le-funzioni-usate"><span class="header-section-number">38.7</span> Le funzioni usate</a></li>
+  <li><a href="#da-portare-nel-report" id="toc-da-portare-nel-report" class="nav-link" data-scroll-target="#da-portare-nel-report"><span class="header-section-number">38.8</span> Da portare nel report</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./C-01-caso-campionamento.html">Parte IV — Casi studio</a></li><li class="breadcrumb-item"><a href="./R-03-caso-reale-yogurt.html"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-reale-yogurt" class="quarto-section-identifier"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Dati:</strong> <code>data/reali/yogurt_italia.csv</code> — 276 prodotti di 86 marche venduti in Italia, valori nutrizionali per 100 g (Open Food Facts, licenza <em>Open Database License</em>, ODbL v1.0) · <strong>Analisi usate:</strong> Analisi delle Componenti Principali (PCA, <em>Principal Component Analysis</em>) con variabile qualitativa supplementare e mappa di posizionamento.</p>
+</div>
+</div>
+</div>
+<section id="la-situazione" class="level2" data-number="38.1">
+<h2 data-number="38.1" class="anchored" data-anchor-id="la-situazione"><span class="header-section-number">38.1</span> La situazione</h2>
+<p>Un’azienda lattiero-casearia vuole capire com’è occupato lo scaffale dello yogurt in Italia: non per percezioni dichiarate dai consumatori, ma per <strong>caratteristiche oggettive del prodotto</strong>, quelle stampate sulla confezione. Sono i dati che qualunque concorrente può leggere e che determinano, fra l’altro, il semaforo nutrizionale in etichetta.</p>
+<p>La fonte è Open Food Facts, una banca dati collaborativa: i valori sono inseriti dagli utenti a partire dalle confezioni. È il suo pregio — copre marche vere, comprese le private label della distribuzione — ed è anche il suo problema.</p>
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>Questo estratto è un database derivato da Open Food Facts ed è distribuito sotto la stessa licenza ODbL v1.0. Il dettaglio delle condizioni è in <code>data/reali/README.md</code>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="passo-1-prima-dellanalisi-i-controlli" class="level2" data-number="38.2">
+<h2 data-number="38.2" class="anchored" data-anchor-id="passo-1-prima-dellanalisi-i-controlli"><span class="header-section-number">38.2</span> Passo 1 — Prima dell’analisi, i controlli</h2>
+<p>L’estratto contiene 276 prodotti con marca, nome e tutti e sette i valori nutrizionali. Prima di lanciare qualunque analisi vanno fatti quattro controlli, e tutti e quattro trovano qualcosa.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Controllo</th>
+<th style="text-align: right;">Esito</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Prodotti duplicati (stessa marca, stesso nome)</td>
+<td style="text-align: right;">6</td>
+</tr>
+<tr class="even">
+<td>Energia incoerente con i macronutrienti (scostamento &gt; 30%)</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td>Zuccheri dichiarati superiori ai carboidrati</td>
+<td style="text-align: right;">1</td>
+</tr>
+<tr class="even">
+<td>Prodotti con marca generica «Yogurt»</td>
+<td style="text-align: right;">26</td>
+</tr>
+</tbody>
+</table>
+<p>Il secondo controllo merita una spiegazione, perché è quello che nessuno pensa di fare. Le calorie non sono una misura indipendente: derivano dai macronutrienti secondo i coefficienti di Atwater, circa 4 kcal per grammo di carboidrati e di proteine e 9 per grammo di grassi. Ricalcolare l’energia dai macro e confrontarla con quella dichiarata è una verifica che costa una formula in <em>Dati → Calcola</em>:</p>
+<pre><code>ABS(4*carboidrati + 4*proteine + 9*grassi - energia_kcal) / energia_kcal</code></pre>
+<p>Undici prodotti scostano di oltre il 30%, due di oltre il 50%: uno yogurt greco di capra dichiara 33 kcal per 100 g quando i suoi macronutrienti ne implicano 68, più del doppio. Il controllo segnala anomalie, non errori certi: la formula trascura alcune componenti che il regolamento dell’Unione europea (UE) 1169/2011 conta a parte (fibre, polioli, acidi organici), ma in uno yogurt ce ne sono troppo poche per spiegare scarti di questa misura. Dai dati non si capisce se sia sbagliata l’energia o uno dei macronutrienti: sono valori da verificare sull’etichetta, e finché non sono verificati restano fuori, perché su una PCA standardizzata basterebbero a spostare un asse.</p>
+<p>C’è poi un problema che non è un errore ma un fastidio: la stessa marca compare scritta in due modi, <code>Müller</code> e <code>Muller</code>, e divisa in due conta 19 e 10 prodotti invece di 29. Va unificata, altrimenti qualunque analisi per marca è sbagliata.</p>
+<p>Tolti duplicati, incoerenze e prodotti senza una marca vera, e unificato Müller, restano <strong>232 prodotti</strong>; escludendo i due con Nutri-Score non applicabile si arriva ai <strong>230</strong> su cui si lavora. Quest’ultima esclusione non era indispensabile: il Nutri-Score entra solo come variabile supplementare, e con 232 prodotti la PCA resta di fatto la stessa (73,3% invece di 73,4% sul piano). Nel file però quei due prodotti hanno il testo <code>not-applicable</code>, che sulla mappa comparirebbe come una sesta classe.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Marca</th>
+<th style="text-align: right;">Prodotti</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Müller</td>
+<td style="text-align: right;">27</td>
+</tr>
+<tr class="even">
+<td>Fage</td>
+<td style="text-align: right;">17</td>
+</tr>
+<tr class="odd">
+<td>Danone</td>
+<td style="text-align: right;">13</td>
+</tr>
+<tr class="even">
+<td>Eurospin</td>
+<td style="text-align: right;">11</td>
+</tr>
+<tr class="odd">
+<td>Conad</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td>Land</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td>Milbona</td>
+<td style="text-align: right;">9</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Quanto conta questo passaggio
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si parte da 276 righe e se ne analizzano 230: il 17% dei dati è stato scartato prima di cominciare. In un caso didattico questo passaggio non esiste; in un caso reale è quello che distingue un’analisi da un esercizio. E va documentato riga per riga nel report, perché ogni esclusione è una decisione che qualcun altro potrebbe prendere diversamente.</p>
+</div>
+</div>
+</section>
+<section id="passo-2-la-pca" class="level2" data-number="38.3">
+<h2 data-number="38.3" class="anchored" data-anchor-id="passo-2-la-pca"><span class="header-section-number">38.3</span> Passo 2 — La PCA</h2>
+<p><strong>Menu:</strong> <em>Analisi → AnalisiMercato → PCA → Analisi delle Componenti Principali</em></p>
+<p>Sette variabili attive (energia, grassi, grassi saturi, carboidrati, zuccheri, proteine, sale), standardizzate, due componenti. Come identificativo <code>prodotto</code> da solo non basta: il nome non contiene la marca, e più marche vendono uno «Yogurt greco bianco». Conviene preparare nel foglio di calcolo, prima di importare il file, una colonna <code>etichetta</code> che unisca marca e nome (per esempio <code>=B2&amp;" "&amp;C2</code>): è l’identificativo usato negli esempi più avanti.</p>
+<div class="jamovi-output">
+<p><strong>Autovalori e varianza spiegata</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Componente</th>
+<th>Autovalore</th>
+<th>% varianza</th>
+<th>% cumulata</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PC1</td>
+<td>3,497</td>
+<td>49,96</td>
+<td>49,96</td>
+</tr>
+<tr class="even">
+<td>PC2</td>
+<td>1,637</td>
+<td>23,39</td>
+<td>73,35</td>
+</tr>
+<tr class="odd">
+<td>PC3</td>
+<td>1,133</td>
+<td>16,18</td>
+<td>89,53</td>
+</tr>
+<tr class="even">
+<td>PC4</td>
+<td>0,680</td>
+<td>9,72</td>
+<td>99,25</td>
+</tr>
+<tr class="odd">
+<td>PC5</td>
+<td>0,030</td>
+<td>0,44</td>
+<td>99,68</td>
+</tr>
+<tr class="even">
+<td>PC6</td>
+<td>0,018</td>
+<td>0,25</td>
+<td>99,94</td>
+</tr>
+<tr class="odd">
+<td>PC7</td>
+<td>0,004</td>
+<td>0,06</td>
+<td>100,00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="fig-reale3-scree" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-reale3-scree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/casi-reali/R-03__scree.png" class="img-fluid figure-img" style="width:65.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-reale3-scree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;38.1: Lo scree plot prodotto dal modulo. Dopo la quarta componente la curva è appiattita sullo zero: le ultime tre non contengono quasi nulla.
+</figcaption>
+</figure>
+</div>
+<p>Due componenti tengono il 73,4%. Da notare il crollo dopo PC4 (PC1, PC2, … indicano la prima, la seconda… componente principale): le ultime tre componenti valgono insieme lo 0,8%, ed è la firma di <strong>dipendenze quasi esatte</strong> fra le variabili — che infatti ci sono: la relazione di Atwater fra energia e macronutrienti, e le coppie quasi coincidenti grassi/grassi saturi e carboidrati/zuccheri (r = 0,98 in entrambi i casi).</p>
+<div class="jamovi-output">
+<p><strong>Coordinate delle variabili (loadings)</strong> e <strong>Contributi delle variabili (%)</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variabile</th>
+<th style="text-align: right;">PC1</th>
+<th style="text-align: right;">PC2</th>
+<th style="text-align: right;">ctr PC1</th>
+<th style="text-align: right;">ctr PC2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>energia_kcal</td>
+<td style="text-align: right;">0,909</td>
+<td style="text-align: right;">−0,021</td>
+<td style="text-align: right;">23,65</td>
+<td style="text-align: right;">0,03</td>
+</tr>
+<tr class="even">
+<td>grassi</td>
+<td style="text-align: right;">0,782</td>
+<td style="text-align: right;">−0,616</td>
+<td style="text-align: right;">17,51</td>
+<td style="text-align: right;">23,14</td>
+</tr>
+<tr class="odd">
+<td>grassi_saturi</td>
+<td style="text-align: right;">0,756</td>
+<td style="text-align: right;">−0,642</td>
+<td style="text-align: right;">16,35</td>
+<td style="text-align: right;">25,13</td>
+</tr>
+<tr class="even">
+<td>carboidrati</td>
+<td style="text-align: right;">0,756</td>
+<td style="text-align: right;">0,647</td>
+<td style="text-align: right;">16,33</td>
+<td style="text-align: right;">25,54</td>
+</tr>
+<tr class="odd">
+<td>zuccheri</td>
+<td style="text-align: right;">0,750</td>
+<td style="text-align: right;">0,650</td>
+<td style="text-align: right;">16,08</td>
+<td style="text-align: right;">25,83</td>
+</tr>
+<tr class="even">
+<td>proteine</td>
+<td style="text-align: right;">−0,592</td>
+<td style="text-align: right;">−0,010</td>
+<td style="text-align: right;">10,03</td>
+<td style="text-align: right;">0,01</td>
+</tr>
+<tr class="odd">
+<td>sale</td>
+<td style="text-align: right;">0,042</td>
+<td style="text-align: right;">0,073</td>
+<td style="text-align: right;">0,05</td>
+<td style="text-align: right;">0,32</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="fig-reale3-cerchio" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-reale3-cerchio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/casi-reali/R-03__cerchio.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-reale3-cerchio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;38.2: Il cerchio delle correlazioni. Energia, grassi, carboidrati e zuccheri puntano a destra; le proteine dalla parte opposta. Il sale resta schiacciato nell’origine: non partecipa a nessuno dei due assi.
+</figcaption>
+</figure>
+</div>
+<p><strong>PC1 (50,0%) è la densità calorica.</strong> Energia, grassi, carboidrati e zuccheri crescono insieme; le proteine vanno nella direzione opposta. A destra gli yogurt calorici, a sinistra quelli magri e proteici.</p>
+<p><strong>PC2 (23,4%) dice da dove vengono le calorie.</strong> Grassi e grassi saturi da un lato (<span class="math inline">\(-0{,}62\)</span> e <span class="math inline">\(-0{,}64\)</span>), carboidrati e zuccheri dall’altro (<span class="math inline">\(+0{,}65\)</span>): quattro variabili che pesano insieme il 99,6% dell’asse. Due yogurt con le stesse calorie stanno agli antipodi di PC2 se uno le prende dal grasso e l’altro dallo zucchero.</p>
+<p><strong>E il sale non sta su questo piano.</strong> Contributo dello 0,05% su PC1 e dello 0,32% su PC2, coseno quadrato (cos²) 0,002 e 0,005: sul piano non è rappresentato affatto. Non è un difetto dell’analisi, ma non vuol dire che il sale non distingua gli yogurt: è quasi scorrelato dagli altri nutrienti (correlazioni tutte sotto 0,2), quindi non segue né la densità calorica né l’origine delle calorie, e pesa soprattutto sulla terza componente (16,2% della varianza), che il piano non mostra. Sarebbe un errore commentarlo sul piano come se dicesse qualcosa; è invece corretto lasciarlo fra le variabili attive e dichiararlo non rappresentato sui primi due assi.</p>
+</section>
+<section id="passo-3-la-mappa-e-una-verifica-di-coerenza" class="level2" data-number="38.4">
+<h2 data-number="38.4" class="anchored" data-anchor-id="passo-3-la-mappa-e-una-verifica-di-coerenza"><span class="header-section-number">38.4</span> Passo 3 — La mappa, e una verifica di coerenza</h2>
+<p>Il Nutri-Score dichiarato non entra nel calcolo: entra come <strong>variabile qualitativa supplementare</strong>, e i suoi baricentri vengono proiettati sul piano già costruito.</p>
+<div id="fig-reale3-mappa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-reale3-mappa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/casi-reali/R-03__mappa.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-reale3-mappa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;38.3: La mappa di posizionamento. Frecce blu: i sette valori nutrizionali. Triangoli verdi: i baricentri delle cinque classi Nutri-Score, che non hanno contribuito a costruire gli assi.
+</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Nutri-Score</th>
+<th style="text-align: right;">Prodotti</th>
+<th style="text-align: right;">PC1</th>
+<th style="text-align: right;">PC2</th>
+<th style="text-align: right;">kcal medie</th>
+<th style="text-align: right;">Zuccheri medi</th>
+<th style="text-align: right;">Proteine medie</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">−1,56</td>
+<td style="text-align: right;">−0,03</td>
+<td style="text-align: right;">59,9</td>
+<td style="text-align: right;">4,6</td>
+<td style="text-align: right;">8,4</td>
+</tr>
+<tr class="even">
+<td>b</td>
+<td style="text-align: right;">57</td>
+<td style="text-align: right;">+0,35</td>
+<td style="text-align: right;">+0,08</td>
+<td style="text-align: right;">80,5</td>
+<td style="text-align: right;">8,3</td>
+<td style="text-align: right;">6,2</td>
+</tr>
+<tr class="odd">
+<td>c</td>
+<td style="text-align: right;">59</td>
+<td style="text-align: right;">+2,04</td>
+<td style="text-align: right;">−0,24</td>
+<td style="text-align: right;">100,1</td>
+<td style="text-align: right;">10,5</td>
+<td style="text-align: right;">4,2</td>
+</tr>
+<tr class="even">
+<td>d</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">+2,62</td>
+<td style="text-align: right;">+0,74</td>
+<td style="text-align: right;">106,6</td>
+<td style="text-align: right;">13,9</td>
+<td style="text-align: right;">3,6</td>
+</tr>
+<tr class="odd">
+<td>e</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">+0,82</td>
+<td style="text-align: right;">+1,21</td>
+<td style="text-align: right;">72,9</td>
+<td style="text-align: right;">11,7</td>
+<td style="text-align: right;">3,1</td>
+</tr>
+</tbody>
+</table>
+<p>I baricentri si dispongono <strong>in ordine</strong> lungo PC1, da <code>a</code> a <code>d</code>. È una verifica di coerenza, non una prova indipendente: il Nutri-Score, un punteggio nato in Francia, è calcolato in gran parte proprio sulle variabili attive dell’analisi (energia, zuccheri, grassi saturi e sale pesano contro, le proteine a favore), quindi era prevedibile che si ordinasse lungo l’asse delle calorie. Dice però che l’asse estratto dalla PCA va nella stessa direzione del criterio con cui lo yogurt viene giudicato in etichetta.</p>
+<p>L’eccezione è istruttiva. La classe <code>e</code> non sta all’estrema destra ma <strong>in alto</strong>: 73 kcal medie, meno di un <code>c</code>, ma 11,7 g di zuccheri e solo 1,2 g di grassi. Sono prodotti poco calorici penalizzati dallo zucchero — l’angolo di mappa che PC1 da solo non avrebbe distinto e che PC2 rende visibile.</p>
+<p>Agli estremi del piano si leggono tre posizioni di prodotto molto diverse:</p>
+<ul>
+<li>in basso a destra le <strong>creme di yogurt greco intero</strong> (Consilia, Despar, Mevgal, Koukakis: PC1 attorno a <span class="math inline">\(+3{,}3\)</span>, PC2 attorno a <span class="math inline">\(-4{,}5\)</span>), caloriche per via dei grassi;</li>
+<li>all’estrema destra i <strong>mix Müller</strong> con preparazione dolce (PC1 fino a <span class="math inline">\(+6{,}3\)</span>, PC2 vicino a zero), molto calorici per grassi e zuccheri insieme;</li>
+<li>a sinistra i <strong>greci magri</strong> di Fage (PC1 <span class="math inline">\(-2{,}4\)</span>), poco calorici e molto proteici.</li>
+</ul>
+<p>«Yogurt greco» non è una posizione di mercato: sullo stesso piano, e con lo stesso nome in etichetta, stanno prodotti agli antipodi. È la differenza fra ciò che la confezione dichiara e ciò che il prodotto contiene, ed è esattamente il genere di cosa per cui si fa una mappa di posizionamento.</p>
+</section>
+<section id="passo-4-di-chi-non-fidarsi" class="level2" data-number="38.5">
+<h2 data-number="38.5" class="anchored" data-anchor-id="passo-4-di-chi-non-fidarsi"><span class="header-section-number">38.5</span> Passo 4 — Di chi non fidarsi</h2>
+<div id="fig-reale3-cos2" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-reale3-cos2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/casi-reali/R-03__cos2.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-reale3-cos2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;38.4: La heatmap dei cos² prodotta dal modulo (opzione <em>Heatmap dei coseni²</em>) riguarda le variabili: energia, grassi, carboidrati e zuccheri sono ben rappresentati sul piano, le proteine solo in parte, il sale per nulla. La qualità di rappresentazione dei singoli prodotti si legge invece nella tabella <em>Coseni quadrati delle osservazioni (cos²)</em>.
+</figcaption>
+</figure>
+</div>
+<p>Il cos² medio sul piano è 0,746: tre quarti dell’informazione sulla posizione dei prodotti è visibile. Ma <strong>17 prodotti su 230</strong> stanno sotto 0,40, e per quelli la mappa non è una descrizione attendibile: vivono soprattutto su PC3 (16,2%, in pratica l’asse del sale e in parte delle proteine) e, per alcuni, su PC4 (9,7%), componenti che questi due assi non mostrano.</p>
+<p>La regola pratica da portarsi dietro: su una mappa di posizionamento si commentano le posizioni dei prodotti con cos² alto, e per gli altri si dice che il piano non basta. Commentare la posizione di un prodotto con cos² 0,3 significa descrivere una proiezione, non il prodotto.</p>
+</section>
+<section id="che-cosa-ha-aggiunto-la-pca" class="level2" data-number="38.6">
+<h2 data-number="38.6" class="anchored" data-anchor-id="che-cosa-ha-aggiunto-la-pca"><span class="header-section-number">38.6</span> Che cosa ha aggiunto la PCA</h2>
+<ul>
+<li>Ha ridotto sette misure di etichetta a <strong>due assi interpretabili</strong>: quante calorie, e da dove vengono. Nessuna coppia di colonne avrebbe dato questa seconda dimensione, che nasce dall’opposizione fra grassi e zuccheri e non da una singola variabile.</li>
+<li>Ha <strong>mostrato dove sta ciascuna variabile</strong> senza che nessuno dovesse deciderlo a priori: il sale è nell’analisi, e l’analisi dice che non sta sui primi due assi ma soprattutto sulla terza componente.</li>
+<li>Ha superato una <strong>verifica di coerenza</strong>: le classi Nutri-Score, tenute fuori dal calcolo, si ordinano lungo il primo asse.</li>
+<li>Ha mostrato che una categoria commerciale — «greco» — può contenere posizionamenti opposti.</li>
+</ul>
+<p>E, prima di tutto questo, ha richiesto che i dati fossero guardati: 44 righe su 276 non erano utilizzabili (altre 2, con Nutri-Score non applicabile, sono state tolte per semplicità), e nessuna di esse si sarebbe segnalata da sola.</p>
+</section>
+<section id="le-funzioni-usate" class="level2" data-number="38.7">
+<h2 data-number="38.7" class="anchored" data-anchor-id="le-funzioni-usate"><span class="header-section-number">38.7</span> Le funzioni usate</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 25%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Passo</th>
+<th>Analisi</th>
+<th>Opzioni principali</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Controllo di coerenza</td>
+<td><em>Dati → Calcola</em> (jamovi)</td>
+<td>scostamento fra energia dichiarata e calcolata dai macro</td>
+</tr>
+<tr class="even">
+<td>Esclusione</td>
+<td><em>Dati → Filtri</em> (jamovi)</td>
+<td>duplicati, incoerenze, marca generica</td>
+</tr>
+<tr class="odd">
+<td>Unificazione delle marche</td>
+<td><em>Dati → Trasforma</em> (jamovi)</td>
+<td><code>Müller</code> / <code>Muller</code></td>
+</tr>
+<tr class="even">
+<td>Ridurre</td>
+<td>Analisi delle Componenti Principali</td>
+<td>7 variabili; standardizzate; 2 componenti; id <code>etichetta</code> (marca + nome, preparata nel foglio di calcolo)</td>
+</tr>
+<tr class="odd">
+<td>Verificare la coerenza</td>
+<td>(stessa analisi)</td>
+<td><code>nutriscore</code> come qualitativa supplementare; mappa</td>
+</tr>
+<tr class="even">
+<td>Verificare la qualità</td>
+<td>(stessa analisi)</td>
+<td>cos² delle osservazioni: <em>Mostra tabella contributi/coseni² delle osservazioni</em>, con <em>Numero massimo di osservazioni da mostrare</em> portato a 230 (il default ne mostra 20, quelle con il contributo medio più alto)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="da-portare-nel-report" class="level2" data-number="38.8">
+<h2 data-number="38.8" class="anchored" data-anchor-id="da-portare-nel-report"><span class="header-section-number">38.8</span> Da portare nel report</h2>
+<ul>
+<li>Fonte, data di estrazione e licenza dei dati (per Open Food Facts, ODbL con attribuzione).</li>
+<li>L’elenco dei controlli fatti e il numero di righe escluse per ciascun motivo.</li>
+<li>La percentuale di varianza del piano, accanto alla mappa.</li>
+<li>Il nome dato a ciascun asse, con loadings e contributi a sostegno.</li>
+<li>Le variabili che non contribuiscono, dichiarate come tali.</li>
+<li>I prodotti con cos² basso, esclusi dal commento.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("^(?!https://github\.com/)");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./R-02-caso-reale-ingrosso.html" class="pagination-link" aria-label="Caso reale — Segmentare clienti veri: un distributore all'ingrosso">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Caso reale — Segmentare clienti veri: un distributore all’ingrosso</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./R-04-caso-reale-regioni.html" class="pagination-link" aria-label="Caso reale — Dove conviene entrare: le regioni italiane">
+        <span class="nav-page-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Caso reale — Dove conviene entrare: le regioni italiane</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><code>AnalisiMercato</code> — Dispense del corso. © 2026 Luca Frigau, tutti i diritti riservati.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Realizzate con <a href="https://quarto.org">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

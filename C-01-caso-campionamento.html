@@ -1,0 +1,1719 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>33&nbsp; Caso studio — Progettare l’indagine: quante interviste, e a chi – Analisi di Mercato — Dispense del corso</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./C-02-caso-segmentazione.html" rel="next">
+<link href="./P-24-variabili-supplementari.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ef622e21aa483743907546df5fc19a86.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nessun risultato",
+    "search-matching-documents-text": "documenti trovati",
+    "search-copy-link-title": "Copiare il link nella ricerca",
+    "search-hide-matches-text": "Nascondere i risultati aggiuntivi",
+    "search-more-match-text": "ci sono altri risultati in questo documento",
+    "search-more-matches-text": "ulteriori risultati in questo documento",
+    "search-clear-button-title": "Pulire",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancellare",
+    "search-submit-button-title": "Inviare",
+    "search-label": "Ricerca"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./C-01-caso-campionamento.html">Parte IV — Casi studio</a></li><li class="breadcrumb-item"><a href="./C-01-caso-campionamento.html"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Ricerca" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisi di Mercato — Dispense del corso</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Attiva/disattiva la modalità oscura"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Ricerca"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefazione</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte I — Approfondimenti teorici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-01-introduzione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduzione alla ricerca di mercato quantitativa</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-02-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-03-preparazione-dati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-04-cluster-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-05-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte II — Progetto pratico</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25-introduzione-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25b-strumenti-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-26-esempio-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-27-report-finale.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Report finale del progetto di esempio</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte III — Software Jamovi</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-01-cosa-e-analisimercato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Cos’è <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-02-installazione-jamovi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Installazione di Jamovi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-03-installazione-modulo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installazione del modulo <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-04-tour-interfaccia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tour dell’interfaccia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-06-fondamenti-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Workflow operativo del campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-07-numerosita-campionaria.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Numerosità campionaria</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-08-campionamento-casuale-semplice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Campionamento casuale semplice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-09-campionamento-sistematico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Campionamento sistematico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-10-campionamento-stratificato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-11-campionamento-grappoli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Campionamento a grappoli</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-12-campionamento-due-stadi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Campionamento a due stadi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-13-campionamento-cpv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Campionamento con probabilità variabili (CPV)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-14-intervalli-confidenza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Intervalli di confidenza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15-design-effect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Design Effect</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-16-fondamenti-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Workflow operativo della cluster analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-17-distanze-agglomerazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Distanze e agglomerazione</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-18-scelta-k-dendrogramma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Scelta di k e dendrogramma</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-19-caratterizzazione-cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Caratterizzazione dei cluster</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-20-confronto-partizioni-ari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Confronto fra partizioni — Adjusted Rand Index</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-21-fondamenti-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Workflow operativo della PCA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-22-contributi-cos2-biplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Contributi, cos² e biplot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-23-rotazioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Rotazioni Varimax e Promax</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-24-variabili-supplementari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Variabili supplementari e mappa di posizionamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte IV — Casi studio</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-01-caso-campionamento.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-02-caso-segmentazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Caso studio — Segmentare il mercato: quattro gruppi che l’anagrafica non vede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-03-caso-posizionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Caso studio — Dove siamo sulla mappa: il posizionamento di venti marche</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-01-caso-reale-comuni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Caso reale — Campionare un frame vero: i comuni italiani</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-02-caso-reale-ingrosso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Caso reale — Segmentare clienti veri: un distributore all’ingrosso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-03-caso-reale-yogurt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-04-caso-reale-regioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Caso reale — Dove conviene entrare: le regioni italiane</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1-glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A2-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Domande frequenti (FAQ)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Riferimenti bibliografici</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#la-situazione" id="toc-la-situazione" class="nav-link active" data-scroll-target="#la-situazione"><span class="header-section-number">33.1</span> La situazione</a></li>
+  <li><a href="#i-dati" id="toc-i-dati" class="nav-link" data-scroll-target="#i-dati"><span class="header-section-number">33.2</span> I dati</a></li>
+  <li><a href="#passo-1-quante-interviste-servono" id="toc-passo-1-quante-interviste-servono" class="nav-link" data-scroll-target="#passo-1-quante-interviste-servono"><span class="header-section-number">33.3</span> Passo 1 — Quante interviste servono</a></li>
+  <li><a href="#passo-2-il-piano-più-semplice-estrarre-a-caso" id="toc-passo-2-il-piano-più-semplice-estrarre-a-caso" class="nav-link" data-scroll-target="#passo-2-il-piano-più-semplice-estrarre-a-caso"><span class="header-section-number">33.4</span> Passo 2 — Il piano più semplice: estrarre a caso</a></li>
+  <li><a href="#passo-3-stratificare-sì-ma-su-quale-variabile" id="toc-passo-3-stratificare-sì-ma-su-quale-variabile" class="nav-link" data-scroll-target="#passo-3-stratificare-sì-ma-su-quale-variabile"><span class="header-section-number">33.5</span> Passo 3 — Stratificare: sì, ma su quale variabile?</a></li>
+  <li><a href="#passo-4-quanto-vale-davvero-ciascun-piano" id="toc-passo-4-quanto-vale-davvero-ciascun-piano" class="nav-link" data-scroll-target="#passo-4-quanto-vale-davvero-ciascun-piano"><span class="header-section-number">33.6</span> Passo 4 — Quanto vale davvero ciascun piano</a></li>
+  <li><a href="#passo-5-la-verifica-2-000-campioni-invece-di-uno" id="toc-passo-5-la-verifica-2-000-campioni-invece-di-uno" class="nav-link" data-scroll-target="#passo-5-la-verifica-2-000-campioni-invece-di-uno"><span class="header-section-number">33.7</span> Passo 5 — La verifica: 2 000 campioni invece di uno</a></li>
+  <li><a href="#il-tranello-lintervallo-giusto-sul-piano-sbagliato" id="toc-il-tranello-lintervallo-giusto-sul-piano-sbagliato" class="nav-link" data-scroll-target="#il-tranello-lintervallo-giusto-sul-piano-sbagliato"><span class="header-section-number">33.8</span> Il tranello: l’intervallo giusto sul piano sbagliato</a></li>
+  <li><a href="#unultima-insidia-neyman-è-ottimale-rispetto-a-che-cosa" id="toc-unultima-insidia-neyman-è-ottimale-rispetto-a-che-cosa" class="nav-link" data-scroll-target="#unultima-insidia-neyman-è-ottimale-rispetto-a-che-cosa"><span class="header-section-number">33.9</span> Un’ultima insidia: Neyman è ottimale rispetto a che cosa?</a></li>
+  <li><a href="#che-cosa-ha-aggiunto-il-campionamento" id="toc-che-cosa-ha-aggiunto-il-campionamento" class="nav-link" data-scroll-target="#che-cosa-ha-aggiunto-il-campionamento"><span class="header-section-number">33.10</span> Che cosa ha aggiunto il campionamento</a></li>
+  <li><a href="#le-funzioni-usate" id="toc-le-funzioni-usate" class="nav-link" data-scroll-target="#le-funzioni-usate"><span class="header-section-number">33.11</span> Le funzioni usate</a></li>
+  <li><a href="#da-portare-nel-report-metodologico" id="toc-da-portare-nel-report-metodologico" class="nav-link" data-scroll-target="#da-portare-nel-report-metodologico"><span class="header-section-number">33.12</span> Da portare nel report metodologico</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./C-01-caso-campionamento.html">Parte IV — Casi studio</a></li><li class="breadcrumb-item"><a href="./C-01-caso-campionamento.html"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-caso-campionamento" class="quarto-section-identifier"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="callout callout-style-simple callout-note no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><strong>Dataset:</strong> <code>popolazione_clienti.csv</code> (5 000 clienti) · <strong>Analisi usate:</strong> Numerosità campionaria, Campionamento casuale semplice, Campionamento stratificato, Intervalli di confidenza, Design Effect.</p>
+</div>
+</div>
+</div>
+<section id="la-situazione" class="level2" data-number="33.1">
+<h2 data-number="33.1" class="anchored" data-anchor-id="la-situazione"><span class="header-section-number">33.1</span> La situazione</h2>
+<p>La direzione marketing di una catena retail vuole conoscere la <strong>spesa media annua</strong> dei propri clienti a programma fedeltà. Il budget copre <strong>500 interviste</strong> telefoniche e la richiesta è precisa: la stima deve avere un margine di errore di <strong>±50 €</strong> al 95% di confidenza.</p>
+<p>Le domande da risolvere prima di alzare la cornetta sono due:</p>
+<ol type="1">
+<li><strong>500 interviste bastano</strong> per il margine richiesto?</li>
+<li>Conviene estrarle <strong>a caso</strong> fra tutti i clienti, oppure <strong>distribuirle</strong> in qualche modo?</li>
+</ol>
+<p>La seconda domanda sembra secondaria. È invece quella che, a parità di budget, decide se il margine sarà ±47 € o ±30 €.</p>
+</section>
+<section id="i-dati" class="level2" data-number="33.2">
+<h2 data-number="33.2" class="anchored" data-anchor-id="i-dati"><span class="header-section-number">33.2</span> I dati</h2>
+<p>Il frame è l’intero archivio del sistema di gestione dei clienti (CRM, <em>customer relationship management</em>): 5 000 clienti con area geografica, età, sesso, reddito dichiarato, punto vendita di riferimento, anni di fedeltà e spesa annua.</p>
+<p>C’è una particolarità che in una ricerca vera non si ha mai: <strong>qui conosciamo la risposta</strong>. Avendo il frame completo, la spesa media vera della popolazione è calcolabile e vale <strong>1 399,2 €</strong> (deviazione standard 575,7 €). È artificiale, ma è ciò che permette di fare l’unica verifica che conta davvero: controllare se un metodo, applicato alla cieca, ci avrebbe portato vicino al valore vero.</p>
+</section>
+<section id="passo-1-quante-interviste-servono" class="level2" data-number="33.3">
+<h2 data-number="33.3" class="anchored" data-anchor-id="passo-1-quante-interviste-servono"><span class="header-section-number">33.3</span> Passo 1 — Quante interviste servono</h2>
+<p><strong>Menu:</strong> <em>Analisi → AnalisiMercato → Campionamento → Numerosità campionaria</em></p>
+<p>Da un’indagine pilota dell’anno precedente si sa che la spesa varia attorno a <span class="math inline">\(\sigma \approx 580\)</span> €. Si compila il pannello: <em>Parametro</em> → <strong>Media</strong>, <em>Δ</em> → 50, <em>Confidenza</em> → 95, <em>σ</em> → 580, <em>N</em> → 5000, schema di campionamento casuale semplice <strong>senza reinserimento</strong> (SSR).</p>
+<div class="jamovi-output">
+<p><strong>Parametri dell’indagine</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parametro</th>
+<th>N</th>
+<th>Δ</th>
+<th>Confidenza</th>
+<th>z (α/2)</th>
+<th>P / σ</th>
+<th>Schema</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Media</td>
+<td>5.000</td>
+<td>50,00</td>
+<td>95%</td>
+<td>1,96</td>
+<td>580,00</td>
+<td>Senza reinserimento (SSR)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Numerosità campionaria</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>n teorico</th>
+<th>n consigliato</th>
+<th>Frazione f = n/N</th>
+<th>Var attesa dello stimatore</th>
+<th>Errore standard atteso</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>468,56</td>
+<td>469</td>
+<td>0,094</td>
+<td>650,12</td>
+<td>25,50</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Lettura.</strong> Servono <strong>469 interviste</strong>: le 500 del budget bastano, con un piccolo margine. Senza il fattore correttivo per popolazione finita (fpc, <em>finite population correction</em>) ne servirebbero 517 (<span class="math inline">\(n_0 = z^2\sigma^2/\Delta^2 = 516{,}9\)</span>): il frame è abbastanza piccolo — <span class="math inline">\(f = 9{,}4\%\)</span> — perché la correzione tolga una cinquantina di interviste (<a href="./P-07-numerosita-campionaria.html">§ P-07</a>).</p>
+</section>
+<section id="passo-2-il-piano-più-semplice-estrarre-a-caso" class="level2" data-number="33.4">
+<h2 data-number="33.4" class="anchored" data-anchor-id="passo-2-il-piano-più-semplice-estrarre-a-caso"><span class="header-section-number">33.4</span> Passo 2 — Il piano più semplice: estrarre a caso</h2>
+<p><strong>Menu:</strong> <em>Analisi → AnalisiMercato → Campionamento → Campionamento casuale semplice</em></p>
+<p><em>Variabile identificativa</em> → <code>id_cliente</code>, <em>n</em> → 500, <em>Seed</em> → 20260521, <em>Estrai il campione (frequenza nel campione)</em> attivo.</p>
+<div class="jamovi-output">
+<p><strong>Riepilogo del campione</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>N (popolazione)</th>
+<th>n richiesto</th>
+<th>n unità distinte</th>
+<th>n estrazioni totali</th>
+<th>Frazione f = n/N</th>
+<th>Schema</th>
+<th>Seed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>5.000</td>
+<td>500</td>
+<td>500</td>
+<td>500</td>
+<td>0,10</td>
+<td>Senza reinserimento (SSR)</td>
+<td>20260521</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Il modulo aggiunge al foglio dati la colonna <code>freq_SSR</code>, che vale 1 per le unità estratte. Con <em>Dati → Calcola</em> si costruisce <code>spesa_campione</code>, con la formula <code>IF(freq_SSR == 1, spesa_annua)</code>: conserva la spesa delle sole unità estratte e lascia vuote le altre, come in <a href="./P-14-intervalli-confidenza.html">§ P-14</a>. La si analizza con <strong>Intervalli di confidenza</strong> (<em>Variabile</em> → <code>spesa_campione</code>, che essendo numerica fa stimare la media; <em>Applica fattore correttivo</em> attivo e poi <em>N</em> → 5000):</p>
+<div class="jamovi-output">
+<p><strong>Intervallo di confidenza</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Confidenza</th>
+<th>Stima</th>
+<th>Errore standard</th>
+<th>Ampiezza ± Δ</th>
+<th>LB</th>
+<th>UB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>95%</td>
+<td>1.415,24</td>
+<td>25,75</td>
+<td>50,46</td>
+<td>1.364,78</td>
+<td>1.465,70</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Lettura.</strong> La stima è 1 415,24 € e l’intervallo va da 1 364,78 a 1 465,70 (estremo inferiore e superiore, LB e UB, <em>lower</em> e <em>upper bound</em>): contiene il valore vero (1 399,2 €), come deve accadere nel 95% dei campioni. Il margine effettivamente stimato, ±50,46 €, è molto vicino all’obiettivo di ±50 € fissato in fase di progetto. La piccola differenza dipende dalla variabilità osservata nel campione, una deviazione standard di circa 607 € contro i 580 € ipotizzati nel dimensionamento: ha più che compensato le 31 interviste in più rispetto alle 469 richieste. Il piano funziona.</p>
+<p>La domanda successiva è se si poteva fare meglio <strong>senza spendere di più</strong>.</p>
+</section>
+<section id="passo-3-stratificare-sì-ma-su-quale-variabile" class="level2" data-number="33.5">
+<h2 data-number="33.5" class="anchored" data-anchor-id="passo-3-stratificare-sì-ma-su-quale-variabile"><span class="header-section-number">33.5</span> Passo 3 — Stratificare: sì, ma su quale variabile?</h2>
+<p><strong>Menu:</strong> <em>Analisi → AnalisiMercato → Campionamento → Campionamento stratificato</em></p>
+<p>La stratificazione non aggiunge interviste: le stesse 500 vengono distribuite fra gruppi definiti in anticipo. Il candidato più ovvio è l’<strong>area geografica</strong>, che è nel CRM e ha cinque livelli.</p>
+<div class="jamovi-output">
+<p><strong>Allocazione per strato</strong> — <em>Variabili di stratificazione</em> → <code>area</code>, <em>Metodo</em> → Proporzionale, <em>n</em> → 500, <em>Seed</em> → 20260521</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Strato</th>
+<th>N_j</th>
+<th>W_j</th>
+<th>σ_j</th>
+<th>n_j</th>
+<th>f_j = n_j / N_j</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Centro</td>
+<td>956</td>
+<td>0,19</td>
+<td>—</td>
+<td>96</td>
+<td>0,10</td>
+</tr>
+<tr class="even">
+<td>Isole</td>
+<td>535</td>
+<td>0,11</td>
+<td>—</td>
+<td>53</td>
+<td>0,10</td>
+</tr>
+<tr class="odd">
+<td>Nord-Est</td>
+<td>1.056</td>
+<td>0,21</td>
+<td>—</td>
+<td>106</td>
+<td>0,10</td>
+</tr>
+<tr class="even">
+<td>Nord-Ovest</td>
+<td>1.410</td>
+<td>0,28</td>
+<td>—</td>
+<td>141</td>
+<td>0,10</td>
+</tr>
+<tr class="odd">
+<td>Sud</td>
+<td>1.043</td>
+<td>0,21</td>
+<td>—</td>
+<td>104</td>
+<td>0,10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Il secondo candidato è la <strong>fascia di reddito</strong>. Non è una colonna del dataset e va costruita: in jamovi si usa <em>Dati → Trasforma</em> sulla variabile <code>reddito_k</code>, tagliandola nei quartili (20,5 / 28,0 / 37,8 migliaia di euro) e ottenendo quattro livelli — Bassa, Medio-bassa, Medio-alta, Alta (<a href="./T-03-preparazione-dati.html">§ T-03</a>).</p>
+<div class="jamovi-output">
+<p><strong>Allocazione per strato</strong> — <em>Variabili di stratificazione</em> → <code>fascia_reddito</code>, <em>Metodo</em> → Proporzionale, <em>n</em> → 500, <em>Seed</em> → 20260521</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Strato</th>
+<th>N_j</th>
+<th>W_j</th>
+<th>σ_j</th>
+<th>n_j</th>
+<th>f_j = n_j / N_j</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bassa</td>
+<td>1.258</td>
+<td>0,25</td>
+<td>—</td>
+<td>126</td>
+<td>0,10</td>
+</tr>
+<tr class="even">
+<td>Medio-bassa</td>
+<td>1.245</td>
+<td>0,25</td>
+<td>—</td>
+<td>124</td>
+<td>0,10</td>
+</tr>
+<tr class="odd">
+<td>Medio-alta</td>
+<td>1.250</td>
+<td>0,25</td>
+<td>—</td>
+<td>125</td>
+<td>0,10</td>
+</tr>
+<tr class="even">
+<td>Alta</td>
+<td>1.247</td>
+<td>0,25</td>
+<td>—</td>
+<td>125</td>
+<td>0,10</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Le due allocazioni si somigliano: stessa numerosità totale, praticamente la stessa frazione di campionamento in ogni strato (<span class="math inline">\(f_j \approx 0{,}10\)</span>: a meno degli arrotondamenti delle <span class="math inline">\(n_j\)</span> il piano è autoponderato). Dall’output del campionamento <strong>non si vede alcuna differenza</strong>. La differenza sta altrove, e per vederla serve un’altra analisi.</p>
+</section>
+<section id="passo-4-quanto-vale-davvero-ciascun-piano" class="level2" data-number="33.6">
+<h2 data-number="33.6" class="anchored" data-anchor-id="passo-4-quanto-vale-davvero-ciascun-piano"><span class="header-section-number">33.6</span> Passo 4 — Quanto vale davvero ciascun piano</h2>
+<p><strong>Menu:</strong> <em>Analisi → AnalisiMercato → Campionamento → Design Effect</em></p>
+<p>Il Design Effect (Deff) risponde esattamente alla domanda “quanto guadagno (o perdo) rispetto al casuale semplice, a parità di <span class="math inline">\(n\)</span>?”. Il casuale semplice di confronto è quello del Passo 2, <strong>senza reinserimento</strong>. Con allocazione proporzionale e strati già definiti, la varianza dello stimatore stratificato dipende solo dalla variabilità della spesa che resta <em>dentro</em> gli strati, quella del casuale semplice dalla variabilità totale: il loro rapporto, cioè il Deff, è circa <span class="math inline">\(1 - \eta^2\)</span>. Qui <span class="math inline">\(\eta^2\)</span> è la quota di variabilità della spesa spiegata dall’appartenenza allo strato. Si ottiene da un’analisi della varianza (ANOVA) a un fattore in jamovi (<em>Analisi → ANOVA → ANOVA</em>, con <code>spesa_annua</code> come variabile dipendente, la variabile di strato come fattore e <span class="math inline">\(\eta^2\)</span> spuntato in <em>Dimensione dell’Effetto</em>) e vale <strong>1,6% per l’area</strong> e <strong>61,0% per la fascia di reddito</strong>. Nel modulo si usa la modalità <em>Da due varianze</em>, con la varianza entro gli strati espressa come quota di quella totale (<span class="math inline">\(1 - \eta^2\)</span>) e 1 per il casuale semplice.</p>
+<p>Il riferimento va dichiarato, perché cambia il numero. Rispetto al campionamento casuale semplice <em>con</em> reinserimento (SCR), che non beneficia del fattore correttivo <span class="math inline">\(1 - n/N = 0{,}90\)</span>, il Deff della fascia di reddito sarebbe circa <span class="math inline">\(0{,}390 \times 0{,}90 \approx 0{,}35\)</span>. Qui si usa il senza reinserimento, coerente con l’intervallo di confidenza del Passo 2, calcolato con il fattore correttivo; il campo del modulo si chiama comunque <em>Varianza nel SCR di riferimento</em>.</p>
+<p>La <em>Formula analitica</em> per il piano stratificato non va alimentata con <span class="math inline">\(\eta^2\)</span>: chiede come <span class="math inline">\(R^2\)</span> il quadrato della correlazione con una variabile continua che viene poi tagliata in <span class="math inline">\(L\)</span> classi (<a href="./P-15-design-effect.html">§ P-15</a>). Con <span class="math inline">\(\eta^2\)</span> di strati già formati conterebbe due volte l’effetto del taglio, e per la fascia di reddito darebbe 0,428 invece di 0,390.</p>
+<div class="jamovi-output">
+<p><em>Modalità</em> → Da due varianze, <em>Varianza nel piano complesso</em> → 0,984, <em>Varianza nel SCR di riferimento</em> → 1, <em>Numerosità di riferimento (n)</em> → 500</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Deff</th>
+<th>Efficienza vs SCR</th>
+<th>n di riferimento</th>
+<th>Numerosità richiesta dal piano</th>
+<th>Numerosità efficace di n unità raccolte col piano</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0,984</td>
+<td>Maggiore (Deff &lt; 1)</td>
+<td>500</td>
+<td>492</td>
+<td>509</td>
+</tr>
+</tbody>
+</table>
+<p><em>Modalità</em> → Da due varianze, <em>Varianza nel piano complesso</em> → 0,390, <em>Varianza nel SCR di riferimento</em> → 1, <em>Numerosità di riferimento (n)</em> → 500</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Deff</th>
+<th>Efficienza vs SCR</th>
+<th>n di riferimento</th>
+<th>Numerosità richiesta dal piano</th>
+<th>Numerosità efficace di n unità raccolte col piano</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0,390</td>
+<td>Maggiore (Deff &lt; 1)</td>
+<td>500</td>
+<td>195</td>
+<td>1.283</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Lettura.</strong> Stratificare per <strong>area</strong> fa guadagnare meno del 2%: 500 interviste così distribuite valgono quanto circa 507 estratte a caso (509 con la formula d’uso del modulo). È un guadagno che non si nota e che non giustifica la complicazione del piano — perché l’area geografica, in questa popolazione, non dice quasi nulla sulla spesa.</p>
+<p>Stratificare per <strong>fascia di reddito</strong> porta il Deff a 0,39: le stesse 500 interviste valgono quanto circa <strong>1.110</strong> interviste casuali. Il modulo indica 1.283, cioè <span class="math inline">\(500/0{,}39\)</span> arrotondato per eccesso, perché usa la formula d’uso, che trascura la frazione di campionamento: qui <span class="math inline">\(f\)</span> è del 10%, e il conto esatto dà un valore più basso (<a href="./T-02-campionamento.html">capitolo Campionamento</a>). La sostanza non cambia: per raggiungere con il casuale semplice la precisione che il piano stratificato ottiene con 500 interviste, il budget dovrebbe più che raddoppiare.</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>La regola che questo caso mostra
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Stratificare <strong>non</strong> è utile di per sé: è utile quando gli strati sono <strong>omogenei al loro interno e diversi fra loro rispetto alla variabile che si vuole stimare</strong>. Due piani identici nella forma — stesse 500 interviste, stessa allocazione proporzionale, stesso output di estrazione — valgono uno meno del 2% in più del casuale semplice e l’altro più del doppio. La differenza non è nel metodo, è nella variabile scelta per stratificare.</p>
+</div>
+</div>
+</section>
+<section id="passo-5-la-verifica-2-000-campioni-invece-di-uno" class="level2" data-number="33.7">
+<h2 data-number="33.7" class="anchored" data-anchor-id="passo-5-la-verifica-2-000-campioni-invece-di-uno"><span class="header-section-number">33.7</span> Passo 5 — La verifica: 2 000 campioni invece di uno</h2>
+<p>Il Deff è il risultato di una formula. Vale la pena controllare se le cose vanno davvero così, ripetendo l’estrazione 2 000 volte per ciascun piano e guardando quanto le stime si disperdono attorno al valore vero. Questa non è un’analisi che si fa in jamovi — è una simulazione fatta apposta per queste dispense — ma è il modo più diretto per vedere che cosa significhi “Deff = 0,39”.</p>
+<div id="fig-caso1-sim" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-caso1-sim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/casi-studio/C-01__distribuzioni-campionarie.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-caso1-sim-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;33.1: La distribuzione della stima della spesa media su 2 000 campioni di n = 500 estratti dalla stessa popolazione con quattro piani diversi. Tutte e quattro le curve sono centrate sul valore vero: nessun piano è distorto. Cambia la larghezza, cioè la precisione. Il casuale semplice e lo stratificato per area sono indistinguibili; la stratificazione per fascia di reddito riduce l’errore standard di oltre un terzo (da 24,2 a 15,3), cioè porta la varianza al 40% circa.
+</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 22%">
+<col style="width: 18%">
+<col style="width: 21%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Piano</th>
+<th style="text-align: right;">Errore standard</th>
+<th style="text-align: right;">Margine 95%</th>
+<th style="text-align: right;">Deff empirico</th>
+<th style="text-align: right;">Deff atteso (1 − η²)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Casuale semplice (senza reinserimento)</td>
+<td style="text-align: right;">24,16</td>
+<td style="text-align: right;">±47 €</td>
+<td style="text-align: right;">1,000</td>
+<td style="text-align: right;">—</td>
+</tr>
+<tr class="even">
+<td>Stratificato per area</td>
+<td style="text-align: right;">24,33</td>
+<td style="text-align: right;">±48 €</td>
+<td style="text-align: right;">1,015</td>
+<td style="text-align: right;">0,984</td>
+</tr>
+<tr class="odd">
+<td>Stratificato per fascia di reddito</td>
+<td style="text-align: right;">15,28</td>
+<td style="text-align: right;">±30 €</td>
+<td style="text-align: right;">0,400</td>
+<td style="text-align: right;">0,390</td>
+</tr>
+<tr class="even">
+<td>Stratificato, allocazione di Neyman</td>
+<td style="text-align: right;">16,72</td>
+<td style="text-align: right;">±33 €</td>
+<td style="text-align: right;">0,479</td>
+<td style="text-align: right;">—</td>
+</tr>
+</tbody>
+</table>
+<p>Il Deff empirico è il rapporto fra la varianza delle stime di ciascun piano e quella del casuale semplice senza reinserimento. I Deff attesi (0,984 per l’area, 0,390 per la fascia di reddito) e quelli osservati sui 2 000 campioni (1,015 e 0,400) coincidono a meno della variabilità della simulazione. Per l’allocazione di Neyman la stima di ogni campione è lo stimatore stratificato pesato descritto più avanti.</p>
+</section>
+<section id="il-tranello-lintervallo-giusto-sul-piano-sbagliato" class="level2" data-number="33.8">
+<h2 data-number="33.8" class="anchored" data-anchor-id="il-tranello-lintervallo-giusto-sul-piano-sbagliato"><span class="header-section-number">33.8</span> Il tranello: l’intervallo giusto sul piano sbagliato</h2>
+<p>Il piano stratificato inietta a sua volta la colonna <code>in_STpr</code>. Sul campione così estratto la media campionaria è 1 404,01 € — più vicina al vero di quella ottenuta dal casuale semplice. Con allocazione proporzionale il piano è autoponderato a meno degli arrotondamenti delle <span class="math inline">\(n_j\)</span>, quindi la media semplice coincide in pratica con lo stimatore stratificato: il valore puntuale è corretto.</p>
+<p>L’intervallo, però, no. Lanciando <em>Intervalli di confidenza</em> su quel campione (con <em>Dati → Calcola</em> e la formula <code>IF(in_STpr == 1, spesa_annua)</code>), sempre con <em>Applica fattore correttivo</em> attivo e <em>N</em> → 5000, si ottiene:</p>
+<div class="jamovi-output">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Confidenza</th>
+<th>Stima</th>
+<th>Errore standard</th>
+<th>Ampiezza ± Δ</th>
+<th>LB</th>
+<th>UB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>95%</td>
+<td>1.404,01</td>
+<td>27,51</td>
+<td>53,91</td>
+<td>1.350,10</td>
+<td>1.457,92</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Il margine dichiarato è ±53,91 €, ma il margine vero di quel piano — quello misurato sui 2 000 campioni — è ±30 €. L’analisi degli intervalli di confidenza applica la formula del <strong>casuale semplice</strong>, perché è l’unica che può applicare non sapendo come il campione è stato costruito. Sul piano stratificato quella formula <strong>sovrastima</strong> l’errore.</p>
+<p>Nelle 2 000 repliche, l’intervallo così calcolato contiene il valore vero nel <strong>99,7%</strong> dei casi invece che nel 95%. Sembra un errore innocuo — anzi, prudente — ma non lo è: significa dichiarare una precisione peggiore di quella che si è pagata, e quindi rinunciare a conclusioni che i dati sosterrebbero.</p>
+<p>La correzione passa dal Deff: <span class="math inline">\(\Delta_{\text{corretto}} = \Delta_{\text{SSR}} \cdot \sqrt{\text{Deff}} = 53{,}91 \cdot \sqrt{0{,}390} \approx 34\)</span> €, che è vicino al margine vero. Nel report va scritto quale dei due numeri si sta usando e perché.</p>
+</section>
+<section id="unultima-insidia-neyman-è-ottimale-rispetto-a-che-cosa" class="level2" data-number="33.9">
+<h2 data-number="33.9" class="anchored" data-anchor-id="unultima-insidia-neyman-è-ottimale-rispetto-a-che-cosa"><span class="header-section-number">33.9</span> Un’ultima insidia: Neyman è ottimale rispetto a che cosa?</h2>
+<p>L’allocazione <strong>ottimale di Neyman</strong> assegna più unità agli strati più variabili. Impostando <em>Metodo</em> → Ottimale di Neyman e <em>Variabile ausiliaria</em> → <code>reddito_k</code>:</p>
+<div class="jamovi-output">
+<p><strong>Allocazione per strato</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Strato</th>
+<th>N_j</th>
+<th>W_j</th>
+<th>σ_j</th>
+<th>n_j</th>
+<th>f_j = n_j / N_j</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Bassa</td>
+<td>1.258</td>
+<td>0,25</td>
+<td>3,21</td>
+<td>75</td>
+<td>0,06</td>
+</tr>
+<tr class="even">
+<td>Medio-bassa</td>
+<td>1.245</td>
+<td>0,25</td>
+<td>2,15</td>
+<td>50</td>
+<td>0,04</td>
+</tr>
+<tr class="odd">
+<td>Medio-alta</td>
+<td>1.250</td>
+<td>0,25</td>
+<td>2,72</td>
+<td>64</td>
+<td>0,05</td>
+</tr>
+<tr class="even">
+<td>Alta</td>
+<td>1.247</td>
+<td>0,25</td>
+<td>13,37</td>
+<td>311</td>
+<td>0,25</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Il piano concentra 311 interviste su 500 nello strato dei redditi alti, perché è lì che il <strong>reddito</strong> varia di più. Con frazioni di campionamento così diverse, dal 4% al 25%, la media semplice delle 500 interviste sarebbe spostata verso i redditi alti, sovrarappresentati. La stima della media va fatta con lo <strong>stimatore stratificato</strong>, che pesa la media di ciascuno strato con la sua quota di popolazione:</p>
+<p><span class="math display">\[
+\hat{\bar Y}_{st} = \sum_{j=1}^{L} W_j\,\bar y_j, \qquad W_j = \frac{N_j}{N}
+\]</span></p>
+<p>È questo lo stimatore usato nella simulazione del Passo 5. Il risultato, però, è un errore standard di 16,72 contro i 15,28 dell’allocazione proporzionale: Neyman qui <strong>peggiora</strong> la stima.</p>
+<p>Non è un difetto del metodo. Neyman è ottimale rispetto alla variabile su cui sono calcolate le <span class="math inline">\(\sigma_j\)</span>, e qui quella variabile è il reddito, non la spesa. Sul reddito le deviazioni standard di strato stanno in rapporto 6 a 1 (13,37 contro 2,15); sulla spesa il rapporto è appena 2 a 1. L’allocazione viene quindi spinta all’estremo per un profilo di variabilità che la variabile di interesse non ha.</p>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Avviso</span>Quando usare Neyman
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Serve una variabile ausiliaria la cui <strong>variabilità per strato</strong> somigli a quella della variabile di interesse, non semplicemente una che le sia correlata. Reddito e spesa qui correlano a 0,89 — moltissimo — e nonostante questo l’allocazione ottimale sul reddito è controproducente per la spesa. Nel dubbio, l’allocazione <strong>proporzionale</strong> è la scelta robusta: non è ottimale per nessuna variabile in particolare, ma non è pessima per nessuna.</p>
+</div>
+</div>
+</section>
+<section id="che-cosa-ha-aggiunto-il-campionamento" class="level2" data-number="33.10">
+<h2 data-number="33.10" class="anchored" data-anchor-id="che-cosa-ha-aggiunto-il-campionamento"><span class="header-section-number">33.10</span> Che cosa ha aggiunto il campionamento</h2>
+<p>Il confronto finale è a budget costante: <strong>500 interviste in tutti i casi</strong>.</p>
+<ul>
+<li>Senza alcuna progettazione (estrazione casuale): margine <strong>±47 €</strong>.</li>
+<li>Con la stratificazione “ovvia”, per area geografica: <strong>±48 €</strong>. Nessun guadagno.</li>
+<li>Con la stratificazione su una variabile legata al fenomeno: <strong>±30 €</strong>, cioè un terzo di errore in meno.</li>
+<li>Per ottenere ±30 € restando sul casuale semplice servirebbero circa <strong>1 100 interviste</strong> (con il fattore correttivo per popolazione finita, come al Passo 1; le 1 283 del Passo 4 sono la numerosità efficace, che non ne tiene conto): più del doppio del budget.</li>
+</ul>
+<p>Il valore della tecnica non sta nell’estrarre il campione — quello lo fa anche un foglio di calcolo — ma nel <strong>sapere quanto vale il campione che si è estratto</strong>, e nel poterlo dichiarare.</p>
+</section>
+<section id="le-funzioni-usate" class="level2" data-number="33.11">
+<h2 data-number="33.11" class="anchored" data-anchor-id="le-funzioni-usate"><span class="header-section-number">33.11</span> Le funzioni usate</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 25%">
+<col style="width: 55%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Passo</th>
+<th>Analisi</th>
+<th>Opzioni principali</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Dimensionare l’indagine</td>
+<td>Numerosità campionaria</td>
+<td>Media; Δ = 50; 95%; σ = 580; N = 5000</td>
+</tr>
+<tr class="even">
+<td>Estrarre il campione</td>
+<td>Campionamento casuale semplice</td>
+<td>n = 500; seed = 20260521; <code>id_cliente</code></td>
+</tr>
+<tr class="odd">
+<td>Stimare e dichiarare l’errore</td>
+<td>Intervalli di confidenza</td>
+<td><code>spesa_campione</code> = <code>IF(freq_SSR == 1, spesa_annua)</code> (numerica → media); fattore correttivo; N = 5000</td>
+</tr>
+<tr class="even">
+<td>Costruire la variabile di strato</td>
+<td><em>Dati → Trasforma</em> (jamovi)</td>
+<td>quartili di <code>reddito_k</code></td>
+</tr>
+<tr class="odd">
+<td>Distribuire le interviste</td>
+<td>Campionamento stratificato</td>
+<td><code>fascia_reddito</code>; proporzionale; n = 500; seed = 20260521</td>
+</tr>
+<tr class="even">
+<td>Confrontare i piani</td>
+<td>Design Effect</td>
+<td>Da due varianze; 1 − η² (da ANOVA) e 1; numerosità di riferimento 500</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="da-portare-nel-report-metodologico" class="level2" data-number="33.12">
+<h2 data-number="33.12" class="anchored" data-anchor-id="da-portare-nel-report-metodologico"><span class="header-section-number">33.12</span> Da portare nel report metodologico</h2>
+<ul>
+<li>Popolazione, frame e criterio di ammissibilità.</li>
+<li>Numerosità e come è stata determinata (margine, confidenza, <span class="math inline">\(\sigma\)</span> di riferimento, fpc).</li>
+<li>Piano di campionamento, variabile di stratificazione e <strong>perché quella</strong>.</li>
+<li>Allocazione realizzata per strato, seme casuale.</li>
+<li>Stima, margine di errore e <strong>quale formula</strong> lo ha prodotto: se il piano non è il casuale semplice, dichiararlo e riportare il Deff usato per la correzione.</li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("^(?!https://github\.com/)");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./P-24-variabili-supplementari.html" class="pagination-link" aria-label="Variabili supplementari e mappa di posizionamento">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Variabili supplementari e mappa di posizionamento</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./C-02-caso-segmentazione.html" class="pagination-link" aria-label="Caso studio — Segmentare il mercato: quattro gruppi che l'anagrafica non vede">
+        <span class="nav-page-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Caso studio — Segmentare il mercato: quattro gruppi che l’anagrafica non vede</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><code>AnalisiMercato</code> — Dispense del corso. © 2026 Luca Frigau, tutti i diritti riservati.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Realizzate con <a href="https://quarto.org">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

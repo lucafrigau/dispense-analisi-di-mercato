@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>6&nbsp; Introduzione al progetto del corso – Analisi di Mercato — Dispense del corso</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./P-25b-strumenti-ia.html" rel="next">
+<link href="./T-05-pca.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ef622e21aa483743907546df5fc19a86.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nessun risultato",
+    "search-matching-documents-text": "documenti trovati",
+    "search-copy-link-title": "Copiare il link nella ricerca",
+    "search-hide-matches-text": "Nascondere i risultati aggiuntivi",
+    "search-more-match-text": "ci sono altri risultati in questo documento",
+    "search-more-matches-text": "ulteriori risultati in questo documento",
+    "search-clear-button-title": "Pulire",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancellare",
+    "search-submit-button-title": "Inviare",
+    "search-label": "Ricerca"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P-25-introduzione-progetto.html">Parte II — Progetto pratico</a></li><li class="breadcrumb-item"><a href="./P-25-introduzione-progetto.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Ricerca" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisi di Mercato — Dispense del corso</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Attiva/disattiva la modalità oscura"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Ricerca"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefazione</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte I — Approfondimenti teorici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-01-introduzione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduzione alla ricerca di mercato quantitativa</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-02-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-03-preparazione-dati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-04-cluster-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-05-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte II — Progetto pratico</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25-introduzione-progetto.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25b-strumenti-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-26-esempio-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-27-report-finale.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Report finale del progetto di esempio</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte III — Software Jamovi</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-01-cosa-e-analisimercato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Cos’è <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-02-installazione-jamovi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Installazione di Jamovi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-03-installazione-modulo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installazione del modulo <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-04-tour-interfaccia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tour dell’interfaccia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-06-fondamenti-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Workflow operativo del campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-07-numerosita-campionaria.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Numerosità campionaria</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-08-campionamento-casuale-semplice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Campionamento casuale semplice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-09-campionamento-sistematico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Campionamento sistematico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-10-campionamento-stratificato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-11-campionamento-grappoli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Campionamento a grappoli</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-12-campionamento-due-stadi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Campionamento a due stadi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-13-campionamento-cpv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Campionamento con probabilità variabili (CPV)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-14-intervalli-confidenza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Intervalli di confidenza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15-design-effect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Design Effect</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-16-fondamenti-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Workflow operativo della cluster analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-17-distanze-agglomerazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Distanze e agglomerazione</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-18-scelta-k-dendrogramma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Scelta di k e dendrogramma</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-19-caratterizzazione-cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Caratterizzazione dei cluster</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-20-confronto-partizioni-ari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Confronto fra partizioni — Adjusted Rand Index</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-21-fondamenti-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Workflow operativo della PCA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-22-contributi-cos2-biplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Contributi, cos² e biplot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-23-rotazioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Rotazioni Varimax e Promax</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-24-variabili-supplementari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Variabili supplementari e mappa di posizionamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte IV — Casi studio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-01-caso-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-02-caso-segmentazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Caso studio — Segmentare il mercato: quattro gruppi che l’anagrafica non vede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-03-caso-posizionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Caso studio — Dove siamo sulla mappa: il posizionamento di venti marche</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-01-caso-reale-comuni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Caso reale — Campionare un frame vero: i comuni italiani</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-02-caso-reale-ingrosso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Caso reale — Segmentare clienti veri: un distributore all’ingrosso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-03-caso-reale-yogurt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-04-caso-reale-regioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Caso reale — Dove conviene entrare: le regioni italiane</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1-glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A2-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Domande frequenti (FAQ)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Riferimenti bibliografici</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#le-sei-fasi-del-progetto" id="toc-le-sei-fasi-del-progetto" class="nav-link active" data-scroll-target="#le-sei-fasi-del-progetto"><span class="header-section-number">6.1</span> Le sei fasi del progetto</a></li>
+  <li><a href="#definizione-dellargomento-e-degli-obiettivi" id="toc-definizione-dellargomento-e-degli-obiettivi" class="nav-link" data-scroll-target="#definizione-dellargomento-e-degli-obiettivi"><span class="header-section-number">6.2</span> Definizione dell’argomento e degli obiettivi</a></li>
+  <li><a href="#costruzione-del-questionario" id="toc-costruzione-del-questionario" class="nav-link" data-scroll-target="#costruzione-del-questionario"><span class="header-section-number">6.3</span> Costruzione del questionario</a>
+  <ul class="collapse">
+  <li><a href="#linee-guida" id="toc-linee-guida" class="nav-link" data-scroll-target="#linee-guida"><span class="header-section-number">6.3.1</span> Linee guida</a></li>
+  <li><a href="#domande-di-controllo" id="toc-domande-di-controllo" class="nav-link" data-scroll-target="#domande-di-controllo"><span class="header-section-number">6.3.2</span> Domande di controllo</a></li>
+  <li><a href="#pre-test" id="toc-pre-test" class="nav-link" data-scroll-target="#pre-test"><span class="header-section-number">6.3.3</span> Pre-test</a></li>
+  </ul></li>
+  <li><a href="#raccolta-dei-dati" id="toc-raccolta-dei-dati" class="nav-link" data-scroll-target="#raccolta-dei-dati"><span class="header-section-number">6.4</span> Raccolta dei dati</a>
+  <ul class="collapse">
+  <li><a href="#campionamento-di-comodo" id="toc-campionamento-di-comodo" class="nav-link" data-scroll-target="#campionamento-di-comodo"><span class="header-section-number">6.4.1</span> Campionamento di comodo</a></li>
+  </ul></li>
+  <li><a href="#pulizia-e-preparazione-dei-dati" id="toc-pulizia-e-preparazione-dei-dati" class="nav-link" data-scroll-target="#pulizia-e-preparazione-dei-dati"><span class="header-section-number">6.5</span> Pulizia e preparazione dei dati</a></li>
+  <li><a href="#analisi" id="toc-analisi" class="nav-link" data-scroll-target="#analisi"><span class="header-section-number">6.6</span> Analisi</a></li>
+  <li><a href="#redazione-del-report" id="toc-redazione-del-report" class="nav-link" data-scroll-target="#redazione-del-report"><span class="header-section-number">6.7</span> Redazione del report</a>
+  <ul class="collapse">
+  <li><a href="#specifiche-tecniche" id="toc-specifiche-tecniche" class="nav-link" data-scroll-target="#specifiche-tecniche"><span class="header-section-number">6.7.1</span> Specifiche tecniche</a></li>
+  <li><a href="#struttura-del-report" id="toc-struttura-del-report" class="nav-link" data-scroll-target="#struttura-del-report"><span class="header-section-number">6.7.2</span> Struttura del report</a></li>
+  </ul></li>
+  <li><a href="#materiale-da-consegnare" id="toc-materiale-da-consegnare" class="nav-link" data-scroll-target="#materiale-da-consegnare"><span class="header-section-number">6.8</span> Materiale da consegnare</a>
+  <ul class="collapse">
+  <li><a href="#convenzione-di-naming" id="toc-convenzione-di-naming" class="nav-link" data-scroll-target="#convenzione-di-naming"><span class="header-section-number">6.8.1</span> Convenzione di naming</a></li>
+  </ul></li>
+  <li><a href="#checklist-finale-prima-della-consegna" id="toc-checklist-finale-prima-della-consegna" class="nav-link" data-scroll-target="#checklist-finale-prima-della-consegna"><span class="header-section-number">6.9</span> Checklist finale prima della consegna</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P-25-introduzione-progetto.html">Parte II — Progetto pratico</a></li><li class="breadcrumb-item"><a href="./P-25-introduzione-progetto.html"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>Il progetto del corso è facoltativo e prevede la realizzazione completa di un percorso di analisi di mercato: dalla definizione del tema alla somministrazione del questionario, dalla pulizia dei dati all’elaborazione mediante analisi esplorativa, Analisi delle Componenti Principali (PCA, <em>Principal Component Analysis</em>) e cluster analysis.</p>
+<p>L’obiettivo è <strong>sviluppare competenze pratiche</strong> di gestione e interpretazione dei dati, mettendo in relazione la teoria con l’applicazione empirica.</p>
+<section id="le-sei-fasi-del-progetto" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="le-sei-fasi-del-progetto"><span class="header-section-number">6.1</span> Le sei fasi del progetto</h2>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A[1. Definizione argomento&lt;br/&gt;e obiettivi] --&gt; B[2. Costruzione&lt;br/&gt;questionario]
+    B --&gt; C[3. Raccolta dei dati]
+    C --&gt; D[4. Pulizia e&lt;br/&gt;preparazione]
+    D --&gt; E[5. Analisi]
+    E --&gt; F[6. Redazione&lt;br/&gt;del report]
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</section>
+<section id="definizione-dellargomento-e-degli-obiettivi" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="definizione-dellargomento-e-degli-obiettivi"><span class="header-section-number">6.2</span> Definizione dell’argomento e degli obiettivi</h2>
+<p>Il progetto inizia con la scelta di un <strong>argomento coerente con un interesse concreto</strong> di chi lo sviluppa. L’argomento deve essere:</p>
+<ul>
+<li><strong>specifico</strong>, da poter essere indagato in modo mirato;</li>
+<li><strong>ampio abbastanza</strong> da consentire un’analisi articolata;</li>
+<li>soprattutto, <strong>operativamente raggiungibile</strong> — la <strong>raggiungibilità della popolazione</strong> è un aspetto fondamentale, spesso trascurato: bisogna poter effettivamente contattare un numero adeguato di persone disposte a compilare il questionario.</li>
+</ul>
+<p>Una volta definito l’argomento, è necessario precisare gli <strong>obiettivi di analisi</strong> e le <strong>ipotesi di ricerca</strong>, sintetizzandoli in un breve documento preliminare:</p>
+<ul>
+<li>titolo del progetto;</li>
+<li>obiettivi;</li>
+<li>ipotesi di ricerca;</li>
+<li>popolazione di riferimento;</li>
+<li>unità di analisi.</li>
+</ul>
+<p>Questo passaggio costituisce la <strong>base metodologica dell’intero progetto</strong> e va completato <em>prima</em> di iniziare la costruzione del questionario.</p>
+</section>
+<section id="costruzione-del-questionario" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="costruzione-del-questionario"><span class="header-section-number">6.3</span> Costruzione del questionario</h2>
+<p>Il questionario è lo strumento attraverso il quale le ipotesi vengono tradotte in <strong>dati osservabili</strong>. Deve essere costruito con equilibrio e coerenza rispetto agli obiettivi del progetto.</p>
+<section id="linee-guida" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1" class="anchored" data-anchor-id="linee-guida"><span class="header-section-number">6.3.1</span> Linee guida</h3>
+<ul>
+<li>Le domande devono essere formulate in modo <strong>chiaro, comprensibile e non ambiguo</strong>.</li>
+<li>Numero di item: <strong>almeno 25–30</strong>.</li>
+<li>Trade-off fondamentale: numero di domande vs tempo di compilazione. Un questionario troppo lungo riduce la qualità delle risposte; uno troppo breve non fornisce informazioni sufficienti.</li>
+</ul>
+</section>
+<section id="domande-di-controllo" class="level3" data-number="6.3.2">
+<h3 data-number="6.3.2" class="anchored" data-anchor-id="domande-di-controllo"><span class="header-section-number">6.3.2</span> Domande di controllo</h3>
+<p>Includere <strong>domande di controllo</strong> (vedi <a href="./T-03-preparazione-dati.html">Preparazione dei dati</a>): stessa informazione chiesta con formulazioni diverse o in momenti diversi, per verificare attenzione e coerenza dei rispondenti.</p>
+</section>
+<section id="pre-test" class="level3" data-number="6.3.3">
+<h3 data-number="6.3.3" class="anchored" data-anchor-id="pre-test"><span class="header-section-number">6.3.3</span> Pre-test</h3>
+<p>Dopo la stesura, è opportuno effettuare un <strong>pre-test</strong> su un piccolo gruppo per verificare:</p>
+<ul>
+<li>chiarezza delle domande;</li>
+<li>tempi medi di compilazione;</li>
+<li>presenza di percorsi di risposta non previsti.</li>
+</ul>
+<p>Solo dopo il pre-test si somministra in forma digitale garantendo l’<strong>anonimato</strong>.</p>
+</section>
+</section>
+<section id="raccolta-dei-dati" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="raccolta-dei-dati"><span class="header-section-number">6.4</span> Raccolta dei dati</h2>
+<p>La fase di raccolta è determinante per la qualità del progetto. Pianificare <em>come</em> e <em>a chi</em> somministrare il questionario, assicurandosi che i rispondenti appartengano effettivamente alla popolazione di riferimento.</p>
+<section id="campionamento-di-comodo" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1" class="anchored" data-anchor-id="campionamento-di-comodo"><span class="header-section-number">6.4.1</span> Campionamento di comodo</h3>
+<p>Nella maggior parte dei casi didattici si ricorre a un <strong>campionamento di comodo</strong>. In tali situazioni vale una regola semplice:</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Numerosità e qualità nel campionamento di comodo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Più risposte valide si raccolgono, meglio è.</strong> Con più risposte le stime sono più precise, i risultati della PCA e della cluster analysis sono più stabili, e anche i gruppi più piccoli contano abbastanza persone da poter essere descritti. Per questo il progetto richiede almeno 120 risposte valide, e raccoglierne di più è sempre un vantaggio.</p>
+<p>C’è però una cosa che un <span class="math inline">\(n\)</span> grande non può fare: nel campionamento di comodo non corregge il <strong>selection bias</strong>, cioè la distorsione dovuta al modo in cui sono stati scelti i rispondenti. Se tutti sono raggiunti nello stesso modo, per esempio solo fra amici e compagni di corso, il campione resta un campione di quelle persone, per quanto grande sia. Per questo, oltre a raccogliere molte risposte, conviene <strong>diversificare i canali di reclutamento</strong>, così che nel campione entrino profili diversi della popolazione di interesse: il problema si riduce, anche se non scompare.</p>
+<p>Vale inoltre: <strong>è preferibile un questionario in meno piuttosto che uno compilato in modo superficiale o casuale</strong>, perché i questionari mal compilati introducono <strong>rumore</strong> che copre il <strong>segnale</strong> di quelli compilati bene, e rende più difficile identificare le relazioni realmente presenti nei dati.</p>
+<p>I risultati di un progetto basato su campionamento di comodo vanno quindi letti come <strong>descrittivi ed esplorativi sul campione osservato</strong>, evitando generalizzazioni alla popolazione che il disegno non consente.</p>
+</div>
+</div>
+<p>Per il progetto del corso l’obiettivo operativo è disporre di <strong>almeno 120 risposte valide</strong> dopo il controllo e la pulizia. Il valore non è una soglia statistica universale: serve ad avere una base dati abbastanza articolata per le analisi previste. La numerosità da raccogliere va quindi pianificata con un margine ragionevole per mancate risposte e problemi di qualità, senza dare per scontata in anticipo una percentuale di questionari da scartare: ogni esclusione va motivata dai criteri definiti nella fase di data cleaning. Il progetto presentato nel capitolo <a href="./P-26-esempio-progetto.html">Esempio di realizzazione del progetto</a> si basa su 102 risposte valide: serve a illustrare il percorso, ma per il progetto del corso la soglia resta di almeno 120 risposte valide.</p>
+<p>Durante la raccolta:</p>
+<ul>
+<li>monitorare la completezza e la coerenza delle risposte;</li>
+<li>una volta terminata la somministrazione, esportare i dati in formato tabellare (<code>.csv</code> o <code>.xlsx</code>).</li>
+</ul>
+</section>
+</section>
+<section id="pulizia-e-preparazione-dei-dati" class="level2" data-number="6.5">
+<h2 data-number="6.5" class="anchored" data-anchor-id="pulizia-e-preparazione-dei-dati"><span class="header-section-number">6.5</span> Pulizia e preparazione dei dati</h2>
+<p>Prima delle analisi, i dati devono essere controllati e sistemati: eliminare errori, valori mancanti, incoerenze e uniformare la codifica. L’obiettivo è un database <strong>coerente e pronto</strong> per le analisi multivariate.</p>
+<p>In questa fase è anche possibile creare <strong>variabili derivate</strong> (es. dummy, indici sintetici, classi). La trattazione completa è nel capitolo <a href="./T-03-preparazione-dati.html">Preparazione e pulizia dei dati</a>.</p>
+</section>
+<section id="analisi" class="level2" data-number="6.6">
+<h2 data-number="6.6" class="anchored" data-anchor-id="analisi"><span class="header-section-number">6.6</span> Analisi</h2>
+<p>Le analisi previste nel progetto seguono tre fasi sequenziali:</p>
+<ol type="1">
+<li><strong>Analisi esplorativa</strong> — univariata e bivariata per comprendere la struttura dei dati e le relazioni con la variabile obiettivo.</li>
+<li><strong>PCA</strong> — sintesi dell’informazione in dimensioni sintetiche, mappa di posizionamento e, quando metodologicamente appropriato, pre-processing per la cluster analysis.</li>
+<li><strong>Cluster Analysis</strong> — identificazione di gruppi omogenei e caratterizzazione.</li>
+</ol>
+<p>L’esempio applicato nel capitolo <a href="./P-26-esempio-progetto.html">Esempio di realizzazione del progetto</a> mostra il workflow completo su un dataset reale.</p>
+</section>
+<section id="redazione-del-report" class="level2" data-number="6.7">
+<h2 data-number="6.7" class="anchored" data-anchor-id="redazione-del-report"><span class="header-section-number">6.7</span> Redazione del report</h2>
+<p>Il report deve essere redatto <strong>come se fosse destinato a un datore di lavoro</strong> in un contesto professionale privato, ipotizzando un lettore che conosce le tecniche utilizzate ma si aspetta un linguaggio chiaro e orientato all’applicazione.</p>
+<section id="specifiche-tecniche" class="level3" data-number="6.7.1">
+<h3 data-number="6.7.1" class="anchored" data-anchor-id="specifiche-tecniche"><span class="header-section-number">6.7.1</span> Specifiche tecniche</h3>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Voce</th>
+<th>Specifica</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Pagine</strong></td>
+<td>5 (escluso il frontespizio), <strong>da usare tutte</strong>: il testo deve arrivare in fondo all’ultima pagina</td>
+</tr>
+<tr class="even">
+<td><strong>Font</strong></td>
+<td>Arial, dimensione 10</td>
+</tr>
+<tr class="odd">
+<td><strong>Margini</strong></td>
+<td>2,5 cm in alto, 2 cm sugli altri lati</td>
+</tr>
+<tr class="even">
+<td><strong>Frontespizio e template</strong></td>
+<td><strong>Comunicativo e curato esteticamente</strong>. Per idee di impaginazione, struttura del frontespizio e scelta dei colori ci si può far aiutare da uno strumento di IA (<a href="./P-25b-strumenti-ia.html">§ P-25b</a>), rispettando le specifiche di questa tabella</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="struttura-del-report" class="level3" data-number="6.7.2">
+<h3 data-number="6.7.2" class="anchored" data-anchor-id="struttura-del-report"><span class="header-section-number">6.7.2</span> Struttura del report</h3>
+<section id="introduzione" class="level4" data-number="6.7.2.1">
+<h4 data-number="6.7.2.1" class="anchored" data-anchor-id="introduzione"><span class="header-section-number">6.7.2.1</span> Introduzione</h4>
+<p>Quadro chiaro e sintetico del progetto:</p>
+<ul>
+<li><strong>contesto del problema</strong> e <strong>rilevanza</strong> rispetto agli obiettivi/settore;</li>
+<li><strong>popolazione obiettivo</strong> e motivazione della scelta;</li>
+<li><strong>obiettivi specifici</strong> e <strong>ipotesi di ricerca</strong>.</li>
+</ul>
+</section>
+<section id="analisi-esplorativa" class="level4" data-number="6.7.2.2">
+<h4 data-number="6.7.2.2" class="anchored" data-anchor-id="analisi-esplorativa"><span class="header-section-number">6.7.2.2</span> Analisi esplorativa</h4>
+<p>Comprende:</p>
+<ul>
+<li>struttura generale dei dati;</li>
+<li>relazioni tra variabili;</li>
+<li>eventuali regolarità emergenti;</li>
+<li>coerenza con le ipotesi iniziali.</li>
+</ul>
+<p>Usare grafici, tabelle e statistiche puntuali per sintetizzare e visualizzare i risultati. Prepara il terreno per PCA e clustering.</p>
+</section>
+<section id="analisi-delle-componenti-principali-pca" class="level4" data-number="6.7.2.3">
+<h4 data-number="6.7.2.3" class="anchored" data-anchor-id="analisi-delle-componenti-principali-pca"><span class="header-section-number">6.7.2.3</span> Analisi delle Componenti Principali (PCA)</h4>
+<p>Momento centrale del progetto. Consente di:</p>
+<ul>
+<li>sintetizzare l’informazione contenuta nelle variabili;</li>
+<li>individuare le <strong>dimensioni sintetiche</strong> che descrivono il fenomeno;</li>
+<li>usare i risultati, se si vuole, come base per la cluster analysis successiva;</li>
+<li>condurre <strong>analisi di posizionamento</strong> su singole osservazioni o gruppi.</li>
+</ul>
+</section>
+<section id="analisi-dei-cluster" class="level4" data-number="6.7.2.4">
+<h4 data-number="6.7.2.4" class="anchored" data-anchor-id="analisi-dei-cluster"><span class="header-section-number">6.7.2.4</span> Analisi dei cluster</h4>
+<p>Individuare <strong>gruppi omogenei di rispondenti</strong> che condividono caratteristiche simili. Non si tratta solo di una suddivisione automatica, ma di un <strong>passaggio interpretativo</strong>:</p>
+<ul>
+<li>comprendere quali variabili distinguono i gruppi;</li>
+<li>descriverli e interpretarli alla luce degli obiettivi di ricerca.</li>
+</ul>
+</section>
+<section id="conclusioni" class="level4" data-number="6.7.2.5">
+<h4 data-number="6.7.2.5" class="anchored" data-anchor-id="conclusioni"><span class="header-section-number">6.7.2.5</span> Conclusioni</h4>
+<p>Formulare considerazioni chiare e coerenti accompagnate da:</p>
+<ul>
+<li><strong>proposte pratiche o operative</strong> utili a rispondere alla domanda di ricerca;</li>
+<li><strong>limiti</strong> del progetto e aspetti migliorabili;</li>
+<li>in che modo i dati e le analisi hanno contribuito a rispondere alla domanda iniziale.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="materiale-da-consegnare" class="level2" data-number="6.8">
+<h2 data-number="6.8" class="anchored" data-anchor-id="materiale-da-consegnare"><span class="header-section-number">6.8</span> Materiale da consegnare</h2>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Cosa consegnare
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Al termine del progetto, ogni partecipante dovrà consegnare, secondo le modalità e le tempistiche comunicate dal docente, un file compresso <code>.zip</code> contenente una sola cartella con i seguenti elementi:</p>
+<ol type="1">
+<li><strong>Questionario</strong> (<code>.pdf</code>) — versione definitiva del questionario somministrato.</li>
+<li><strong>File dei dati</strong> (<code>.xlsx</code>) con tre fogli:
+<ul>
+<li><code>Dati grezzi</code>: risposte originali esportate dalla piattaforma di raccolta;</li>
+<li><code>Dati puliti</code>: dataset utilizzato per le elaborazioni;</li>
+<li><code>Codifica</code>: codifica delle variabili originali.</li>
+</ul></li>
+<li><strong>Report finale</strong> (<code>.pdf</code>) — cinque pagine piene, escluso il frontespizio, con obiettivi, risultati principali di analisi esplorativa, PCA e cluster.</li>
+<li><strong>File delle analisi</strong> (<code>.omv</code>) — file Jamovi con tutte le elaborazioni effettuate.</li>
+</ol>
+</div>
+</div>
+<section id="convenzione-di-naming" class="level3" data-number="6.8.1">
+<h3 data-number="6.8.1" class="anchored" data-anchor-id="convenzione-di-naming"><span class="header-section-number">6.8.1</span> Convenzione di naming</h3>
+<p>Tutti i file, la cartella e il <code>.zip</code> devono essere ordinati e nominati in modo chiaro, riportando il nome del partecipante nel formato <code>COGNOME_NOME_MATRICOLA</code>.</p>
+<pre><code>Rossi_Mario_11-80-12345.zip
+└── Rossi_Mario_11-80-12345/
+    ├── Rossi_Mario_11-80-12345_Questionario.pdf
+    ├── Rossi_Mario_11-80-12345_Dati.xlsx
+    ├── Rossi_Mario_11-80-12345_Report.pdf
+    └── Rossi_Mario_11-80-12345_Analisi.omv</code></pre>
+</section>
+</section>
+<section id="checklist-finale-prima-della-consegna" class="level2" data-number="6.9">
+<h2 data-number="6.9" class="anchored" data-anchor-id="checklist-finale-prima-della-consegna"><span class="header-section-number">6.9</span> Checklist finale prima della consegna</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Frontespizio del report curato esteticamente.</label></li>
+<li><label><input type="checkbox">Obiettivi e popolazione coerenti con quanto effettivamente analizzato.</label></li>
+<li><label><input type="checkbox">Almeno 120 risposte pulite.</label></li>
+<li><label><input type="checkbox">Foglio “Codifica” presente e completo nell’<code>.xlsx</code>.</label></li>
+<li><label><input type="checkbox">File <code>.omv</code> apribile con tutte le analisi salvate.</label></li>
+<li><label><input type="checkbox">Report di 5 pagine piene (escluso frontespizio): né di più né di meno.</label></li>
+<li><label><input type="checkbox">Naming corretto di cartella, <code>.zip</code> e file.</label></li>
+</ul>
+<p>Per un esempio concreto e completo della realizzazione del progetto, vedi il capitolo <a href="./P-26-esempio-progetto.html">Esempio di realizzazione del progetto</a>.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("^(?!https://github\.com/)");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./T-05-pca.html" class="pagination-link" aria-label="Analisi delle Componenti Principali">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./P-25b-strumenti-ia.html" class="pagination-link" aria-label="Uso degli strumenti di IA per il progetto">
+        <span class="nav-page-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><code>AnalisiMercato</code> — Dispense del corso. © 2026 Luca Frigau, tutti i diritti riservati.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Realizzate con <a href="https://quarto.org">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
