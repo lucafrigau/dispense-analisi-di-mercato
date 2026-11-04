@@ -1,0 +1,78 @@
+/* AnalisiMercato — guida: stile personalizzato */
+
+:root {
+  --am-primary: #1f4e79;
+  --am-accent:  #c0504d;
+  --am-soft:    #f3f6f9;
+}
+
+/* Titoli con leggera sottolineatura colorata */
+h1, h2 {
+  border-bottom: 2px solid var(--am-primary);
+  padding-bottom: 0.25rem;
+}
+
+h3 {
+  color: var(--am-primary);
+}
+
+/* Box per output di Jamovi e snippet di workflow */
+.jamovi-output {
+  background: var(--am-soft);
+  border-left: 4px solid var(--am-primary);
+  padding: 1rem 1.25rem;
+  margin: 1rem 0;
+  border-radius: 4px;
+}
+
+.jamovi-output::before {
+  content: "Output Jamovi";
+  display: block;
+  font-weight: 700;
+  color: var(--am-primary);
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+/* Tabella opzioni dell'analisi */
+.options-table th {
+  background: var(--am-soft);
+  color: var(--am-primary);
+}
+
+/* Immagini di screenshot: bordo discreto */
+.screenshot img {
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* Callout dei prerequisiti */
+.callout-prerequisiti {
+  border-left-color: var(--am-accent) !important;
+}
+
+/* Nascondi il pulsante "copia" sui diagrammi Mermaid: il codice sorgente
+   del flowchart non serve al lettore. Resta attivo sui blocchi R/code
+   normali, dove invece e' utile per riprodurre gli esempi.
+   Quarto inietta il pulsante via JS in posizioni diverse a seconda della
+   versione, quindi copriamo i 3 casi piu' comuni. */
+pre.mermaid .code-copy-button,
+pre.mermaid-js .code-copy-button,
+pre.mermaid + .code-copy-button,
+pre.mermaid-js + .code-copy-button,
+div:has(> pre.mermaid) > .code-copy-button,
+div:has(> pre.mermaid-js) > .code-copy-button,
+figure.figure:has(pre.mermaid) .code-copy-button,
+figure.figure:has(pre.mermaid-js) .code-copy-button {
+  display: none !important;
+}
+
+/* Riquadri di gruppo (subgraph) dei diagrammi Mermaid. Quarto li riempie con
+   --mermaid-fg-color--lightest, che nel tema chiaro e' un grigio scuro e nel
+   tema scuro e' bianco (testo bianco su bianco). Usiamo lo sfondo della pagina. */
+.cluster rect {
+  fill: var(--mermaid-bg-color) !important;
+}

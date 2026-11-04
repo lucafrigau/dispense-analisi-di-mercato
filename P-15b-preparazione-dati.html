@@ -1,0 +1,1838 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>24&nbsp; Preparazione dei dati – Analisi di Mercato — Dispense del corso</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./P-16-fondamenti-clustering.html" rel="next">
+<link href="./P-15-design-effect.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ef622e21aa483743907546df5fc19a86.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nessun risultato",
+    "search-matching-documents-text": "documenti trovati",
+    "search-copy-link-title": "Copiare il link nella ricerca",
+    "search-hide-matches-text": "Nascondere i risultati aggiuntivi",
+    "search-more-match-text": "ci sono altri risultati in questo documento",
+    "search-more-matches-text": "ulteriori risultati in questo documento",
+    "search-clear-button-title": "Pulire",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancellare",
+    "search-submit-button-title": "Inviare",
+    "search-label": "Ricerca"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P-01-cosa-e-analisimercato.html">Parte III — Software Jamovi</a></li><li class="breadcrumb-item"><a href="./P-15b-preparazione-dati.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Preparazione dei dati</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Ricerca" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisi di Mercato — Dispense del corso</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Attiva/disattiva la modalità oscura"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Ricerca"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefazione</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte I — Approfondimenti teorici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-01-introduzione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduzione alla ricerca di mercato quantitativa</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-02-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-03-preparazione-dati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-04-cluster-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-05-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte II — Progetto pratico</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25-introduzione-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25b-strumenti-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-26-esempio-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-27-report-finale.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Report finale del progetto di esempio</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte III — Software Jamovi</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-01-cosa-e-analisimercato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Cos’è <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-02-installazione-jamovi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Installazione di Jamovi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-03-installazione-modulo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installazione del modulo <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-04-tour-interfaccia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tour dell’interfaccia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-06-fondamenti-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Workflow operativo del campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-07-numerosita-campionaria.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Numerosità campionaria</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-08-campionamento-casuale-semplice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Campionamento casuale semplice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-09-campionamento-sistematico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Campionamento sistematico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-10-campionamento-stratificato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-11-campionamento-grappoli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Campionamento a grappoli</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-12-campionamento-due-stadi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Campionamento a due stadi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-13-campionamento-cpv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Campionamento con probabilità variabili (CPV)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-14-intervalli-confidenza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Intervalli di confidenza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15-design-effect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Design Effect</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15b-preparazione-dati.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Preparazione dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-16-fondamenti-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Workflow operativo della cluster analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-17-distanze-agglomerazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Distanze e agglomerazione</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-18-scelta-k-dendrogramma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Scelta di k e dendrogramma</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-19-caratterizzazione-cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Caratterizzazione dei cluster</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-20-confronto-partizioni-ari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Confronto fra partizioni — Adjusted Rand Index</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-21-fondamenti-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Workflow operativo della PCA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-22-contributi-cos2-biplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Contributi, cos² e biplot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-23-rotazioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Rotazioni Varimax e Promax</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-24-variabili-supplementari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Variabili supplementari e mappa di posizionamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte IV — Casi studio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-01-caso-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-02-caso-segmentazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Caso studio — Segmentare il mercato: quattro gruppi che l’anagrafica non vede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-03-caso-posizionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Caso studio — Dove siamo sulla mappa: il posizionamento di venti marche</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-01-caso-reale-comuni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Caso reale — Campionare un frame vero: i comuni italiani</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-02-caso-reale-ingrosso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Segmentare clienti veri: un distributore all’ingrosso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-03-caso-reale-yogurt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-04-caso-reale-regioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Caso reale — Dove conviene entrare: le regioni italiane</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1-glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A2-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Domande frequenti (FAQ)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Riferimenti bibliografici</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#il-dataset-desempio" id="toc-il-dataset-desempio" class="nav-link active" data-scroll-target="#il-dataset-desempio"><span class="header-section-number">24.1</span> Il dataset d’esempio</a></li>
+  <li><a href="#duplicati" id="toc-duplicati" class="nav-link" data-scroll-target="#duplicati"><span class="header-section-number">24.2</span> Duplicati</a>
+  <ul class="collapse">
+  <li><a href="#quando-usarlo" id="toc-quando-usarlo" class="nav-link" data-scroll-target="#quando-usarlo"><span class="header-section-number">24.2.1</span> Quando usarlo</a></li>
+  <li><a href="#linterfaccia" id="toc-linterfaccia" class="nav-link" data-scroll-target="#linterfaccia"><span class="header-section-number">24.2.2</span> L’interfaccia</a></li>
+  <li><a href="#esempio-pratico" id="toc-esempio-pratico" class="nav-link" data-scroll-target="#esempio-pratico"><span class="header-section-number">24.2.3</span> Esempio pratico</a></li>
+  </ul></li>
+  <li><a href="#variabili-dummy" id="toc-variabili-dummy" class="nav-link" data-scroll-target="#variabili-dummy"><span class="header-section-number">24.3</span> Variabili dummy</a>
+  <ul class="collapse">
+  <li><a href="#quando-usarle" id="toc-quando-usarle" class="nav-link" data-scroll-target="#quando-usarle"><span class="header-section-number">24.3.1</span> Quando usarle</a></li>
+  <li><a href="#linterfaccia-1" id="toc-linterfaccia-1" class="nav-link" data-scroll-target="#linterfaccia-1"><span class="header-section-number">24.3.2</span> L’interfaccia</a></li>
+  <li><a href="#esempio-pratico-la-domanda-sui-social" id="toc-esempio-pratico-la-domanda-sui-social" class="nav-link" data-scroll-target="#esempio-pratico-la-domanda-sui-social"><span class="header-section-number">24.3.3</span> Esempio pratico — la domanda sui social</a></li>
+  </ul></li>
+  <li><a href="#qualità-delle-risposte" id="toc-qualità-delle-risposte" class="nav-link" data-scroll-target="#qualità-delle-risposte"><span class="header-section-number">24.4</span> Qualità delle risposte</a>
+  <ul class="collapse">
+  <li><a href="#quando-usarla" id="toc-quando-usarla" class="nav-link" data-scroll-target="#quando-usarla"><span class="header-section-number">24.4.1</span> Quando usarla</a></li>
+  <li><a href="#linterfaccia-2" id="toc-linterfaccia-2" class="nav-link" data-scroll-target="#linterfaccia-2"><span class="header-section-number">24.4.2</span> L’interfaccia</a></li>
+  <li><a href="#esempio-pratico-1" id="toc-esempio-pratico-1" class="nav-link" data-scroll-target="#esempio-pratico-1"><span class="header-section-number">24.4.3</span> Esempio pratico</a></li>
+  </ul></li>
+  <li><a href="#outlier-multivariati" id="toc-outlier-multivariati" class="nav-link" data-scroll-target="#outlier-multivariati"><span class="header-section-number">24.5</span> Outlier multivariati</a>
+  <ul class="collapse">
+  <li><a href="#quando-usarla-1" id="toc-quando-usarla-1" class="nav-link" data-scroll-target="#quando-usarla-1"><span class="header-section-number">24.5.1</span> Quando usarla</a></li>
+  <li><a href="#linterfaccia-3" id="toc-linterfaccia-3" class="nav-link" data-scroll-target="#linterfaccia-3"><span class="header-section-number">24.5.2</span> L’interfaccia</a></li>
+  <li><a href="#esempio-pratico-reddito-e-spesa" id="toc-esempio-pratico-reddito-e-spesa" class="nav-link" data-scroll-target="#esempio-pratico-reddito-e-spesa"><span class="header-section-number">24.5.3</span> Esempio pratico — reddito e spesa</a></li>
+  </ul></li>
+  <li><a href="#errori-comuni" id="toc-errori-comuni" class="nav-link" data-scroll-target="#errori-comuni"><span class="header-section-number">24.6</span> Errori comuni</a></li>
+  <li><a href="#checklist" id="toc-checklist" class="nav-link" data-scroll-target="#checklist"><span class="header-section-number">24.7</span> Checklist</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./P-01-cosa-e-analisimercato.html">Parte III — Software Jamovi</a></li><li class="breadcrumb-item"><a href="./P-15b-preparazione-dati.html"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Preparazione dei dati</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-preparazione-dati-jamovi" class="quarto-section-identifier"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Preparazione dei dati</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong>Menu:</strong> <em>Analisi → AnalisiMercato → Preparazione dei dati</em></p>
+<p>Le quattro analisi di questo gruppo svolgono i controlli della preparazione dei dati (<a href="./T-03-preparazione-dati.html">§ T-03</a>) che jamovi non fa con <em>Dati → Calcola</em>. Nessuna esclude osservazioni da sola: <strong>segnalano</strong>, e aggiungono al dataset variabili da usare come filtri o nelle analisi successive. La decisione di correggere o escludere resta a chi fa l’analisi, e va annotata nel registro della pulizia (fase 10 di T-03).</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 21%">
+<col style="width: 19%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Analisi</th>
+<th>Fase di T-03</th>
+<th>Che cosa fa</th>
+<th>Che cosa aggiunge al dataset</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Duplicati</strong></td>
+<td>1</td>
+<td>Trova le righe uguali sulle variabili scelte</td>
+<td><code>duplicato</code>: 1 per le righe ripetute da escludere</td>
+</tr>
+<tr class="even">
+<td><strong>Variabili dummy</strong></td>
+<td>5</td>
+<td>Una variabile 0/1 per modalità, anche per le domande a risposta multipla</td>
+<td>Le dummy, una per modalità o per opzione</td>
+</tr>
+<tr class="odd">
+<td><strong>Qualità delle risposte</strong></td>
+<td>3, 7 e 9</td>
+<td>Conta i segnali di risposte date con poca attenzione</td>
+<td>Il numero di segnali e, a scelta, i singoli indicatori</td>
+</tr>
+<tr class="even">
+<td><strong>Outlier multivariati</strong></td>
+<td>6</td>
+<td>Misura la distanza di Mahalanobis dal centro dei dati</td>
+<td>La distanza e un indicatore 0/1</td>
+</tr>
+</tbody>
+</table>
+<section id="il-dataset-desempio" class="level2" data-number="24.1">
+<h2 data-number="24.1" class="anchored" data-anchor-id="il-dataset-desempio"><span class="header-section-number">24.1</span> Il dataset d’esempio</h2>
+<p>Gli esempi usano <em>Questionario da ripulire</em>, che si apre da <strong>Menu <code>≡</code> → Apri → Libreria Dati → Tecniche di Analisi di Mercato</strong>. Sono 154 risposte a un questionario sui clienti di un punto vendita, come le esporta Moduli Google, <strong>prima</strong> della pulizia: dati sintetici, costruiti apposta perché contengano i problemi più comuni.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variabili</th>
+<th>Contenuto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>informazione_cronologica</code>, <code>email</code></td>
+<td>Data e ora dell’invio ed email del rispondente</td>
+</tr>
+<tr class="even">
+<td><code>eta</code>, <code>sesso</code></td>
+<td>Età e sesso</td>
+</tr>
+<tr class="odd">
+<td><code>social</code></td>
+<td>Social usati almeno una volta alla settimana: risposta multipla, opzioni separate da virgole</td>
+</tr>
+<tr class="even">
+<td><code>prezzi_convenienti</code> … <code>personale_scortese</code></td>
+<td>Batteria di sei item da 1 a 5 sul punto vendita; <code>personale_scortese</code> è formulato al contrario</td>
+</tr>
+<tr class="odd">
+<td><code>freq_bio</code>, <code>bio_ultimi_3_mesi</code></td>
+<td>Due domande di controllo sull’acquisto di prodotti biologici, come nell’esempio di T-03</td>
+</tr>
+<tr class="even">
+<td><code>reddito_k</code>, <code>spesa_mensile</code></td>
+<td>Reddito annuo in migliaia di euro e spesa mensile nel punto vendita</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="duplicati" class="level2" data-number="24.2">
+<h2 data-number="24.2" class="anchored" data-anchor-id="duplicati"><span class="header-section-number">24.2</span> Duplicati</h2>
+<p><strong>Menu:</strong> <em>Analisi → AnalisiMercato → Preparazione dei dati → Duplicati</em></p>
+<section id="quando-usarlo" class="level3" data-number="24.2.1">
+<h3 data-number="24.2.1" class="anchored" data-anchor-id="quando-usarlo"><span class="header-section-number">24.2.1</span> Quando usarlo</h3>
+<p>Con i moduli online capitano gli invii doppi: chi clicca due volte su <em>Invia</em>, chi rimanda il modulo per correggere una risposta. Contati due volte, quei rispondenti pesano il doppio in tutte le analisi. L’analisi trova le righe uguali in due modi, a seconda delle variabili scelte:</p>
+<ul>
+<li><strong>tutte le variabili del questionario, tranne l’informazione cronologica</strong>, che cambia a ogni invio: si trovano gli invii <strong>identici</strong>;</li>
+<li><strong>solo le variabili che identificano il rispondente</strong>, come l’email o la matricola: si trova chi ha risposto <strong>più volte</strong>, anche con risposte diverse.</li>
+</ul>
+</section>
+<section id="linterfaccia" class="level3" data-number="24.2.2">
+<h3 data-number="24.2.2" class="anchored" data-anchor-id="linterfaccia"><span class="header-section-number">24.2.2</span> L’interfaccia</h3>
+<div class="screenshot">
+<div id="fig-duplicati-pannello" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-duplicati-pannello-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/screenshots/P-15b-preparazione-dati__duplicati-pannello.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-duplicati-pannello-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;24.1: Pannello delle opzioni di <em>Duplicati</em>, con l’email come variabile da confrontare
+</figcaption>
+</figure>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 37%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Opzione</th>
+<th>Default</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Variabili da confrontare</strong></td>
+<td>—</td>
+<td>Ammette anche le variabili di tipo ID, come l’email</td>
+</tr>
+<tr class="even">
+<td><strong>Ignora maiuscole e spazi nei testi</strong></td>
+<td>attiva</td>
+<td><code>Mario.Rossi@x.it</code> e <code>mario.rossi@x.it</code> sono la stessa email</td>
+</tr>
+<tr class="odd">
+<td><strong>Crea la variabile «duplicato»</strong></td>
+<td>non attiva</td>
+<td>Aggiunge <code>duplicato</code>: 0 per le righe da tenere, 1 per le altre</td>
+</tr>
+</tbody>
+</table>
+<p>Due regole sui valori mancanti:</p>
+<ul>
+<li>due mancanti nella stessa variabile contano come <strong>uguali</strong>;</li>
+<li>le righe in cui mancano <strong>tutte</strong> le variabili scelte, per esempio senza email, <strong>non si confrontano</strong>: altrimenti risulterebbero tutte duplicate fra loro.</li>
+</ul>
+<p>Di ogni gruppo di righe uguali si tiene <strong>l’ultima</strong>: nel secondo invio il rispondente può aver corretto qualcosa, e nei file di Moduli Google, che sono in ordine di invio, l’ultima riga è la più recente.</p>
+</section>
+<section id="esempio-pratico" class="level3" data-number="24.2.3">
+<h3 data-number="24.2.3" class="anchored" data-anchor-id="esempio-pratico"><span class="header-section-number">24.2.3</span> Esempio pratico</h3>
+<p><strong>Passi:</strong> <em>Variabili da confrontare</em> → <code>email</code>; <em>Crea la variabile «duplicato»</em> attiva.</p>
+<div class="jamovi-output">
+<p><strong>Output atteso</strong> — tabelle <em>Riepilogo</em> e <em>Righe uguali</em>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Righe confrontate</th>
+<th style="text-align: right;">Gruppi di righe uguali</th>
+<th style="text-align: right;">Righe in più</th>
+<th style="text-align: right;">Righe senza dati</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">152</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Gruppo</th>
+<th>Righe</th>
+<th style="text-align: right;">Riga da tenere</th>
+<th>email</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td>22, 23</td>
+<td style="text-align: right;">23</td>
+<td>sara.cocco53@esempio.it</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td>65, 66</td>
+<td style="text-align: right;">66</td>
+<td>luca.loi23@esempio.it</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td>97, 126</td>
+<td style="text-align: right;">126</td>
+<td>luca.sanna95@esempio.it</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td>133, 134</td>
+<td style="text-align: right;">134</td>
+<td>chiara.satta39@esempio.it</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lettura.</strong> Quattro rispondenti hanno inviato il modulo due volte; le due righe senza email non sono state confrontate. I quattro casi non sono uguali fra loro:</p>
+<ul>
+<li>le righe 22–23 e 133–134 sono <strong>identiche</strong> e inviate a un minuto di distanza: un doppio clic;</li>
+<li>nella riga 66 l’email è scritta con l’iniziale maiuscola e con degli spazi, e il reddito è diverso: il rispondente ha corretto il dato dopo 40 minuti. Senza <em>Ignora maiuscole e spazi nei testi</em> questo gruppo non si trova;</li>
+<li>la riga 126 arriva due giorni dopo la 97, con un’altra risposta sui social.</li>
+</ul>
+</div>
+<p>Confrontando invece <strong>tutte le variabili tranne <code>informazione_cronologica</code></strong>, i gruppi sono solo 2: le righe 22–23 e 133–134, gli unici invii identici. Gli altri due rispondenti hanno cambiato almeno una risposta, quindi le loro righe non sono uguali.</p>
+<p>Per escludere le righe ripetute si usa la variabile creata: <em>Dati → Filtri</em> con <code>duplicato == 0</code>. Le righe con 1 restano nel file ma escono dalle analisi, e la scelta resta visibile e reversibile.</p>
+<div class="screenshot">
+<div id="fig-duplicati-output" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-duplicati-output-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/screenshots/P-15b-preparazione-dati__duplicati-output.png" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-duplicati-output-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;24.2: Output di <em>Duplicati</em> sull’email
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+</section>
+<section id="variabili-dummy" class="level2" data-number="24.3">
+<h2 data-number="24.3" class="anchored" data-anchor-id="variabili-dummy"><span class="header-section-number">24.3</span> Variabili dummy</h2>
+<p><strong>Menu:</strong> <em>Analisi → AnalisiMercato → Preparazione dei dati → Variabili dummy</em></p>
+<section id="quando-usarle" class="level3" data-number="24.3.1">
+<h3 data-number="24.3.1" class="anchored" data-anchor-id="quando-usarle"><span class="header-section-number">24.3.1</span> Quando usarle</h3>
+<p>L’analisi crea le dummy di una o più variabili categoriali: una variabile per ciascuna modalità, che vale 1 se l’osservazione ha quella modalità e 0 altrimenti (<a href="./T-03-preparazione-dati.html">§ T-03</a>, fase 5). Servono soprattutto in due casi:</p>
+<ul>
+<li><strong>domande a risposta multipla</strong>: Moduli Google mette in una sola cella le opzioni scelte, separate da virgole («Instagram, TikTok»). Così com’è, la variabile non si analizza; con una dummy per opzione, sì;</li>
+<li><strong>binarie di presenza/assenza</strong> per la cluster analysis con Gower: le dummy sono variabili 0/1 di tipo continuo e vanno direttamente nella casella <em>Binarie di presenza/assenza</em> (<a href="./P-17-distanze-agglomerazione.html">§ P-17</a>).</li>
+</ul>
+</section>
+<section id="linterfaccia-1" class="level3" data-number="24.3.2">
+<h3 data-number="24.3.2" class="anchored" data-anchor-id="linterfaccia-1"><span class="header-section-number">24.3.2</span> L’interfaccia</h3>
+<div class="screenshot">
+<div id="fig-dummy-pannello" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-dummy-pannello-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/screenshots/P-15b-preparazione-dati__dummy-pannello.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-dummy-pannello-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;24.3: Pannello delle opzioni di <em>Variabili dummy</em>, con la risposta multipla attiva
+</figcaption>
+</figure>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 37%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Opzione</th>
+<th>Default</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Variabili categoriali</strong></td>
+<td>—</td>
+<td>Nominali, ordinali o di testo</td>
+</tr>
+<tr class="even">
+<td><strong>Risposta multipla</strong></td>
+<td>non attiva</td>
+<td>Ogni cella si divide al separatore e si crea una dummy per opzione</td>
+</tr>
+<tr class="odd">
+<td>↳ <strong>Separatore</strong></td>
+<td><code>,</code></td>
+<td>Quello di Moduli Google è la virgola</td>
+</tr>
+<tr class="even">
+<td>↳ <strong>Riunisci in «altro» le opzioni scelte meno di</strong></td>
+<td>2 volte</td>
+<td>Con 1 non si riunisce nessuna opzione</td>
+</tr>
+<tr class="odd">
+<td><strong>Crea le variabili dummy</strong></td>
+<td>non attiva</td>
+<td>Aggiunge le dummy al dataset</td>
+</tr>
+</tbody>
+</table>
+<p>Tre regole da conoscere:</p>
+<ul>
+<li>si creano <strong>tutte</strong> le modalità, non una in meno come nei modelli di regressione: nelle analisi del modulo ogni modalità va rappresentata (<a href="./T-03-preparazione-dati.html">§ T-03</a>);</li>
+<li><strong>dove manca la variabile originale mancano anche le sue dummy</strong>: chi non ha risposto non ha 0, ha un valore mancante;</li>
+<li>le dummy si chiamano <code>variabile_modalità</code>, con un trattino basso al posto di spazi e simboli (<code>social_Instagram</code>), e sono di tipo continuo.</li>
+</ul>
+</section>
+<section id="esempio-pratico-la-domanda-sui-social" class="level3" data-number="24.3.3">
+<h3 data-number="24.3.3" class="anchored" data-anchor-id="esempio-pratico-la-domanda-sui-social"><span class="header-section-number">24.3.3</span> Esempio pratico — la domanda sui social</h3>
+<p><strong>Passi:</strong> <em>Variabili categoriali</em> → <code>social</code>; <em>Risposta multipla</em> attiva; <em>Crea le variabili dummy</em> attiva.</p>
+<div class="jamovi-output">
+<p><strong>Output atteso</strong> — tabella <em>Dummy create</em>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variabile</th>
+<th>Modalità</th>
+<th>Nome della dummy</th>
+<th style="text-align: right;">N con 1</th>
+<th style="text-align: right;">% con 1</th>
+<th style="text-align: right;">Mancanti</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>social</td>
+<td>Instagram</td>
+<td>social_Instagram</td>
+<td style="text-align: right;">102</td>
+<td style="text-align: right;">70,3%</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>YouTube</td>
+<td>social_YouTube</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: right;">55,2%</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>Facebook</td>
+<td>social_Facebook</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: right;">44,1%</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>TikTok</td>
+<td>social_TikTok</td>
+<td style="text-align: right;">60</td>
+<td style="text-align: right;">41,4%</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="odd">
+<td></td>
+<td>LinkedIn</td>
+<td>social_LinkedIn</td>
+<td style="text-align: right;">28</td>
+<td style="text-align: right;">19,3%</td>
+<td style="text-align: right;">9</td>
+</tr>
+<tr class="even">
+<td></td>
+<td>altro</td>
+<td>social_altro</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2,8%</td>
+<td style="text-align: right;">9</td>
+</tr>
+</tbody>
+</table>
+<p><em>Nota.</em> social: in «altro» sono riunite 4 opzioni scelte meno di 2 volte: il blog di un’amica, Pinterest, Reddit, Twitch.</p>
+<p><strong>Lettura.</strong> Le percentuali sono calcolate sui 145 rispondenti che hanno risposto alla domanda, e <strong>non sommano a 100</strong>: ognuno può usare più social. Instagram lo usa il 70,3%, LinkedIn meno di uno su cinque. Le quattro risposte libere della voce <em>Altro</em> sono state scelte una volta ciascuna: tenerle come dummy separate darebbe quattro variabili quasi costanti, utili a poco. Riunite in <code>social_altro</code>, dicono che 4 rispondenti usano anche un social non previsto dal questionario.</p>
+</div>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Avviso</span>Un’opzione che contiene il separatore
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La divisione avviene a ogni virgola. Se un’opzione del questionario contiene a sua volta una virgola («Sì, spesso»), viene spezzata in due: conviene scrivere le opzioni del modulo senza virgole, oppure ricodificarle prima di creare le dummy.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="qualità-delle-risposte" class="level2" data-number="24.4">
+<h2 data-number="24.4" class="anchored" data-anchor-id="qualità-delle-risposte"><span class="header-section-number">24.4</span> Qualità delle risposte</h2>
+<p><strong>Menu:</strong> <em>Analisi → AnalisiMercato → Preparazione dei dati → Qualità delle risposte</em></p>
+<section id="quando-usarla" class="level3" data-number="24.4.1">
+<h3 data-number="24.4.1" class="anchored" data-anchor-id="quando-usarla"><span class="header-section-number">24.4.1</span> Quando usarla</h3>
+<p>L’analisi cerca i rispondenti che hanno compilato il questionario con poca attenzione (<a href="./T-03-preparazione-dati.html">§ T-03</a>, fasi 3, 7 e 9). Ha due parti, che si usano insieme o da sole.</p>
+<ul>
+<li><strong>Batteria di item</strong>: le domande con la stessa scala di risposta poste una dopo l’altra, nell’ordine del questionario. Per ogni rispondente l’analisi conta quante volte di fila dà la stessa risposta e quante risposte mancano. Chi risponde 3, 3, 3, 3, 3, 3 dà la stessa risposta a 6 item su 6; chi risponde 4, 4, 2, 5, 4, 3 al massimo a 2 di fila.</li>
+<li><strong>Coppie di domande di controllo</strong>: domande che chiedono la stessa informazione con le modalità nello stesso ordine. Per ogni rispondente si misura quanto la coppia di risposte è lontana dalla <strong>diagonale della matrice di coerenza</strong>: 0 sulla diagonale, 1 sulle celle adiacenti, 2 a due passi, 3 o più per le contraddizioni forti.</li>
+</ul>
+<p>Ogni indicatore oltre la sua soglia è un <strong>segnale</strong>. Un segnale da solo non basta per escludere qualcuno: un cliente molto soddisfatto può dare 5 a tutto. Di solito un rispondente si esclude solo con <strong>più segnali insieme</strong>, e con criteri fissati prima di guardare i dati.</p>
+</section>
+<section id="linterfaccia-2" class="level3" data-number="24.4.2">
+<h3 data-number="24.4.2" class="anchored" data-anchor-id="linterfaccia-2"><span class="header-section-number">24.4.2</span> L’interfaccia</h3>
+<div class="screenshot">
+<div id="fig-qualita-pannello" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qualita-pannello-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/screenshots/P-15b-preparazione-dati__qualita-pannello.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qualita-pannello-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;24.4: Pannello delle opzioni di <em>Qualità delle risposte</em>
+</figcaption>
+</figure>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 37%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Opzione</th>
+<th>Default</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Batteria di item (stessa scala)</strong></td>
+<td>—</td>
+<td>Gli item nell’ordine del questionario</td>
+</tr>
+<tr class="even">
+<td><strong>Coppie di domande di controllo</strong></td>
+<td>—</td>
+<td>Due domande per riga, con lo stesso numero di modalità nello stesso ordine</td>
+</tr>
+<tr class="odd">
+<td><strong>Stessa risposta di fila su almeno il</strong></td>
+<td>100% degli item</td>
+<td>Con 100 il segnale scatta solo per chi dà la stessa risposta a tutti gli item</td>
+</tr>
+<tr class="even">
+<td><strong>Risposte mancanti, almeno il</strong></td>
+<td>50% degli item</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Distanza dalla diagonale che conta come segnale, almeno</strong></td>
+<td>3</td>
+<td>Con 2 contano anche le incoerenze da esaminare</td>
+</tr>
+<tr class="even">
+<td><strong>Elenca i rispondenti con almeno</strong></td>
+<td>2 segnali</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><strong>Crea la variabile con il numero di segnali</strong></td>
+<td>non attiva</td>
+<td>Aggiunge <code>segnali</code></td>
+</tr>
+<tr class="even">
+<td><strong>Crea le variabili dei singoli indicatori</strong></td>
+<td>non attiva</td>
+<td>Aggiunge <code>di_fila</code>, <code>mancanti</code> e una distanza per ogni coppia</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="esempio-pratico-1" class="level3" data-number="24.4.3">
+<h3 data-number="24.4.3" class="anchored" data-anchor-id="esempio-pratico-1"><span class="header-section-number">24.4.3</span> Esempio pratico</h3>
+<p><strong>Passi:</strong> <em>Batteria di item</em> → i sei item da <code>prezzi_convenienti</code> a <code>personale_scortese</code>; <em>Coppie di domande di controllo</em> → <code>freq_bio</code> e <code>bio_ultimi_3_mesi</code>; soglie predefinite.</p>
+<div class="jamovi-output">
+<p><strong>Output atteso</strong> — tabelle <em>Segnali</em> e <em>Rispondenti da esaminare</em>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 21%">
+<col style="width: 21%">
+<col style="width: 28%">
+<col style="width: 28%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Segnale</th>
+<th>Criterio</th>
+<th style="text-align: right;">Rispondenti</th>
+<th style="text-align: right;">% dei rispondenti</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Stessa risposta di fila</td>
+<td>almeno 6 item di fila su 6</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">5,2%</td>
+</tr>
+<tr class="even">
+<td>Risposte mancanti</td>
+<td>almeno 3 item su 6</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1,9%</td>
+</tr>
+<tr class="odd">
+<td>Coppia freq_bio – bio_ultimi_3_mesi</td>
+<td>distanza dalla diagonale almeno 3</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">1,9%</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Riga</th>
+<th style="text-align: right;">Segnali</th>
+<th style="text-align: right;">Stessa risposta di fila</th>
+<th style="text-align: right;">Mancanti</th>
+<th style="text-align: right;">Distanza freq_bio – bio_ultimi_3_mesi</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">68</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">4</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lettura.</strong> Otto rispondenti hanno dato la stessa risposta a tutti e sei gli item. Fra questi, chi ha risposto 5 a tutto ha dato 5 anche a <code>personale_scortese</code>, formulato al contrario: ha detto che il personale è cortese e, subito dopo, che è scortese. Tre rispondenti hanno saltato metà della batteria o più, e tre hanno dato alle domande di controllo risposte che si contraddicono.</p>
+<p>Un solo rispondente ha due segnali insieme, quello della riga 68: ha risposto 3 a tutti gli item e, alle domande di controllo, «Sempre/quasi sempre» alla prima e «Mai» alla seconda. È il candidato più forte all’esclusione, da valutare con i criteri fissati prima dell’analisi.</p>
+</div>
+<div class="screenshot">
+<div id="fig-qualita-matrice" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-qualita-matrice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/screenshots/P-15b-preparazione-dati__qualita-matrice.png" class="img-fluid figure-img" style="width:65.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-qualita-matrice-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;24.5: Matrice di coerenza delle due domande di controllo: in rosso le celle che contano come segnale
+</figcaption>
+</figure>
+</div>
+</div>
+<p>La matrice di coerenza riporta quanti rispondenti cadono in ogni combinazione di risposte, con i colori di T-03: blu sulla diagonale, azzurro sulle celle adiacenti, giallo a due passi, rosso per le celle che contano come segnale. <strong>I colori seguono la soglia scelta</strong>: con la distanza a 2 diventano rosse anche le celle gialle, e i rispondenti con il segnale della coppia salgono a 4.</p>
+</section>
+</section>
+<section id="outlier-multivariati" class="level2" data-number="24.5">
+<h2 data-number="24.5" class="anchored" data-anchor-id="outlier-multivariati"><span class="header-section-number">24.5</span> Outlier multivariati</h2>
+<p><strong>Menu:</strong> <em>Analisi → AnalisiMercato → Preparazione dei dati → Outlier multivariati</em></p>
+<section id="quando-usarla-1" class="level3" data-number="24.5.1">
+<h3 data-number="24.5.1" class="anchored" data-anchor-id="quando-usarla-1"><span class="header-section-number">24.5.1</span> Quando usarla</h3>
+<p>Un valore può essere normale su ogni variabile presa da sola e insolito nella <strong>combinazione</strong>. La distanza di Mahalanobis misura quanto ogni osservazione è lontana dal centro dei dati tenendo conto delle correlazioni fra le variabili (<a href="./T-03-preparazione-dati.html">§ T-03</a>, fase 6). È il controllo naturale prima della cluster analysis, dove pochi punti anomali possono formare gruppi a sé.</p>
+<p>Un’osservazione è un <strong>outlier</strong> quando la sua distanza al quadrato (D²) supera il valore critico del chi-quadrato con tanti gradi di libertà quante sono le variabili, alla soglia scelta: di solito 0,001, cioè una distanza così grande si avrebbe per caso meno di una volta su mille.</p>
+</section>
+<section id="linterfaccia-3" class="level3" data-number="24.5.2">
+<h3 data-number="24.5.2" class="anchored" data-anchor-id="linterfaccia-3"><span class="header-section-number">24.5.2</span> L’interfaccia</h3>
+<div class="screenshot">
+<div id="fig-outlier-pannello" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-outlier-pannello-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/screenshots/P-15b-preparazione-dati__outlier-pannello.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-outlier-pannello-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;24.6: Pannello delle opzioni di <em>Outlier multivariati</em>
+</figcaption>
+</figure>
+</div>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 37%">
+<col style="width: 37%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Opzione</th>
+<th>Default</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Variabili quantitative</strong></td>
+<td>—</td>
+<td>Almeno due</td>
+</tr>
+<tr class="even">
+<td><strong>Soglia di probabilità</strong></td>
+<td>0,001</td>
+<td>Più alta, più osservazioni segnalate</td>
+</tr>
+<tr class="odd">
+<td><strong>Crea la variabile con la distanza</strong></td>
+<td>non attiva</td>
+<td>Aggiunge <code>mahal_D2</code></td>
+</tr>
+<tr class="even">
+<td><strong>Crea la variabile «outlier»</strong></td>
+<td>non attiva</td>
+<td>Aggiunge <code>outlier</code>: 1 per gli outlier, 0 per le altre osservazioni</td>
+</tr>
+</tbody>
+</table>
+<p>Le righe con un valore mancante non hanno distanza. Con variabili collineari, per esempio tutte le dummy di una stessa variabile, la distanza non è calcolabile e l’analisi si ferma con un messaggio.</p>
+</section>
+<section id="esempio-pratico-reddito-e-spesa" class="level3" data-number="24.5.3">
+<h3 data-number="24.5.3" class="anchored" data-anchor-id="esempio-pratico-reddito-e-spesa"><span class="header-section-number">24.5.3</span> Esempio pratico — reddito e spesa</h3>
+<p><strong>Passi:</strong> <em>Variabili quantitative</em> → <code>reddito_k</code>, <code>spesa_mensile</code>.</p>
+<div class="jamovi-output">
+<p><strong>Output atteso</strong> — tabelle <em>Riepilogo</em> e <em>Osservazioni oltre la soglia</em>:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">Osservazioni usate</th>
+<th style="text-align: right;">Variabili</th>
+<th style="text-align: right;">Valore critico di D²</th>
+<th style="text-align: right;">Outlier</th>
+<th style="text-align: right;">Righe con mancanti</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">154</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">13,8</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: right;">Riga</th>
+<th style="text-align: right;">D²</th>
+<th style="text-align: right;">p</th>
+<th style="text-align: right;">reddito_k</th>
+<th style="text-align: right;">spesa_mensile</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">79</td>
+<td style="text-align: right;">31,6</td>
+<td style="text-align: right;">&lt; 0,001</td>
+<td style="text-align: right;">45,0</td>
+<td style="text-align: right;">165</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">91</td>
+<td style="text-align: right;">16,0</td>
+<td style="text-align: right;">&lt; 0,001</td>
+<td style="text-align: right;">53,1</td>
+<td style="text-align: right;">541</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Lettura.</strong> Reddito e spesa vanno insieme (correlazione 0,76): chi guadagna di più, di solito, spende di più. I due outlier lo sono per ragioni diverse:</p>
+<ul>
+<li>la <strong>riga 79</strong> non è estrema né per il reddito né per la spesa (z = 2,3 e −1,6): 45 mila euro è un reddito alto, ma dentro i baffi del boxplot, e 165 euro è una spesa bassa ma non rara, perché 9 rispondenti spendono così o meno. È la <strong>combinazione</strong> a essere insolita: un reddito alto con una spesa così bassa va contro la tendenza di tutti gli altri. Il boxplot di ciascuna variabile non l’avrebbe segnalata;</li>
+<li>la <strong>riga 91</strong> ha reddito e spesa molto alti entrambi (z = 3,3 e 4,0): è coerente con la tendenza, ma lontana dal centro, ed è estrema anche variabile per variabile.</li>
+</ul>
+</div>
+<p>Prima di decidere, ogni outlier va <strong>verificato</strong>: un errore di digitazione si corregge, un caso raro ma reale di solito si tiene e si segnala nel report (<a href="./T-03-preparazione-dati.html">§ T-03</a>). Gli outlier, poi, gonfiano la covarianza da cui si calcola la distanza: se sono molti, possono nascondersi a vicenda.</p>
+</section>
+</section>
+<section id="errori-comuni" class="level2" data-number="24.6">
+<h2 data-number="24.6" class="anchored" data-anchor-id="errori-comuni"><span class="header-section-number">24.6</span> Errori comuni</h2>
+<ul>
+<li>❌ <strong>Confrontare i duplicati includendo l’informazione cronologica</strong>: cambia a ogni invio, quindi due invii identici non risultano mai uguali.</li>
+<li>❌ <strong>Cancellare le righe segnalate</strong>: le analisi di questo gruppo segnalano e non escludono. Si esclude con un filtro sulla variabile creata, così la scelta resta reversibile e si documenta.</li>
+<li>❌ <strong>Escludere un rispondente per un solo segnale</strong>: le risposte tutte uguali possono essere sincere; servono più segnali insieme e criteri fissati in anticipo.</li>
+<li>❌ <strong>Mettere nella batteria item con scale diverse</strong>: la stessa risposta di fila ha senso solo fra item con la stessa scala.</li>
+<li>❌ <strong>Leggere le percentuali delle dummy di una risposta multipla come una ripartizione</strong>: non sommano a 100, perché ogni rispondente può scegliere più opzioni.</li>
+</ul>
+</section>
+<section id="checklist" class="level2" data-number="24.7">
+<h2 data-number="24.7" class="anchored" data-anchor-id="checklist"><span class="header-section-number">24.7</span> Checklist</h2>
+<ul class="task-list">
+<li><label><input type="checkbox">Duplicati controllati sull’identificativo del rispondente, e sulle variabili del questionario senza l’informazione cronologica.</label></li>
+<li><label><input type="checkbox">Righe ripetute escluse con un filtro su <code>duplicato</code>, non cancellate.</label></li>
+<li><label><input type="checkbox">Domande a risposta multipla trasformate in dummy, con le opzioni rare riunite in «altro».</label></li>
+<li><label><input type="checkbox">Soglie della qualità delle risposte fissate prima di guardare i dati e annotate nel registro.</label></li>
+<li><label><input type="checkbox">Rispondenti con più segnali esaminati uno per uno prima di decidere.</label></li>
+<li><label><input type="checkbox">Outlier multivariati verificati sulle variabili della segmentazione prima della cluster analysis.</label></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("^(?!https://github\.com/)");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./P-15-design-effect.html" class="pagination-link" aria-label="Design Effect">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Design Effect</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./P-16-fondamenti-clustering.html" class="pagination-link" aria-label="Workflow operativo della cluster analysis">
+        <span class="nav-page-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Workflow operativo della cluster analysis</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><code>AnalisiMercato</code> — Dispense del corso. © 2026 Luca Frigau, tutti i diritti riservati.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Realizzate con <a href="https://quarto.org">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
