@@ -1,0 +1,2548 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="it" xml:lang="it"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>5&nbsp; Analisi delle Componenti Principali – Analisi di Mercato — Dispense del corso</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./P-25-introduzione-progetto.html" rel="next">
+<link href="./T-04-cluster-analysis.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0ae9245876894da5ac7e18953ecc5cc.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-ef622e21aa483743907546df5fc19a86.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3f88a86dcb71124820da181fabe24ba7.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "Nessun risultato",
+    "search-matching-documents-text": "documenti trovati",
+    "search-copy-link-title": "Copiare il link nella ricerca",
+    "search-hide-matches-text": "Nascondere i risultati aggiuntivi",
+    "search-more-match-text": "ci sono altri risultati in questo documento",
+    "search-more-matches-text": "ulteriori risultati in questo documento",
+    "search-clear-button-title": "Pulire",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancellare",
+    "search-submit-button-title": "Inviare",
+    "search-label": "Ricerca"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar docked quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./T-01-introduzione.html">Parte I — Approfondimenti teorici</a></li><li class="breadcrumb-item"><a href="./T-05-pca.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Attiva/disattiva la barra laterale" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Ricerca" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Analisi di Mercato — Dispense del corso</a> 
+        <div class="sidebar-tools-main">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Attiva/disattiva la modalità oscura"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Ricerca"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Prefazione</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Parte I — Approfondimenti teorici</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-01-introduzione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduzione alla ricerca di mercato quantitativa</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-02-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-03-preparazione-dati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Preparazione e pulizia dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-04-cluster-analysis.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./T-05-pca.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte II — Progetto pratico</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25-introduzione-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-25b-strumenti-ia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Uso degli strumenti di IA per il progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-26-esempio-progetto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Esempio di realizzazione del progetto</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-27-report-finale.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Report finale del progetto di esempio</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte III — Software Jamovi</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-01-cosa-e-analisimercato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Cos’è <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-02-installazione-jamovi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Installazione di Jamovi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-03-installazione-modulo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">Installazione del modulo <code>AnalisiMercato</code></span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-04-tour-interfaccia.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Tour dell’interfaccia</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-06-fondamenti-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Workflow operativo del campionamento</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-07-numerosita-campionaria.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Numerosità campionaria</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-08-campionamento-casuale-semplice.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">Campionamento casuale semplice</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-09-campionamento-sistematico.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">17</span>&nbsp; <span class="chapter-title">Campionamento sistematico</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-10-campionamento-stratificato.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">18</span>&nbsp; <span class="chapter-title">Campionamento stratificato</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-11-campionamento-grappoli.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">19</span>&nbsp; <span class="chapter-title">Campionamento a grappoli</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-12-campionamento-due-stadi.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">20</span>&nbsp; <span class="chapter-title">Campionamento a due stadi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-13-campionamento-cpv.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">21</span>&nbsp; <span class="chapter-title">Campionamento con probabilità variabili (CPV)</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-14-intervalli-confidenza.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">22</span>&nbsp; <span class="chapter-title">Intervalli di confidenza</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15-design-effect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">23</span>&nbsp; <span class="chapter-title">Design Effect</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-15b-preparazione-dati.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">24</span>&nbsp; <span class="chapter-title">Preparazione dei dati</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-16-fondamenti-clustering.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">25</span>&nbsp; <span class="chapter-title">Workflow operativo della cluster analysis</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-17-distanze-agglomerazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">26</span>&nbsp; <span class="chapter-title">Distanze e agglomerazione</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-18-scelta-k-dendrogramma.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">27</span>&nbsp; <span class="chapter-title">Scelta di k e dendrogramma</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-19-caratterizzazione-cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">28</span>&nbsp; <span class="chapter-title">Caratterizzazione dei cluster</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-20-confronto-partizioni-ari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">29</span>&nbsp; <span class="chapter-title">Confronto fra partizioni — Adjusted Rand Index</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-21-fondamenti-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">30</span>&nbsp; <span class="chapter-title">Workflow operativo della PCA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-22-contributi-cos2-biplot.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">31</span>&nbsp; <span class="chapter-title">Contributi, cos² e biplot</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-23-rotazioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">32</span>&nbsp; <span class="chapter-title">Rotazioni Varimax e Promax</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./P-24-variabili-supplementari.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">33</span>&nbsp; <span class="chapter-title">Variabili supplementari e mappa di posizionamento</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false">
+ <span class="menu-text">Parte IV — Casi studio</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-01-caso-campionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">34</span>&nbsp; <span class="chapter-title">Caso studio — Progettare l’indagine: quante interviste, e a chi</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-02-caso-segmentazione.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">35</span>&nbsp; <span class="chapter-title">Caso studio — Segmentare il mercato: quattro gruppi che l’anagrafica non vede</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./C-03-caso-posizionamento.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">36</span>&nbsp; <span class="chapter-title">Caso studio — Dove siamo sulla mappa: il posizionamento di venti marche</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-01-caso-reale-comuni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">37</span>&nbsp; <span class="chapter-title">Caso reale — Campionare un frame vero: i comuni italiani</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-02-caso-reale-ingrosso.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">38</span>&nbsp; <span class="chapter-title">Caso reale — Segmentare clienti veri: un distributore all’ingrosso</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-03-caso-reale-yogurt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">39</span>&nbsp; <span class="chapter-title">Caso reale — Il posizionamento nutrizionale degli yogurt</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./R-04-caso-reale-regioni.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">40</span>&nbsp; <span class="chapter-title">Caso reale — Dove conviene entrare: le regioni italiane</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false">
+ <span class="menu-text">Appendici</span></a>
+          <a class="sidebar-item-toggle text-start collapsed" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="false" aria-label="Attiva/disattiva sezione">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 ">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A1-glossario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Glossario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A2-faq.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Domande frequenti (FAQ)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./A3-approfondimento-pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Approfondimento sull’Analisi delle Componenti Principali</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Riferimenti bibliografici</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Indice</h2>
+   
+  <ul>
+  <li><a href="#sec-acp-obiettivi" id="toc-sec-acp-obiettivi" class="nav-link active" data-scroll-target="#sec-acp-obiettivi"><span class="header-section-number">5.1</span> A che cosa serve</a></li>
+  <li><a href="#sec-acp-caso" id="toc-sec-acp-caso" class="nav-link" data-scroll-target="#sec-acp-caso"><span class="header-section-number">5.2</span> Il caso yogurt</a></li>
+  <li><a href="#sec-acp-idea" id="toc-sec-acp-idea" class="nav-link" data-scroll-target="#sec-acp-idea"><span class="header-section-number">5.3</span> L’idea: una retta che raccoglie più differenze possibile</a>
+  <ul class="collapse">
+  <li><a href="#sec-acp-geometria" id="toc-sec-acp-geometria" class="nav-link" data-scroll-target="#sec-acp-geometria"><span class="header-section-number">5.3.1</span> Che cosa si vede con due variabili</a></li>
+  <li><a href="#sec-acp-pesi" id="toc-sec-acp-pesi" class="nav-link" data-scroll-target="#sec-acp-pesi"><span class="header-section-number">5.3.2</span> La ricetta di una componente: i pesi</a></li>
+  <li><a href="#sec-acp-autovalori" id="toc-sec-acp-autovalori" class="nav-link" data-scroll-target="#sec-acp-autovalori"><span class="header-section-number">5.3.3</span> Quanta informazione raccoglie: gli autovalori</a></li>
+  </ul></li>
+  <li><a href="#sec-acp-quante" id="toc-sec-acp-quante" class="nav-link" data-scroll-target="#sec-acp-quante"><span class="header-section-number">5.4</span> Quante componenti tenere</a></li>
+  <li><a href="#sec-acp-variabili" id="toc-sec-acp-variabili" class="nav-link" data-scroll-target="#sec-acp-variabili"><span class="header-section-number">5.5</span> Le variabili: loadings, contributi e cos²</a>
+  <ul class="collapse">
+  <li><a href="#sec-acp-loadings" id="toc-sec-acp-loadings" class="nav-link" data-scroll-target="#sec-acp-loadings"><span class="header-section-number">5.5.1</span> I loadings</a></li>
+  <li><a href="#sec-acp-contributi" id="toc-sec-acp-contributi" class="nav-link" data-scroll-target="#sec-acp-contributi"><span class="header-section-number">5.5.2</span> I contributi</a></li>
+  <li><a href="#sec-acp-cos2-variabili" id="toc-sec-acp-cos2-variabili" class="nav-link" data-scroll-target="#sec-acp-cos2-variabili"><span class="header-section-number">5.5.3</span> I coseni quadrati (cos²)</a></li>
+  <li><a href="#la-heatmap-dei-cos²" id="toc-la-heatmap-dei-cos²" class="nav-link" data-scroll-target="#la-heatmap-dei-cos²"><span class="header-section-number">5.5.4</span> La heatmap dei cos²</a></li>
+  </ul></li>
+  <li><a href="#sec-acp-cerchio" id="toc-sec-acp-cerchio" class="nav-link" data-scroll-target="#sec-acp-cerchio"><span class="header-section-number">5.6</span> Il cerchio delle correlazioni</a></li>
+  <li><a href="#sec-acp-standardizzazione" id="toc-sec-acp-standardizzazione" class="nav-link" data-scroll-target="#sec-acp-standardizzazione"><span class="header-section-number">5.7</span> Standardizzare o no</a></li>
+  <li><a href="#sec-acp-osservazioni" id="toc-sec-acp-osservazioni" class="nav-link" data-scroll-target="#sec-acp-osservazioni"><span class="header-section-number">5.8</span> Le osservazioni: coordinate, contributi e cos²</a>
+  <ul class="collapse">
+  <li><a href="#le-coordinate-e-il-biplot" id="toc-le-coordinate-e-il-biplot" class="nav-link" data-scroll-target="#le-coordinate-e-il-biplot"><span class="header-section-number">5.8.1</span> Le coordinate e il biplot</a></li>
+  <li><a href="#i-contributi-delle-osservazioni" id="toc-i-contributi-delle-osservazioni" class="nav-link" data-scroll-target="#i-contributi-delle-osservazioni"><span class="header-section-number">5.8.2</span> I contributi delle osservazioni</a></li>
+  <li><a href="#i-cos²-delle-osservazioni" id="toc-i-cos²-delle-osservazioni" class="nav-link" data-scroll-target="#i-cos²-delle-osservazioni"><span class="header-section-number">5.8.3</span> I cos² delle osservazioni</a></li>
+  </ul></li>
+  <li><a href="#sec-acp-interpretazione" id="toc-sec-acp-interpretazione" class="nav-link" data-scroll-target="#sec-acp-interpretazione"><span class="header-section-number">5.9</span> Che cosa raccontano PC1 e PC2 nel caso yogurt</a>
+  <ul class="collapse">
+  <li><a href="#quanto-contano" id="toc-quanto-contano" class="nav-link" data-scroll-target="#quanto-contano"><span class="header-section-number">5.9.1</span> Quanto contano</a></li>
+  <li><a href="#pc1-la-qualità-percepita-e-il-suo-prezzo" id="toc-pc1-la-qualità-percepita-e-il-suo-prezzo" class="nav-link" data-scroll-target="#pc1-la-qualità-percepita-e-il-suo-prezzo"><span class="header-section-number">5.9.2</span> PC1: la qualità percepita, e il suo prezzo</a></li>
+  <li><a href="#pc2-salute-e-innovazione" id="toc-pc2-salute-e-innovazione" class="nav-link" data-scroll-target="#pc2-salute-e-innovazione"><span class="header-section-number">5.9.3</span> PC2: salute e innovazione</a></li>
+  <li><a href="#le-due-componenti-insieme" id="toc-le-due-componenti-insieme" class="nav-link" data-scroll-target="#le-due-componenti-insieme"><span class="header-section-number">5.9.4</span> Le due componenti insieme</a></li>
+  <li><a href="#le-cautele" id="toc-le-cautele" class="nav-link" data-scroll-target="#le-cautele"><span class="header-section-number">5.9.5</span> Le cautele</a></li>
+  </ul></li>
+  <li><a href="#sec-acp-rotazioni" id="toc-sec-acp-rotazioni" class="nav-link" data-scroll-target="#sec-acp-rotazioni"><span class="header-section-number">5.10</span> Le rotazioni</a>
+  <ul class="collapse">
+  <li><a href="#sec-acp-struttura-semplice" id="toc-sec-acp-struttura-semplice" class="nav-link" data-scroll-target="#sec-acp-struttura-semplice"><span class="header-section-number">5.10.1</span> Perché ruotare: la struttura semplice</a></li>
+  <li><a href="#varimax-e-promax" id="toc-varimax-e-promax" class="nav-link" data-scroll-target="#varimax-e-promax"><span class="header-section-number">5.10.2</span> Varimax e Promax</a></li>
+  <li><a href="#nel-caso-yogurt" id="toc-nel-caso-yogurt" class="nav-link" data-scroll-target="#nel-caso-yogurt"><span class="header-section-number">5.10.3</span> Nel caso yogurt</a></li>
+  <li><a href="#che-cosa-cambia-nelloutput" id="toc-che-cosa-cambia-nelloutput" class="nav-link" data-scroll-target="#che-cosa-cambia-nelloutput"><span class="header-section-number">5.10.4</span> Che cosa cambia nell’output</a></li>
+  <li><a href="#sec-acp-cerchio-promax" id="toc-sec-acp-cerchio-promax" class="nav-link" data-scroll-target="#sec-acp-cerchio-promax"><span class="header-section-number">5.10.5</span> Come si legge il cerchio con Promax</a></li>
+  <li><a href="#sec-acp-coordinate-ruotate" id="toc-sec-acp-coordinate-ruotate" class="nav-link" data-scroll-target="#sec-acp-coordinate-ruotate"><span class="header-section-number">5.10.6</span> Le coordinate delle osservazioni dopo la rotazione</a></li>
+  <li><a href="#quale-scegliere" id="toc-quale-scegliere" class="nav-link" data-scroll-target="#quale-scegliere"><span class="header-section-number">5.10.7</span> Quale scegliere</a></li>
+  </ul></li>
+  <li><a href="#sec-acp-supplementari" id="toc-sec-acp-supplementari" class="nav-link" data-scroll-target="#sec-acp-supplementari"><span class="header-section-number">5.11</span> Le variabili supplementari</a></li>
+  <li><a href="#sec-acp-mappa" id="toc-sec-acp-mappa" class="nav-link" data-scroll-target="#sec-acp-mappa"><span class="header-section-number">5.12</span> La mappa di posizionamento</a></li>
+  <li><a href="#sec-acp-salvare" id="toc-sec-acp-salvare" class="nav-link" data-scroll-target="#sec-acp-salvare"><span class="header-section-number">5.13</span> Salvare i punteggi</a></li>
+  <li><a href="#sec-acp-ricerche" id="toc-sec-acp-ricerche" class="nav-link" data-scroll-target="#sec-acp-ricerche"><span class="header-section-number">5.14</span> La PCA nelle ricerche di mercato</a></li>
+  <li><a href="#sec-acp-sintesi" id="toc-sec-acp-sintesi" class="nav-link" data-scroll-target="#sec-acp-sintesi"><span class="header-section-number">5.15</span> In sintesi: dove si legge che cosa</a></li>
+  <li><a href="#bibliografia-di-riferimento" id="toc-bibliografia-di-riferimento" class="nav-link" data-scroll-target="#bibliografia-di-riferimento"><span class="header-section-number">5.16</span> Bibliografia di riferimento</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./T-01-introduzione.html">Parte I — Approfondimenti teorici</a></li><li class="breadcrumb-item"><a href="./T-05-pca.html"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analisi delle Componenti Principali</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>L’<strong>Analisi delle Componenti Principali</strong> (PCA, <em>Principal Component Analysis</em>) riassume molte variabili quantitative legate fra loro in poche variabili nuove, le <strong>componenti principali</strong>, costruite in modo da perdere il meno possibile delle differenze fra le unità osservate. Nelle ricerche di mercato è lo strumento di riferimento per disegnare <strong>mappe di posizionamento</strong> di marche e prodotti e per costruire <strong>indicatori sintetici</strong> a partire da batterie di domande.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Come è fatto questo capitolo
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Il capitolo spiega la PCA a parole e con i grafici, con una sola formula, e segue l’output del modulo <code>AnalisiMercato</code> su un unico esempio, le venti marche di yogurt del caso studio <a href="./C-03-caso-posizionamento.html">§ C-03</a>: per ogni tabella e ogni grafico dice che cosa mostra e come si legge. I passaggi in jamovi sono descritti in <a href="./P-21-fondamenti-pca.html">§ P-21</a> e nei capitoli che seguono. Chi vuole sapere da dove vengono i numeri trova le formule e le dimostrazioni geometriche nell’<a href="./A3-approfondimento-pca.html">approfondimento sulla PCA</a>, in appendice, che è facoltativo.</p>
+</div>
+</div>
+<section id="sec-acp-obiettivi" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="sec-acp-obiettivi"><span class="header-section-number">5.1</span> A che cosa serve</h2>
+<p>La PCA ha quattro usi tipici.</p>
+<ol type="1">
+<li><strong>Riassumere molte variabili in poche.</strong> Per la PCA l’informazione contenuta nei dati sono le differenze fra le unità osservate, cioè quanto i loro valori cambiano da un’unità all’altra. Ogni componente ne raccoglie una parte, la prima la più grande, e tenendo solo le prime si conserva la parte principale. Nel caso yogurt dieci attributi diventano due componenti che conservano il 79% delle differenze fra le marche. Il restante 21% è il prezzo della semplificazione: quante componenti tenere è una scelta (<a href="#sec-acp-quante" class="quarto-xref"><span>Sezione 5.4</span></a>).</li>
+<li><strong>Scoprire la struttura nascosta.</strong> La PCA mostra quali variabili si muovono insieme e quali dimensioni stanno dietro a questi legami. Nel caso yogurt le marche giudicate cremose sono giudicate anche saporite, con frutta vera, ben confezionate, naturali e tradizionali, e sono le più care: dietro a otto attributi c’è una sola dimensione, la qualità percepita contrapposta alla convenienza, che nessuna domanda del panel chiede in modo esplicito. La struttura è «nascosta» perché nessuna variabile la misura direttamente: emerge solo da come le variabili variano insieme. Le componenti, però, descrivono come variano insieme le variabili osservate: non sono un modello di variabili latenti come l’analisi fattoriale.</li>
+<li><strong>Ottenere variabili incorrelate.</strong> In una regressione, variabili esplicative molto correlate fra loro (multicollinearità) rendono i coefficienti instabili e difficili da interpretare: il modello non riesce a separare l’effetto di variabili che si muovono insieme. Succede spesso con i giudizi su più attributi di un prodotto. Le componenti principali sono invece incorrelate fra loro: usate come variabili esplicative al posto di quelle originali eliminano il problema, e in cambio i coefficienti si riferiscono alle componenti e vanno letti attraverso di esse. Dopo una rotazione, però, le coordinate che il modulo salva in generale sono correlate (<a href="#sec-acp-rotazioni" class="quarto-xref"><span>Sezione 5.10</span></a>).</li>
+<li><strong>Disegnare i dati.</strong> Con più di tre variabili la nuvola delle unità non si può disegnare. Il piano delle prime due componenti è la fotografia in due dimensioni che deforma meno le distanze fra le unità: le marche diventano punti, vicini fra loro se hanno profili simili, e gli attributi diventano frecce che indicano in quale direzione crescono. È la <strong>mappa di posizionamento</strong> (<a href="#sec-acp-mappa" class="quarto-xref"><span>Sezione 5.12</span></a>). La quota di differenze raccolta dalle due componenti dice quanto la fotografia è fedele nel complesso; quanto lo è per ogni singola marca si controlla con una misura presentata nella <a href="#sec-acp-osservazioni" class="quarto-xref"><span>Sezione 5.8</span></a>.</li>
+</ol>
+</section>
+<section id="sec-acp-caso" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="sec-acp-caso"><span class="header-section-number">5.2</span> Il caso yogurt</h2>
+<p>Il dataset <code>panel_prodotti.csv</code> contiene le valutazioni di <strong>venti marche di yogurt</strong> da parte di un panel di consumatori su <strong>dieci attributi</strong>, con punteggi medi da 1 a 10: <code>prezzo</code>, <code>cremosita</code>, <code>intensita_sapore</code>, <code>frutta_vera</code>, <code>salutismo</code>, <code>packaging</code>, <code>naturalita</code>, <code>tradizione</code>, <code>innovazione</code> e <code>convenienza_promo</code>, la convenienza delle promozioni. Un’altra colonna, <code>posizionamento</code>, riporta il posizionamento dichiarato da ogni marca: Premium, Bio, Funzionale o Mass. Non entra nel calcolo delle componenti, e servirà alla fine per controllare la mappa (<a href="#sec-acp-supplementari" class="quarto-xref"><span>Sezione 5.11</span></a>).</p>
+<div class="callout callout-style-simple callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Importante</span>Il verso di <code>prezzo</code>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>L’attributo <code>prezzo</code> è codificato come <strong>convenienza di prezzo</strong>: 1 = caro, 10 = economico. Un valore alto indica una marca economica. Il dataset è sintetico, e i nomi delle marche sono di fantasia e assegnati a caso: non vanno letti come indizi sul posizionamento.</p>
+</div>
+</div>
+<p>Gli attributi sono fortemente legati fra loro. Il packaging e l’intensità di sapore hanno correlazione 0,91: le marche ben confezionate sono anche quelle giudicate più saporite. La convenienza di prezzo e quella delle promozioni hanno correlazione 0,89, mentre la convenienza di prezzo e il packaging hanno correlazione −0,87: le marche ben confezionate sono care. Le dieci colonne, quindi, non contengono dieci informazioni diverse, ed è la situazione in cui la PCA rende di più.</p>
+<p>Nel modulo l’analisi si trova in <em>Analisi → AnalisiMercato → PCA → Analisi delle Componenti Principali</em>. Le impostazioni usate nel capitolo sono:</p>
+<ul>
+<li><em>Variabili attive (quantitative)</em> → i dieci attributi;</li>
+<li><em>Variabile identificativa (opzionale)</em> → <code>marca</code>, che dà il nome alle righe delle tabelle sulle marche;</li>
+<li><em>Standardizza le variabili (z-score)</em> → attivo, come è predefinito: che cosa vuol dire, e che cosa cambia senza, lo spiega la <a href="#sec-acp-standardizzazione" class="quarto-xref"><span>Sezione 5.7</span></a>;</li>
+<li><em>Numero di componenti da ritenere</em> → 2;</li>
+<li><em>Rotazione</em> → Nessuna.</li>
+</ul>
+<p>Il primo output è un riquadro di testo che riassume il metodo e le sue opzioni: lo produce l’opzione <em>Descrizione dell’analisi</em>, che si può spegnere quando non serve più. Segue la tabella <strong>Impostazioni</strong>, che dichiara che cosa il modulo ha fatto davvero.</p>
+<div class="jamovi-output">
+<p><strong>Impostazioni</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variabili attive</th>
+<th>Osservazioni (n)</th>
+<th>Standardizzate</th>
+<th>Componenti ritenute</th>
+<th>Rotazione</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>10</td>
+<td>20</td>
+<td>Sì (matrice di correlazione)</td>
+<td>2</td>
+<td>Nessuna</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><em>Osservazioni (n)</em> conta le unità usate, cioè quelle senza valori mancanti nelle variabili attive: le altre sono escluse. «Matrice di correlazione» è il modo tecnico per dire che le variabili sono state standardizzate; senza standardizzazione la tabella scrive «No (matrice di covarianza)». <em>Rotazione</em> riporta la rotazione davvero applicata: se si chiede una rotazione tenendo una sola componente, per esempio, il modulo non la applica e scrive «Nessuna (Varimax non applicata)». Conviene leggerla sempre.</p>
+</section>
+<section id="sec-acp-idea" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="sec-acp-idea"><span class="header-section-number">5.3</span> L’idea: una retta che raccoglie più differenze possibile</h2>
+<p>Ogni marca è descritta da dieci numeri, i suoi punteggi sui dieci attributi. Si può immaginarla come un punto in uno spazio con un asse per ogni attributo: con due attributi è un normale grafico a dispersione, con dieci ha dieci dimensioni e non si può disegnare, ma funziona allo stesso modo. Le venti marche formano una nuvola di punti, e la PCA la riassume con delle rette che passano per il suo centro, cioè per la <strong>marca media</strong>, quella che su ogni attributo ha il valore medio.</p>
+<ol type="1">
+<li><strong>PC1</strong>, la prima componente principale. Si fa girare una retta attorno al centro e la si ferma nella direzione in cui i punti, proiettati sulla retta, sono più sparsi. È la direzione in cui le marche differiscono di più, quindi quella che da sola raccoglie più informazione.</li>
+<li><strong>PC2</strong>, la seconda. Fra le rette perpendicolari a PC1 si sceglie di nuovo quella lungo cui i punti sono più sparsi. Essere perpendicolare a PC1 vuol dire raccontare qualcosa che PC1 non ha già raccolto.</li>
+<li><strong>Le componenti successive.</strong> Ogni nuova retta è perpendicolare a tutte le precedenti e raccoglie le differenze che restano, sempre meno. Con dieci attributi si arriva a dieci componenti, che insieme raccolgono tutte le differenze fra le marche; di solito ne bastano poche.</li>
+</ol>
+<section id="sec-acp-geometria" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="sec-acp-geometria"><span class="header-section-number">5.3.1</span> Che cosa si vede con due variabili</h3>
+<p>Con due sole variabili la nuvola si può disegnare, e si vedono tutte e due le componenti. La <a href="#fig-acp-geometria" class="quarto-xref">Figura&nbsp;<span>5.1</span></a> usa due variabili simulate e standardizzate, misurate su 150 unità e con correlazione 0,75: la nuvola è allungata in diagonale.</p>
+<div id="fig-acp-geometria" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-geometria-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/idea-geometrica.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-geometria-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.1: PC1 e PC2 con due variabili simulate e standardizzate. <strong>1.</strong> La nuvola delle unità con le direzioni delle due componenti. <strong>2.</strong> Gli stessi punti, disegnati con i loro punteggi su PC1 e su PC2. <strong>3.</strong> Le proiezioni di tutti i punti su tre rette: una orizzontale, quella di PC1 e quella di PC2. <strong>4.</strong> Quanto sono sparse le proiezioni su ogni retta che passa per il centro, al variare del suo angolo con l’asse orizzontale.
+</figcaption>
+</figure>
+</div>
+<p>La figura si legge in quattro passi.</p>
+<ol type="1">
+<li><strong>Due direzioni perpendicolari</strong> (pannello 1). PC1 segue l’allungamento della nuvola, cioè la direzione in cui i punti sono più sparsi; PC2 le è perpendicolare e attraversa la nuvola per il largo, dove i punti sono poco sparsi. La nuvola ha più o meno la forma di un’ellisse, e PC1 e PC2 ne sono i due assi, il lungo e il corto. Le frecce sono lunghe in proporzione a quanto i punti sono sparsi lungo ciascuna direzione.</li>
+<li><strong>Due punteggi per ogni unità</strong> (pannelli 1 e 2). Proiettando un punto ad angolo retto su ciascuna delle due rette si trovano due numeri, i suoi punteggi su PC1 e su PC2. I tratteggi rossi del pannello 1 portano sei unità sulla loro proiezione su PC1; nel pannello 2 le stesse sei unità, in rosso, sono disegnate con i loro due punteggi.</li>
+<li><strong>Gli stessi punti, un altro sistema di riferimento</strong> (pannello 2). Le due componenti sono una coppia di assi nuovi, ottenuti girando quelli delle variabili: i punti non si spostano e le distanze fra loro restano le stesse, cambia solo il punto di vista da cui li si guarda. Letta sulle componenti, la nuvola non è più inclinata, e i punteggi su PC1 e su PC2 hanno correlazione zero. È il senso di «raccontare qualcosa che PC1 non ha già raccolto»: sapere dove sta un’unità su PC1 non dice nulla su dove sta su PC2.</li>
+<li><strong>Come si trovano le due rette</strong> (pannelli 3 e 4). Proiettare vuol dire portare ogni punto ad angolo retto su una retta che passa per il centro; poi si guarda quanto sono sparse le proiezioni, cioè la loro varianza. Con la retta orizzontale la varianza delle proiezioni è 1, quella della prima variabile; con la retta a 45° sale a 1,75; con la retta a 135°, perpendicolare alla precedente, scende a 0,25. La curva del pannello 4 fa lo stesso conto per tutte le rette, girando di grado in grado: PC1 è la retta del massimo, PC2 quella del minimo.</li>
+</ol>
+<p>Le varianze su due rette perpendicolari sommano sempre alla variabilità totale delle due variabili, che qui è 2: 1 e 1 per la retta orizzontale e per quella verticale, 1,75 e 0,25 per PC1 e PC2. Per questo, con due variabili, dove una retta raccoglie il massimo la sua perpendicolare raccoglie il minimo. In termini interpretativi, PC1 raccoglie da sola l’87,5% delle differenze fra le unità e PC2 il restante 12,5%: tenendo solo PC1 si descrive ogni unità con un numero invece che con due, e si perde poco. Con più di due variabili PC2 non è più la retta del minimo: è la più sparsa fra quelle perpendicolari a PC1, e il minimo spetta all’ultima componente.</p>
+<p>Nel caso yogurt l’idea è la stessa. La <a href="#fig-acp-idea" class="quarto-xref">Figura&nbsp;<span>5.2</span></a> la applica a due attributi delle venti marche, e mostra come si leggono i punteggi su PC1.</p>
+<div id="fig-acp-idea" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-idea-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/idea-retta.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-idea-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.2: L’idea della PCA con due attributi del caso yogurt, standardizzati. <strong>A.</strong> Il packaging e l’intensità di sapore delle venti marche: la nuvola è allungata, e la retta di PC1 la attraversa per il lungo; i tratteggi portano ogni marca sulla sua proiezione. <strong>B.</strong> Le proiezioni lette sulla retta: il punto in cui cade ciascuna è il punteggio della marca su PC1, e lo zero è la marca media. <strong>C.</strong> Il salutismo e l’innovazione: la nuvola è più rotonda, e la retta migliore raccoglie molto meno.
+</figcaption>
+</figure>
+</div>
+<p>Nel pannello A ogni marca è un punto, e la retta rossa è PC1. Il punto in cui cade la proiezione di una marca sulla retta, mostrato nel pannello B, è il <strong>punteggio</strong> della marca sulla componente, chiamato anche <strong>coordinata</strong>: lo zero corrisponde alla marca media, i valori positivi stanno da un lato e quelli negativi dall’altro. A destra ci sono SaporeAntico e AlpenFresh, con packaging e sapore sopra la media; a sinistra GranLatte e CasaNostra, sotto la media in tutti e due. Al posto di due numeri per marca ne basta uno, e si perde poco: la retta raccoglie il 95% delle differenze fra le marche sui due attributi.</p>
+<p>Nel pannello C, con il salutismo e l’innovazione, la retta migliore ne raccoglie solo il 64%. I due attributi hanno correlazione 0,29 e raccontano cose in parte diverse: un punteggio unico darebbe valori simili a una marca molto salutista e poco innovativa e a una con il profilo opposto. In termini interpretativi, <strong>riassumere più variabili in un solo numero funziona bene solo se raccontano più o meno la stessa cosa delle unità</strong>. Per questo la PCA rende di più quando le variabili sono molto correlate, come gli attributi del caso yogurt.</p>
+</section>
+<section id="sec-acp-pesi" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="sec-acp-pesi"><span class="header-section-number">5.3.2</span> La ricetta di una componente: i pesi</h3>
+<p>Il punteggio di una marca su una componente si calcola con questa formula, l’unica del capitolo:</p>
+<p><span class="math display">\[
+\text{PC}_k = v_{1k}\, x_1 + v_{2k}\, x_2 + \ldots + v_{pk}\, x_p
+\]</span></p>
+<p><strong>Come si legge.</strong></p>
+<ul>
+<li><span class="math inline">\(k\)</span> indica la componente (PC1, PC2, …) e <span class="math inline">\(p\)</span> il numero delle variabili, dieci nel caso yogurt.</li>
+<li><span class="math inline">\(x_1, x_2, \ldots, x_p\)</span> sono i valori di una marca sulle variabili, espressi come scarti dalla media e, con la standardizzazione, in deviazioni standard: un valore positivo vuol dire sopra la media, uno negativo sotto.</li>
+<li><span class="math inline">\(v_{1k}, v_{2k}, \ldots, v_{pk}\)</span> sono i <strong>pesi</strong> della componente, uno per variabile. Sono gli stessi per tutte le marche: sono la <strong>ricetta</strong> della componente. Sono scelti in modo che la somma dei loro quadrati valga 1: così indicano solo la direzione della retta, e conta quanto pesa ogni variabile rispetto alle altre, come le proporzioni degli ingredienti in una ricetta.</li>
+<li><span class="math inline">\(\text{PC}_k\)</span> è il <strong>punteggio</strong> della marca sulla componente, cioè la sua coordinata, diverso per ogni marca.</li>
+</ul>
+<p>In parole: si moltiplica il valore di ogni variabile per il suo peso e si sommano i prodotti. Una somma di questo tipo si chiama <strong>combinazione lineare</strong>, e il calcolo lo fa il modulo.</p>
+<p>Nel caso yogurt la ricetta di PC1 dà pesi positivi e quasi uguali, intorno a 0,35, ai sei attributi del prodotto (cremosità, intensità di sapore, frutta vera, packaging, naturalità e tradizione), pesi negativi della stessa grandezza alla convenienza di prezzo e a quella delle promozioni, e pesi vicini a zero al salutismo e all’innovazione. Una marca ha quindi un punteggio alto su PC1 se è sopra la media negli attributi del prodotto e sotto la media nella convenienza, cioè se è percepita di qualità ed è cara.</p>
+<p>I pesi non compaiono nell’output del modulo, che mostra al loro posto i <strong>loadings</strong> e i <strong>contributi</strong> (<a href="#sec-acp-variabili" class="quarto-xref"><span>Sezione 5.5</span></a>): si leggono più facilmente e dicono tutto quello che serve per interpretare le componenti.</p>
+</section>
+<section id="sec-acp-autovalori" class="level3" data-number="5.3.3">
+<h3 data-number="5.3.3" class="anchored" data-anchor-id="sec-acp-autovalori"><span class="header-section-number">5.3.3</span> Quanta informazione raccoglie: gli autovalori</h3>
+<p>L’<strong>autovalore</strong> di una componente misura quanto le marche sono sparse lungo la sua retta, cioè quanta informazione la componente raccoglie. Si indica con la lettera greca <strong>λ</strong> (lambda), con accanto il numero della componente: λ₁ è l’autovalore di PC1, λ₂ quello di PC2, e così via. <strong>Per come sono costruite le componenti, la prima ha l’autovalore più alto, la seconda il secondo più alto, e così via fino all’ultima, che ha il più basso.</strong> PC1 è la retta lungo cui le marche sono più sparse, e ogni componente successiva cerca fra le direzioni che restano, quindi raccoglie meno di tutte quelle che la precedono. Con variabili standardizzate ogni variabile porta un’informazione pari a 1, e il totale è il numero delle variabili, 10 nel caso yogurt. Un autovalore si legge quindi in confronto al totale: PC1 ha autovalore 6,16, cioè raccoglie da sola tanta informazione quanta ne porterebbero sei attributi presi uno alla volta, il 61,6% del totale.</p>
+<p>Il modulo riporta gli autovalori di tutte le componenti, con le loro quote sul totale.</p>
+<div class="jamovi-output">
+<p><strong>Autovalori e varianza spiegata</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Componente</th>
+<th style="text-align: right;">Autovalore</th>
+<th style="text-align: right;">% varianza</th>
+<th style="text-align: right;">% cumulata</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PC1</td>
+<td style="text-align: right;">6,163</td>
+<td style="text-align: right;">61,63</td>
+<td style="text-align: right;">61,63</td>
+</tr>
+<tr class="even">
+<td>PC2</td>
+<td style="text-align: right;">1,757</td>
+<td style="text-align: right;">17,57</td>
+<td style="text-align: right;">79,20</td>
+</tr>
+<tr class="odd">
+<td>PC3</td>
+<td style="text-align: right;">1,152</td>
+<td style="text-align: right;">11,52</td>
+<td style="text-align: right;">90,72</td>
+</tr>
+<tr class="even">
+<td>PC4</td>
+<td style="text-align: right;">0,359</td>
+<td style="text-align: right;">3,59</td>
+<td style="text-align: right;">94,31</td>
+</tr>
+<tr class="odd">
+<td>PC5</td>
+<td style="text-align: right;">0,174</td>
+<td style="text-align: right;">1,74</td>
+<td style="text-align: right;">96,05</td>
+</tr>
+<tr class="even">
+<td>PC6</td>
+<td style="text-align: right;">0,138</td>
+<td style="text-align: right;">1,38</td>
+<td style="text-align: right;">97,43</td>
+</tr>
+<tr class="odd">
+<td>PC7</td>
+<td style="text-align: right;">0,092</td>
+<td style="text-align: right;">0,92</td>
+<td style="text-align: right;">98,35</td>
+</tr>
+<tr class="even">
+<td>PC8</td>
+<td style="text-align: right;">0,072</td>
+<td style="text-align: right;">0,72</td>
+<td style="text-align: right;">99,06</td>
+</tr>
+<tr class="odd">
+<td>PC9</td>
+<td style="text-align: right;">0,053</td>
+<td style="text-align: right;">0,53</td>
+<td style="text-align: right;">99,60</td>
+</tr>
+<tr class="even">
+<td>PC10</td>
+<td style="text-align: right;">0,040</td>
+<td style="text-align: right;">0,40</td>
+<td style="text-align: right;">100,00</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><em>Autovalore</em> è l’informazione raccolta dalla componente.</li>
+<li><em>% varianza</em> è la sua quota sul totale: 61,63% per PC1, 17,57% per PC2. «Varianza» è il nome statistico della variabilità, cioè delle differenze fra le unità.</li>
+<li><em>% cumulata</em> somma le quote dalla prima componente fino a quella della riga: le prime due raccolgono il 79,20%, le prime tre il 90,72%.</li>
+</ul>
+<p>Nella tabella gli autovalori scendono da una componente all’altra, e dalla quarta componente in poi ciascuna aggiunge meno del 4%. In termini interpretativi, <strong>due rette bastano a raccontare quasi quattro quinti delle differenze fra le venti marche</strong>: le dieci colonne dicono, per la maggior parte, due cose. È possibile per quello che mostra la <a href="#fig-acp-idea" class="quarto-xref">Figura&nbsp;<span>5.2</span></a>: gli attributi sono molto correlati, e la nuvola delle marche è allungata in poche direzioni.</p>
+</section>
+</section>
+<section id="sec-acp-quante" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="sec-acp-quante"><span class="header-section-number">5.4</span> Quante componenti tenere</h2>
+<p>Il numero di componenti si sceglie con l’opzione <em>Numero di componenti da ritenere</em>, da 1 a 5, con 2 come valore predefinito. La scelta decide quali componenti compaiono nelle tabelle delle variabili e delle osservazioni, quali si possono salvare nel dataset e su quali agisce la rotazione. La tabella degli autovalori e lo scree plot, invece, mostrano sempre tutte le componenti, perché servono proprio a scegliere.</p>
+<p>Tre criteri aiutano a decidere, e conviene guardarli insieme.</p>
+<ol type="1">
+<li><strong>La varianza cumulata.</strong> Si tengono abbastanza componenti da raggiungere una quota sufficiente del totale: di solito il 70–80% in un’analisi esplorativa, di più se le componenti devono sostituire le variabili in altre analisi. Nel caso yogurt due componenti arrivano al 79,2%, tre al 90,7%.</li>
+<li><strong>Il gomito dello scree plot.</strong> Lo <strong>scree plot</strong> (<a href="#fig-acp-scree" class="quarto-xref">Figura&nbsp;<span>5.3</span></a>) disegna gli autovalori in ordine decrescente. Si cerca il punto in cui la curva smette di scendere ripida e diventa quasi piatta, il «gomito»: le componenti dopo il gomito aggiungono poco. Nel caso yogurt la curva scende fino a PC3 e da PC4 in poi è quasi piatta, quindi il gomito suggerisce tre componenti.</li>
+<li><strong>Il criterio di Kaiser.</strong> Si tengono le componenti con autovalore maggiore di 1, cioè quelle che raccolgono più informazione di una singola variabile. Vale solo con variabili standardizzate, quando ogni variabile porta un’informazione pari a 1. Nella didascalia dello scree plot il modulo la chiama «soglia Kaiser λ=1». Nel caso yogurt superano la soglia PC1 (6,16), PC2 (1,76) e PC3 (1,15), mentre PC4 si ferma a 0,36.</li>
+</ol>
+<div id="fig-acp-scree" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-scree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/scree.png" class="img-fluid figure-img" style="width:75.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-scree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.3: Lo scree plot prodotto dal modulo. Le barre e i punti rossi sono gli autovalori; la linea grigia tratteggiata è la soglia del criterio di Kaiser, a 1; la linea verde punteggiata separa le componenti ritenute, qui due, dalle altre.
+</figcaption>
+</figure>
+</div>
+<p>Nello scree plot del modulo la linea grigia tratteggiata della soglia di Kaiser compare solo con le variabili standardizzate, e la linea verde punteggiata si sposta con <em>Numero di componenti da ritenere</em>.</p>
+<p>Nel caso yogurt il gomito e il criterio di Kaiser indicano tre componenti, mentre per la varianza cumulata ne bastano già due. Per disegnare una mappa servono due componenti, e la scelta del capitolo è tenerne due, con un’avvertenza: la terza, con l’11,5%, non è trascurabile, e le marche descritte soprattutto da lei saranno rappresentate male sulla mappa. La <a href="#sec-acp-osservazioni" class="quarto-xref"><span>Sezione 5.8</span></a> mostra come accorgersene.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Nessun criterio è infallibile
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I criteri sono indicazioni, non regole. La scelta tiene conto anche della <strong>leggibilità</strong> delle componenti: una componente che non si riesce a interpretare serve a poco, anche se supera una soglia. Nelle ricerche di mercato si tengono di solito due o tre componenti, per avere mappe leggibili.</p>
+</div>
+</div>
+</section>
+<section id="sec-acp-variabili" class="level2" data-number="5.5">
+<h2 data-number="5.5" class="anchored" data-anchor-id="sec-acp-variabili"><span class="header-section-number">5.5</span> Le variabili: loadings, contributi e cos²</h2>
+<p>Per le variabili attive il modulo produce tre tabelle, con una riga per variabile e una colonna per ogni componente ritenuta: le <strong>coordinate</strong>, chiamate <em>loadings</em>, i <strong>contributi</strong> e i <strong>coseni quadrati</strong> (cos²). Rispondono a tre domande diverse.</p>
+<section id="sec-acp-loadings" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1" class="anchored" data-anchor-id="sec-acp-loadings"><span class="header-section-number">5.5.1</span> I loadings</h3>
+<div class="jamovi-output">
+<p><strong>Coordinate delle variabili (loadings)</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variabile</th>
+<th style="text-align: right;">PC1</th>
+<th style="text-align: right;">PC2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prezzo</td>
+<td style="text-align: right;">−0,922</td>
+<td style="text-align: right;">−0,307</td>
+</tr>
+<tr class="even">
+<td>cremosita</td>
+<td style="text-align: right;">0,821</td>
+<td style="text-align: right;">−0,323</td>
+</tr>
+<tr class="odd">
+<td>intensita_sapore</td>
+<td style="text-align: right;">0,901</td>
+<td style="text-align: right;">−0,048</td>
+</tr>
+<tr class="even">
+<td>frutta_vera</td>
+<td style="text-align: right;">0,875</td>
+<td style="text-align: right;">0,037</td>
+</tr>
+<tr class="odd">
+<td>salutismo</td>
+<td style="text-align: right;">0,159</td>
+<td style="text-align: right;">0,775</td>
+</tr>
+<tr class="even">
+<td>packaging</td>
+<td style="text-align: right;">0,882</td>
+<td style="text-align: right;">0,220</td>
+</tr>
+<tr class="odd">
+<td>naturalita</td>
+<td style="text-align: right;">0,846</td>
+<td style="text-align: right;">−0,157</td>
+</tr>
+<tr class="even">
+<td>tradizione</td>
+<td style="text-align: right;">0,836</td>
+<td style="text-align: right;">−0,349</td>
+</tr>
+<tr class="odd">
+<td>innovazione</td>
+<td style="text-align: right;">−0,232</td>
+<td style="text-align: right;">0,808</td>
+</tr>
+<tr class="even">
+<td>convenienza_promo</td>
+<td style="text-align: right;">−0,887</td>
+<td style="text-align: right;">−0,326</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Il <strong>loading</strong> di una variabile su una componente dice di quanto cambia in media la variabile, nella sua unità di misura, quando il punteggio delle unità sulla componente sale di una deviazione standard. È l’interpretazione più generale, e vale anche quando le variabili non sono standardizzate. Con variabili standardizzate, come nel caso yogurt, l’unità di misura è la deviazione standard: il loading dice di quante deviazioni standard cambia in media la variabile, e coincide con la <strong>correlazione</strong> fra i valori della variabile e i punteggi sulla componente. Sta allora fra −1 e 1: il segno dice il verso del legame, e un valore vicino a 1 o a −1 dice che variabile e componente vanno molto d’accordo, cioè salgono e scendono insieme passando da una marca all’altra. <code>tradizione</code> ha loading 0,84 su PC1: una marca che sta una deviazione standard sopra la media su PC1 ha in media un punteggio di tradizione 0,84 deviazioni standard sopra la media. <code>prezzo</code> ha loading −0,92: nello stesso passo la convenienza di prezzo scende di quasi una deviazione standard intera.</p>
+<p><strong>Perché i loadings sono uno degli output principali.</strong> Sono il ponte fra la componente, un numero astratto, e le variabili osservate: traducono un passo lungo la componente in quello che cambia in ciascuna variabile, e così permettono di dare un nome e un verso alla componente. Nel caso yogurt:</p>
+<ul>
+<li><strong>PC1</strong> ha loadings fra 0,82 e 0,90 con i sei attributi del prodotto, −0,92 con <code>prezzo</code> e −0,89 con <code>convenienza_promo</code>, e loadings vicini a zero con <code>salutismo</code> (0,16) e <code>innovazione</code> (−0,23). Ricordando che <code>prezzo</code> alto vuol dire economico, a destra su PC1 stanno le marche percepite di qualità e care, a sinistra quelle economiche e promozionali: PC1 è l’asse della <strong>qualità percepita e del prezzo alto contro la convenienza</strong>.</li>
+<li><strong>PC2</strong> ha loadings alti solo con <code>innovazione</code> (0,81) e <code>salutismo</code> (0,78); quelli degli altri attributi stanno fra −0,35 e 0,22. PC2 è l’asse della <strong>salute e dell’innovazione</strong>, cioè di ciò che distingue un prodotto funzionale da uno tradizionale, indipendentemente dal prezzo.</li>
+</ul>
+<p>La <a href="#sec-acp-interpretazione" class="quarto-xref"><span>Sezione 5.9</span></a> riprende questi nomi, li controlla sui dati delle marche e legge le due componenti insieme.</p>
+<p>Il verso di una componente è arbitrario: un altro programma potrebbe restituire PC1 con tutti i segni invertiti, e la lettura non cambierebbe, solo che le marche care starebbero a sinistra invece che a destra.</p>
+<p>Il loading non va confuso con il peso della <a href="#sec-acp-pesi" class="quarto-xref"><span>Sezione 5.3.2</span></a>. Il peso dice quanto la variabile entra nella ricetta della componente, il loading di quanto la variabile cambia quando ci si sposta lungo la componente. Nel caso yogurt i pesi di PC1 stanno intorno a 0,35, mentre i loadings stanno intorno a 0,85: PC1 mette insieme otto attributi quasi alla pari, quindi nessuno pesa molto nella ricetta, ma PC1 va molto d’accordo con ciascuno. Attenzione anche ai nomi: in alcuni programmi e manuali la parola <em>loadings</em> indica i pesi, mentre nel modulo e in queste dispense indica sempre le coordinate delle variabili.</p>
+<p>Senza standardizzazione il loading non è più una correlazione e può superare 1, ma si legge allo stesso modo, nell’unità di misura della variabile. Nel caso yogurt, rifacendo l’analisi senza standardizzare, <code>prezzo</code> ha loading −2,46 su PC1: quando il punteggio su PC1 sale di una deviazione standard, la convenienza di prezzo scende in media di quasi due punti e mezzo sulla scala da 1 a 10. Che cosa cambia nel resto dell’output senza standardizzazione lo spiega la <a href="#sec-acp-standardizzazione" class="quarto-xref"><span>Sezione 5.7</span></a>.</p>
+</section>
+<section id="sec-acp-contributi" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2" class="anchored" data-anchor-id="sec-acp-contributi"><span class="header-section-number">5.5.2</span> I contributi</h3>
+<div class="jamovi-output">
+<p><strong>Contributi delle variabili (%)</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variabile</th>
+<th style="text-align: right;">PC1</th>
+<th style="text-align: right;">PC2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prezzo</td>
+<td style="text-align: right;">13,81</td>
+<td style="text-align: right;">5,35</td>
+</tr>
+<tr class="even">
+<td>cremosita</td>
+<td style="text-align: right;">10,94</td>
+<td style="text-align: right;">5,95</td>
+</tr>
+<tr class="odd">
+<td>intensita_sapore</td>
+<td style="text-align: right;">13,18</td>
+<td style="text-align: right;">0,13</td>
+</tr>
+<tr class="even">
+<td>frutta_vera</td>
+<td style="text-align: right;">12,44</td>
+<td style="text-align: right;">0,08</td>
+</tr>
+<tr class="odd">
+<td>salutismo</td>
+<td style="text-align: right;">0,41</td>
+<td style="text-align: right;">34,18</td>
+</tr>
+<tr class="even">
+<td>packaging</td>
+<td style="text-align: right;">12,63</td>
+<td style="text-align: right;">2,74</td>
+</tr>
+<tr class="odd">
+<td>naturalita</td>
+<td style="text-align: right;">11,61</td>
+<td style="text-align: right;">1,40</td>
+</tr>
+<tr class="even">
+<td>tradizione</td>
+<td style="text-align: right;">11,34</td>
+<td style="text-align: right;">6,95</td>
+</tr>
+<tr class="odd">
+<td>innovazione</td>
+<td style="text-align: right;">0,88</td>
+<td style="text-align: right;">37,16</td>
+</tr>
+<tr class="even">
+<td>convenienza_promo</td>
+<td style="text-align: right;">12,76</td>
+<td style="text-align: right;">6,05</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Il <strong>contributo</strong> di una variabile a una componente è la quota dell’informazione raccolta dalla componente, cioè del suo autovalore, che si deve a quella variabile, in percentuale. I contributi a una componente sommano a 100. Come riferimento si usa il contributo medio, 100 diviso il numero delle variabili: 10% nel caso yogurt. Una variabile sopra il 10% guida la componente più della media. Senza rotazione il contributo dipende solo dal peso della variabile nella ricetta: è il modo in cui l’output mostra i pesi, in percentuale e senza segno.</p>
+<p>In termini interpretativi, l’autovalore è la torta dell’informazione raccolta dalla componente, e i contributi dicono come se la dividono le variabili. Su PC1 gli otto attributi pesano fra il 10,9% e il 13,8% ciascuno: nessuno domina, e PC1 è una sintesi vera di tutti e otto. Su PC2 <code>innovazione</code> (37,2%) e <code>salutismo</code> (34,2%) fanno da soli il 71%, e nessun altro attributo arriva al 7%. <strong>I contributi alti individuano le variabili che costruiscono la componente, e quindi quelle che le danno il nome</strong>: qui confermano i nomi suggeriti dai loadings.</p>
+</section>
+<section id="sec-acp-cos2-variabili" class="level3" data-number="5.5.3">
+<h3 data-number="5.5.3" class="anchored" data-anchor-id="sec-acp-cos2-variabili"><span class="header-section-number">5.5.3</span> I coseni quadrati (cos²)</h3>
+<div class="jamovi-output">
+<p><strong>Coseni quadrati delle variabili (cos²)</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variabile</th>
+<th style="text-align: right;">PC1</th>
+<th style="text-align: right;">PC2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prezzo</td>
+<td style="text-align: right;">0,851</td>
+<td style="text-align: right;">0,094</td>
+</tr>
+<tr class="even">
+<td>cremosita</td>
+<td style="text-align: right;">0,674</td>
+<td style="text-align: right;">0,105</td>
+</tr>
+<tr class="odd">
+<td>intensita_sapore</td>
+<td style="text-align: right;">0,812</td>
+<td style="text-align: right;">0,002</td>
+</tr>
+<tr class="even">
+<td>frutta_vera</td>
+<td style="text-align: right;">0,766</td>
+<td style="text-align: right;">0,001</td>
+</tr>
+<tr class="odd">
+<td>salutismo</td>
+<td style="text-align: right;">0,025</td>
+<td style="text-align: right;">0,601</td>
+</tr>
+<tr class="even">
+<td>packaging</td>
+<td style="text-align: right;">0,778</td>
+<td style="text-align: right;">0,048</td>
+</tr>
+<tr class="odd">
+<td>naturalita</td>
+<td style="text-align: right;">0,716</td>
+<td style="text-align: right;">0,025</td>
+</tr>
+<tr class="even">
+<td>tradizione</td>
+<td style="text-align: right;">0,699</td>
+<td style="text-align: right;">0,122</td>
+</tr>
+<tr class="odd">
+<td>innovazione</td>
+<td style="text-align: right;">0,054</td>
+<td style="text-align: right;">0,653</td>
+</tr>
+<tr class="even">
+<td>convenienza_promo</td>
+<td style="text-align: right;">0,786</td>
+<td style="text-align: right;">0,106</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Il <strong>coseno quadrato</strong> (cos²) di una variabile su una componente è la quota dell’informazione della variabile, cioè delle differenze fra le marche su quella variabile, che la componente riproduce. Va da 0 a 1. Sommato su tutte le componenti vale 1, perché tutte insieme riproducono tutto; sommato su due componenti dice quanto la variabile è rappresentata bene dal <strong>piano</strong> delle due. È il quadrato della correlazione fra variabile e componente, quindi, con variabili standardizzate, il quadrato del loading. Il nome viene dalla geometria, ma per leggerlo basta pensarlo come una quota. Nel cerchio delle correlazioni (<a href="#sec-acp-cerchio" class="quarto-xref"><span>Sezione 5.6</span></a>) il cos² su una componente sarà il quadrato della proiezione della freccia sul suo asse, e quello sul piano il quadrato della lunghezza della freccia.</p>
+<p>Nel caso yogurt <code>prezzo</code> ha cos² 0,85 su PC1 e 0,09 su PC2: il piano delle due componenti ne riproduce il 94%, e quello che la mappa dirà sulla convenienza di prezzo delle marche è quasi completo. <code>salutismo</code> ha cos² 0,03 su PC1 e 0,60 su PC2: il piano ne riproduce il 63%, e il resto sta su componenti che la mappa non mostra.</p>
+<p><strong>Contributo e cos² a confronto.</strong> Le due misure guardano lo stesso legame dai due lati. Il contributo lo guarda dal lato della componente: quanta parte dell’informazione di PC1 viene da <code>tradizione</code>, l’11,3%. Il cos² lo guarda dal lato della variabile: quanta parte delle differenze fra le marche nella tradizione PC1 riesce a riprodurre, 0,70, cioè il 70%. Le due quote sono molto diverse perché PC1 mette insieme otto attributi quasi alla pari: nessuno pesa molto nella sua costruzione, ma li riproduce bene tutti, fra il 67% e l’85%.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Contributo e cos² rispondono a domande diverse
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Il <strong>contributo</strong> dice quanto una variabile partecipa alla <em>costruzione</em> della componente: serve a darle un nome.</li>
+<li>Il <strong>cos²</strong> dice quanto bene la variabile è <em>rappresentata</em> dalla componente o dal piano: serve a capire quanto fidarsi di quello che i grafici mostrano di lei.</li>
+</ul>
+<p>Un contributo alto non implica un cos² alto, e viceversa.</p>
+</div>
+</div>
+</section>
+<section id="la-heatmap-dei-cos²" class="level3" data-number="5.5.4">
+<h3 data-number="5.5.4" class="anchored" data-anchor-id="la-heatmap-dei-cos²"><span class="header-section-number">5.5.4</span> La heatmap dei cos²</h3>
+<p>L’opzione <em>Heatmap dei coseni² (qualità di rappresentazione)</em> disegna la tabella dei cos² a colori (<a href="#fig-acp-heatmap" class="quarto-xref">Figura&nbsp;<span>5.4</span></a>): una riga per variabile, una colonna per componente, e una casella tanto più scura quanto più il cos² è alto.</p>
+<div id="fig-acp-heatmap" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/heatmap-cos2.png" class="img-fluid figure-img" style="width:65.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-heatmap-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.4: La heatmap dei cos² prodotta dal modulo, con due componenti. Otto attributi sono rappresentati bene da PC1; <code>salutismo</code> e <code>innovazione</code> da PC2, ma con caselle meno scure, perché una parte della loro informazione sta su altre componenti.
+</figcaption>
+</figure>
+</div>
+<p>Una riga con una sola casella scura è una variabile descritta bene da una sola componente; una riga chiara dappertutto è una variabile rappresentata male da tutte le componenti ritenute, e chiede più componenti o un altro piano. Nel caso yogurt otto attributi sono scuri su PC1, mentre <code>salutismo</code> e <code>innovazione</code> stanno su PC2, con 0,60 e 0,65. La heatmap riguarda le variabili: la qualità di rappresentazione delle marche si legge nella tabella dei loro cos² (<a href="#sec-acp-osservazioni" class="quarto-xref"><span>Sezione 5.8</span></a>).</p>
+</section>
+</section>
+<section id="sec-acp-cerchio" class="level2" data-number="5.6">
+<h2 data-number="5.6" class="anchored" data-anchor-id="sec-acp-cerchio"><span class="header-section-number">5.6</span> Il cerchio delle correlazioni</h2>
+<p>Il <strong>cerchio delle correlazioni</strong> (opzione <em>Cerchio delle correlazioni (variabili)</em>) disegna le variabili nel piano di due componenti, scelte con <em>Componente sull’asse X</em> e <em>Componente sull’asse Y</em>, che sono PC1 e PC2 se non si cambia nulla. Ogni variabile è una freccia che parte dal centro e ha per coordinate le sue correlazioni con le due componenti: con variabili standardizzate sono i loadings della tabella. Ogni asse riporta la quota di informazione della sua componente, e il cerchio ha raggio 1, il valore massimo di una correlazione: nessuna freccia può uscirne.</p>
+<div id="fig-acp-cerchio" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-cerchio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/cerchio.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-cerchio-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.5: Il cerchio delle correlazioni prodotto dal modulo, sul piano di PC1 e PC2. Le frecce dei sei attributi del prodotto puntano a destra, quelle di <code>prezzo</code> e <code>convenienza_promo</code> a sinistra; <code>salutismo</code> e <code>innovazione</code> puntano verso l’alto, su PC2.
+</figcaption>
+</figure>
+</div>
+<p>Il cerchio si legge in tre passi.</p>
+<ol type="1">
+<li><strong>La direzione rispetto agli assi</strong> dice a quale componente la variabile è legata. La coordinata della freccia su un asse si trova proiettando la sua punta ad angolo retto su quell’asse, ed è la correlazione della variabile con quella componente (<a href="#fig-acp-coordinate-frecce" class="quarto-xref">Figura&nbsp;<span>5.6</span></a>). <code>tradizione</code> ha coordinate 0,84 su PC1 e −0,35 su PC2, gli stessi numeri della tabella dei loadings. Una freccia vicina a un asse è legata a quella componente più che all’altra, come <code>tradizione</code> a PC1 e <code>innovazione</code> a PC2; quanto è forte il legame lo dice la coordinata. In termini interpretativi, salendo su PC1 le marche sono in media più tradizionali, mentre salendo su PC2, verso salute e innovazione, lo sono un po’ meno. È la lettura dei loadings fatta con gli occhi.</li>
+</ol>
+<div id="fig-acp-coordinate-frecce" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-coordinate-frecce-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/coordinate-frecce.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-coordinate-frecce-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.6: Come si leggono le coordinate di una freccia nel cerchio delle correlazioni della <a href="#fig-acp-cerchio" class="quarto-xref">Figura&nbsp;<span>5.5</span></a>. Le linee tratteggiate proiettano la punta della freccia ad angolo retto sui due assi: i punti in cui arrivano sono le coordinate della freccia, cioè le correlazioni della variabile con PC1 e PC2, gli stessi numeri della tabella dei loadings. <strong>A.</strong> <code>tradizione</code>, vicina all’asse di PC1, ha correlazione 0,84 con PC1 e −0,35 con PC2. <strong>B.</strong> <code>innovazione</code>, vicina all’asse di PC2, ha correlazione −0,23 con PC1 e 0,81 con PC2. In grigio le frecce delle altre variabili.
+</figcaption>
+</figure>
+</div>
+<ol start="2" type="1">
+<li><strong>La lunghezza della freccia</strong> dice quanto bene il piano rappresenta la variabile. Il quadrato della proiezione della freccia sull’asse di una componente, cioè della sua coordinata, è il cos² della variabile su quella componente. Il cos² sul piano è la somma dei due cos², ed è il quadrato della lunghezza della freccia: la freccia è l’ipotenusa di un triangolo rettangolo che ha per cateti le due proiezioni, e per il teorema di Pitagora il quadrato dell’ipotenusa è la somma dei quadrati dei cateti. Per <code>tradizione</code>, nella <a href="#fig-acp-coordinate-frecce" class="quarto-xref">Figura&nbsp;<span>5.6</span></a>, le proiezioni sono 0,84 e −0,35: i loro quadrati, 0,70 e 0,12, sono i cos² di tradizione su PC1 e su PC2, gli stessi della tabella dei cos². Sommati danno 0,82, il cos² di tradizione sul piano, che è il quadrato della lunghezza della freccia, circa 0,91. In termini interpretativi, una freccia che arriva quasi al cerchio vuol dire che le differenze fra le marche su quella variabile si vedono quasi tutte nel piano; una freccia corta vuol dire che il piano ne mostra solo una parte, perché la variabile racconta soprattutto qualcosa che le due componenti non raccolgono. Una freccia corta, quindi, non indica una variabile poco importante, ma una variabile che quel piano rappresenta male. Nel caso yogurt la freccia di <code>prezzo</code> è lunga 0,97, quella di <code>salutismo</code> 0,79.</li>
+<li><strong>L’angolo fra due frecce</strong> dice quanto sono correlate le due variabili, se le frecce arrivano quasi al cerchio. Un angolo piccolo indica una forte correlazione positiva, un angolo vicino a 90° una correlazione vicina a zero, un angolo vicino a 180° una forte correlazione negativa. <code>packaging</code> e <code>intensita_sapore</code> sono quasi sovrapposte, e la loro correlazione è 0,91; <code>prezzo</code> e <code>packaging</code> puntano in versi opposti, con correlazione −0,87.</li>
+</ol>
+<p><strong>Gli angoli si leggono solo fra frecce lunghe.</strong> Il piano mostra una parte delle variabili, e gli angoli riguardano solo quella parte. La <a href="#fig-acp-frecce-corte" class="quarto-xref">Figura&nbsp;<span>5.7</span></a> lo mostra con due di otto giudizi simulati su un negozio, il servizio (<code>servizio</code>) e la varietà dell’assortimento (<code>varieta_assort</code>). Sul piano di PC1 e PC2 la freccia di <code>varieta_assort</code> è corta, lunga 0,64, perché più di metà della variabile sta sulla terza componente, PC3. Le due frecce formano un angolo di 29°, come se le variabili andassero molto d’accordo, ma la loro correlazione è solo 0,42. Per vedere la parte che manca si sceglie un altro piano, con <em>Componente sull’asse X</em> e <em>Componente sull’asse Y</em>: sul piano di PC2 e PC3 le due frecce sono lunghe tutte e due, e l’angolo si apre a 62°. Ora l’immagine è fedele, e mostra un legame moderato.</p>
+<div id="fig-acp-frecce-corte" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-frecce-corte-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/frecce-corte.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-frecce-corte-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.7: Due giudizi simulati su un negozio, <code>servizio</code> e <code>varieta_assort</code>, sul piano di PC1 e PC2 e su quello di PC2 e PC3. Sul primo piano la freccia di <code>varieta_assort</code> è corta, perché gran parte della variabile sta su PC3, e le due frecce sembrano vicine. Sul secondo sono lunghe tutte e due, e l’angolo fra loro, più ampio, descrive meglio il legame fra le variabili, che è moderato: la correlazione è 0,42.
+</figcaption>
+</figure>
+</div>
+<p>Nel caso yogurt succede a <code>salutismo</code> e <code>innovazione</code>. Sul piano di PC1 e PC2 sono lunghe 0,79 e 0,84 e formano un angolo di 28°, ma la loro correlazione è solo 0,29: anche frecce di questa lunghezza possono ingannare. Con <em>Componente sull’asse X</em> = 2 e <em>Componente sull’asse Y</em> = 3 arrivano quasi al cerchio, lunghe 0,97 e 0,95, e l’angolo si apre a 69°: la parte che il primo piano non mostrava le oppone. Il piano di PC2 e PC3 mostra anche che cosa racconta la terza componente: contrappone <code>salutismo</code> (−0,58), <code>naturalita</code> (−0,40) e <code>frutta_vera</code> (−0,35) a <code>innovazione</code> (0,50), <code>packaging</code> (0,36) e <code>intensita_sapore</code> (0,34). È la dimensione della naturalità contrapposta all’innovazione. Cambiando piano cambiano le lunghezze delle frecce e gli angoli fra loro, non le correlazioni delle variabili con le componenti: quella di <code>salutismo</code> con PC2 è 0,78 in tutti e due i piani. Senza rotazione gli assi si possono scegliere fra tutte le componenti, anche oltre quelle ritenute; con una rotazione solo fra le ritenute.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Nota</span>Perché le frecce sono più corte di 1
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Se si potessero guardare tutte e dieci le dimensioni, ogni freccia sarebbe lunga esattamente 1, perché tutte le componenti insieme riproducono tutta l’informazione di ogni variabile. Il cerchio mostra l’ombra delle frecce su un piano, e un’ombra è tanto più corta quanto più la freccia esce dal piano. La lunghezza di una freccia, quindi, non dice quanto la variabile conta, ma quanta parte di lei sta nel piano che si sta guardando.</p>
+</div>
+</div>
+<p>In termini interpretativi, due frecce lunghe e vicine sono due attributi che salgono e scendono insieme passando da una marca all’altra; due frecce corte possono essere vicine anche se gli attributi vanno poco d’accordo.</p>
+</section>
+<section id="sec-acp-standardizzazione" class="level2" data-number="5.7">
+<h2 data-number="5.7" class="anchored" data-anchor-id="sec-acp-standardizzazione"><span class="header-section-number">5.7</span> Standardizzare o no</h2>
+<p>Standardizzare una variabile vuol dire esprimere ogni valore come scarto dalla media, diviso per la deviazione standard della variabile: tutte le variabili hanno così la stessa variabilità. È l’opzione <em>Standardizza le variabili (z-score)</em>, attiva se non si cambia nulla, e la scelta conta, perché la PCA cerca le direzioni in cui le unità differiscono di più: senza standardizzazione una variabile che varia molto attira le componenti verso di sé.</p>
+<p><strong>Quando standardizzare.</strong></p>
+<ul>
+<li>Le variabili hanno <strong>unità di misura diverse</strong>, per esempio euro, anni e punteggi: la variabilità di ciascuna dipenderebbe dall’unità scelta, e la spesa in euro dominerebbe tutto il resto.</li>
+<li>Le variabili sono su <strong>scale di ampiezza diversa</strong>, per esempio un item da 1 a 10 accanto a uno da 1 a 5: senza standardizzazione il primo conterebbe di più senza un motivo sostanziale.</li>
+<li>In generale, quando nessuna variabile deve contare di più solo per come è misurata. Standardizzare non rende uguali i contributi delle variabili, che dipendono da come le variabili si muovono insieme.</li>
+</ul>
+<p><strong>Quando si può non standardizzare.</strong> Quando le variabili hanno la stessa unità di misura e le differenze di variabilità hanno un significato. Con la spesa mensile in euro in cinque categorie di prodotto, per esempio, le categorie in cui i clienti spendono in modo molto diverso distinguono i clienti più di quelle in cui spendono tutti più o meno lo stesso, ed è giusto che contino di più.</p>
+<p>Nel caso yogurt gli attributi sono tutti sulla stessa scala, da 1 a 10, e le due scelte sono entrambe difendibili. La <a href="#fig-acp-standardizzazione" class="quarto-xref">Figura&nbsp;<span>5.8</span></a> mostra quanto cambiano i contributi a PC1.</p>
+<div id="fig-acp-standardizzazione" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-standardizzazione-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/standardizzazione.png" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-standardizzazione-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.8: Contributi dei dieci attributi a PC1, con e senza standardizzazione. Gli attributi sono in ordine di deviazione standard, cioè di quanto le marche differiscono su ciascuno. Senza standardizzazione <code>prezzo</code>, l’attributo su cui le marche differiscono di più, passa dal 13,8% al 30,4%, mentre <code>cremosita</code>, quello su cui differiscono di meno, scende dal 10,9% al 2,9%.
+</figcaption>
+</figure>
+</div>
+<p>Senza standardizzazione PC1 è guidata soprattutto dal prezzo e dalle promozioni, e PC2 quasi solo dall’innovazione, con il 61,7% invece del 37,2%: le componenti raccontano soprattutto gli attributi su cui le marche differiscono di più. Con la standardizzazione ogni attributo ha la stessa voce in capitolo, e le componenti raccontano gli attributi che vanno insieme. Nel caso yogurt si standardizza, perché l’obiettivo è capire quali attributi si muovono insieme, non quali variano di più. <strong>Nelle ricerche di mercato standardizzare è quasi sempre la scelta giusta</strong>, e lo è sempre quando si mescolano scale diverse.</p>
+<p>Senza standardizzazione cambiano anche alcune letture dell’output.</p>
+<ul>
+<li>La tabella <em>Impostazioni</em> riporta «No (matrice di covarianza)».</li>
+<li>La somma degli autovalori non è più il numero delle variabili, ma la variabilità complessiva dei dati, nelle loro unità di misura: il criterio di Kaiser non vale, e lo scree plot non disegna la soglia a 1.</li>
+<li>I loadings non sono più correlazioni: sono nell’unità di misura di ciascuna variabile e possono superare 1. Si leggono con l’interpretazione generale della <a href="#sec-acp-loadings" class="quarto-xref"><span>Sezione 5.5.1</span></a>, che riporta anche l’esempio di <code>prezzo</code>, con loading −2,46 su PC1.</li>
+<li>Il cerchio delle correlazioni continua a mostrare correlazioni, e le frecce restano dentro il cerchio.</li>
+<li>Nel biplot (<a href="#sec-acp-osservazioni" class="quarto-xref"><span>Sezione 5.8</span></a>) le frecce sono allungate in proporzione alla variabilità di ciascuna variabile, senza che questo voglia dire che sono rappresentate meglio.</li>
+</ul>
+</section>
+<section id="sec-acp-osservazioni" class="level2" data-number="5.8">
+<h2 data-number="5.8" class="anchored" data-anchor-id="sec-acp-osservazioni"><span class="header-section-number">5.8</span> Le osservazioni: coordinate, contributi e cos²</h2>
+<p>Le misure viste per le variabili hanno un corrispondente per le <strong>osservazioni</strong>, cioè per le unità analizzate, le marche nel caso yogurt. Le tre tabelle compaiono con l’opzione <em>Mostra tabella contributi/coseni² delle osservazioni</em>: <strong>Coordinate delle osservazioni</strong>, <strong>Contributi delle osservazioni (%)</strong> e <strong>Coseni quadrati delle osservazioni (cos²)</strong>. Le righe hanno il nome preso dalla <em>Variabile identificativa</em>, qui <code>marca</code>, altrimenti il numero di riga, e sono in ordine decrescente di contributo medio alle componenti ritenute: in testa ci sono le unità che contano di più. <em>Numero massimo di osservazioni da mostrare</em>, 20 se non si cambia nulla, limita le righe, ed è utile quando le unità sono centinaia di rispondenti.</p>
+<div class="jamovi-output">
+<p><strong>Coordinate, contributi (%) e cos² delle osservazioni</strong> (sei marche, con le colonne delle tre tabelle affiancate)</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 11%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Marca</th>
+<th style="text-align: right;">Coordinata PC1</th>
+<th style="text-align: right;">Coordinata PC2</th>
+<th style="text-align: right;">Contributo PC1</th>
+<th style="text-align: right;">Contributo PC2</th>
+<th style="text-align: right;">cos² PC1</th>
+<th style="text-align: right;">cos² PC2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>ManuFatto</td>
+<td style="text-align: right;">−3,006</td>
+<td style="text-align: right;">2,523</td>
+<td style="text-align: right;">7,33</td>
+<td style="text-align: right;">18,11</td>
+<td style="text-align: right;">0,553</td>
+<td style="text-align: right;">0,390</td>
+</tr>
+<tr class="even">
+<td>DanLat</td>
+<td style="text-align: right;">3,678</td>
+<td style="text-align: right;">−1,101</td>
+<td style="text-align: right;">10,97</td>
+<td style="text-align: right;">3,45</td>
+<td style="text-align: right;">0,847</td>
+<td style="text-align: right;">0,076</td>
+</tr>
+<tr class="odd">
+<td>CasaNostra</td>
+<td style="text-align: right;">−3,296</td>
+<td style="text-align: right;">−1,281</td>
+<td style="text-align: right;">8,82</td>
+<td style="text-align: right;">4,67</td>
+<td style="text-align: right;">0,844</td>
+<td style="text-align: right;">0,128</td>
+</tr>
+<tr class="even">
+<td>OroBianco</td>
+<td style="text-align: right;">−1,160</td>
+<td style="text-align: right;">1,175</td>
+<td style="text-align: right;">1,09</td>
+<td style="text-align: right;">3,93</td>
+<td style="text-align: right;">0,322</td>
+<td style="text-align: right;">0,331</td>
+</tr>
+<tr class="odd">
+<td>EcoMilk</td>
+<td style="text-align: right;">2,127</td>
+<td style="text-align: right;">0,487</td>
+<td style="text-align: right;">3,67</td>
+<td style="text-align: right;">0,68</td>
+<td style="text-align: right;">0,344</td>
+<td style="text-align: right;">0,018</td>
+</tr>
+<tr class="even">
+<td>KidsYum</td>
+<td style="text-align: right;">1,652</td>
+<td style="text-align: right;">−0,293</td>
+<td style="text-align: right;">2,21</td>
+<td style="text-align: right;">0,24</td>
+<td style="text-align: right;">0,303</td>
+<td style="text-align: right;">0,010</td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="le-coordinate-e-il-biplot" class="level3" data-number="5.8.1">
+<h3 data-number="5.8.1" class="anchored" data-anchor-id="le-coordinate-e-il-biplot"><span class="header-section-number">5.8.1</span> Le coordinate e il biplot</h3>
+<p>Le <strong>coordinate</strong> sono i punteggi delle marche sulle componenti, cioè dove ciascuna cade lungo le rette, con lo zero nella marca media. DanLat ha la coordinata più alta su PC1, 3,68: è la marca più spostata verso la qualità percepita e il prezzo alto. CasaNostra, con −3,30, è all’estremo opposto. ManuFatto ha la coordinata più alta su PC2, 2,52: è la marca più orientata a salute e innovazione.</p>
+<p>Il <strong>biplot</strong> (opzione <em>Biplot (osservazioni nel piano principale)</em>) disegna insieme le osservazioni, come punti, e le variabili, come frecce rosse (<a href="#fig-acp-biplot" class="quarto-xref">Figura&nbsp;<span>5.9</span></a>). Le frecce sono riscalate per stare nel grafico, quindi contano le loro direzioni e le loro lunghezze relative. Con una <em>Variabile qualitativa supplementare per biplot</em> i punti sono colorati secondo le sue modalità. I nomi delle marche non compaiono: si leggono nella tabella delle coordinate.</p>
+<div id="fig-acp-biplot" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-biplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/biplot.png" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-biplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.9: Il biplot prodotto dal modulo: le venti marche, colorate per posizionamento, e i dieci attributi.
+</figcaption>
+</figure>
+</div>
+<p>Il biplot si legge con le <strong>proiezioni</strong>: un punto lontano dal centro nella direzione di una freccia tende ad avere un valore alto su quella variabile, uno nella direzione opposta un valore basso. Conta la proiezione del punto sulla direzione della freccia, non la distanza dalla sua punta. Le marche Premium stanno a destra, nella direzione degli attributi del prodotto; le Mass in basso a sinistra, verso <code>prezzo</code> e <code>convenienza_promo</code>, cioè economiche e promozionali; le Funzionali in alto a sinistra, verso <code>innovazione</code>.</p>
+</section>
+<section id="i-contributi-delle-osservazioni" class="level3" data-number="5.8.2">
+<h3 data-number="5.8.2" class="anchored" data-anchor-id="i-contributi-delle-osservazioni"><span class="header-section-number">5.8.2</span> I contributi delle osservazioni</h3>
+<p>Il <strong>contributo</strong> di un’osservazione a una componente è la quota dell’informazione della componente che si deve a quell’osservazione, in percentuale. Dipende da quanto l’osservazione è lontana dal centro lungo la componente: conta tanto un’osservazione all’estremo, poco una vicina al centro. I contributi sommano a 100, e il riferimento è il contributo medio, 100 diviso il numero delle osservazioni: 5% con venti marche.</p>
+<div id="fig-acp-contributi-oss" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-contributi-oss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/contributi-osservazioni.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-contributi-oss-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.10: Una marca che conta tanto e una che conta poco nella costruzione di PC1. <strong>A sinistra</strong>, il piano di PC1 e PC2: le frecce misurano quanto DanLat e OroBianco sono lontane dal centro lungo PC1. <strong>A destra</strong>, i contributi a PC1 delle venti marche, in ordine decrescente; la linea tratteggiata è il contributo medio, 5%.
+</figcaption>
+</figure>
+</div>
+<p>Nella <a href="#fig-acp-contributi-oss" class="quarto-xref">Figura&nbsp;<span>5.10</span></a> DanLat, la marca più lontana dal centro lungo PC1, contribuisce per l’11,0%, più del doppio della media: è la marca che più orienta PC1. OroBianco, la più vicina al centro lungo PC1, contribuisce per l’1,1%: non pesa quasi nulla nella costruzione di PC1, anche se si stacca dal centro lungo PC2. Un’osservazione, infatti, può contare molto per una componente e poco per un’altra: DanLat conta per l’11,0% di PC1 ma solo per il 3,4% di PC2, e la marca che conta di più per PC2 è ManuFatto, con il 18,1%.</p>
+<p>Controllare i contributi delle osservazioni serve soprattutto a due cose:</p>
+<ul>
+<li><strong>trovare errori e casi anomali.</strong> Un contributo molto più alto della media va controllato prima di interpretare: può essere un caso tipico di un gruppo estremo, ma anche un errore di inserimento o un rispondente che ha risposto senza attenzione, per esempio con risposte tutte agli estremi della scala. È un controllo che guarda tutte le variabili insieme, perché un’osservazione può sembrare normale variabile per variabile e insolita nella combinazione, e completa quello sui valori anomali della preparazione dei dati (<a href="./T-03-preparazione-dati.html#individuazione-e-trattamento-degli-outlier">§ T-03</a>);</li>
+<li><strong>capire quanto è solida una componente.</strong> Se poche osservazioni ne fanno da sole gran parte, la componente descrive quelle più che il campione, e prima di darle un nome conviene rifare l’analisi senza di loro. Togliendo DanLat e rifacendo l’analisi, la quota di PC1 scende dal 61,6% al 60,4%: con venti marche una sola sposta un po’ il risultato, mentre con centinaia di rispondenti il peso di ciascuno è piccolo.</li>
+</ul>
+</section>
+<section id="i-cos²-delle-osservazioni" class="level3" data-number="5.8.3">
+<h3 data-number="5.8.3" class="anchored" data-anchor-id="i-cos²-delle-osservazioni"><span class="header-section-number">5.8.3</span> I cos² delle osservazioni</h3>
+<p>Il <strong>cos²</strong> di un’osservazione su una componente dice quanta parte della sua posizione la componente riproduce, cioè quanta parte della sua distanza dal centro, che misura quanto l’osservazione si allontana dalla marca media considerando tutti gli attributi insieme. Va da 0 a 1, e sommato su due componenti dice quanto il <strong>piano</strong> rappresenta bene l’osservazione. Un’osservazione con cos² basso sul piano è rappresentata male: la sua posizione nel grafico non è affidabile, e può sembrare vicina ad altre da cui in realtà è lontana, lungo componenti che il grafico non mostra.</p>
+<p>Nel caso yogurt CasaNostra ha cos² 0,84 su PC1 e 0,13 su PC2: il piano ne mostra il 97%, e la sua posizione sulla mappa è affidabile. KidsYum ha 0,30 e 0,01: il piano ne mostra appena il 31%. Le tre marche rappresentate peggio sono KidsYum (31%), EcoMilk (36%) e TopFit (43%), e sono proprio le tre marche Bio. La <a href="#fig-acp-piani" class="quarto-xref">Figura&nbsp;<span>5.11</span></a> mostra dove sta il resto della loro posizione.</p>
+<div id="fig-acp-piani" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-piani-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/piani-pc1-pc3.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-piani-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.11: Le marche sul piano di PC1 e PC2 e su quello di PC1 e PC3, con le coordinate delle tabelle del modulo. Sul primo piano le tre marche Bio sembrano vicine alle Premium; sul secondo, PC3 le separa da tutte le altre.
+</figcaption>
+</figure>
+</div>
+<p>Sul piano di PC1 e PC2 le marche Bio sembrano vicine alle Premium. Su PC3, invece, si staccano da tutte le altre: EcoMilk ha coordinata −2,82, KidsYum −2,45 e TopFit −1,72, mentre le altre marche stanno fra −0,3 e 1,1. PC3 riproduce da sola fra il 46% e il 66% della loro posizione. In termini interpretativi, la mappa direbbe che Bio e Premium occupano la stessa zona del mercato, ed è falso: le marche Bio si distinguono su una terza dimensione, la naturalità contrapposta all’innovazione, che la mappa non mostra. Il caso studio <a href="./C-03-caso-posizionamento.html">§ C-03</a> racconta che cosa comporta questa scoperta per chi deve prendere una decisione.</p>
+<div class="callout callout-style-simple callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Consiglio</span>Contributo e cos² delle osservazioni
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Anche per le osservazioni le due misure rispondono a domande diverse: il <strong>contributo</strong> dice quanto un’osservazione partecipa alla costruzione della componente, il <strong>cos²</strong> quanto bene la componente, o il piano, la rappresenta. ManuFatto è la marca che contribuisce di più a PC2, con il 18,1%, ma PC2 da sola ne riproduce il 39%: il resto della sua posizione sta su PC1. Prima di commentare la posizione di un’osservazione sulla mappa si controlla il suo cos² sul piano.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-acp-interpretazione" class="level2" data-number="5.9">
+<h2 data-number="5.9" class="anchored" data-anchor-id="sec-acp-interpretazione"><span class="header-section-number">5.9</span> Che cosa raccontano PC1 e PC2 nel caso yogurt</h2>
+<p>Le sezioni precedenti hanno presentato gli output uno alla volta. Qui si usano insieme per interpretare le prime due componenti del caso yogurt, con un procedimento che vale per ogni analisi: quanto conta ogni componente, che nome darle, quali marche stanno ai suoi estremi, che cosa vuol dire trovarsi in un certo punto del piano e quali cautele servono.</p>
+<section id="quanto-contano" class="level3" data-number="5.9.1">
+<h3 data-number="5.9.1" class="anchored" data-anchor-id="quanto-contano"><span class="header-section-number">5.9.1</span> Quanto contano</h3>
+<p>PC1 raccoglie il 61,6% delle differenze fra le marche, PC2 il 17,6%: la prima conta tre volte e mezzo la seconda. Il mercato, quindi, si divide prima di tutto lungo PC1, e PC2 è una seconda differenza, più piccola ma distinta, perché le due componenti sono incorrelate. Lo si vede anche dalle coordinate: su PC1 le marche vanno da −3,30 a 3,68, su PC2 solo da −2,21 a 2,52.</p>
+</section>
+<section id="pc1-la-qualità-percepita-e-il-suo-prezzo" class="level3" data-number="5.9.2">
+<h3 data-number="5.9.2" class="anchored" data-anchor-id="pc1-la-qualità-percepita-e-il-suo-prezzo"><span class="header-section-number">5.9.2</span> PC1: la qualità percepita, e il suo prezzo</h3>
+<p>Gli strumenti visti nel capitolo dicono tutti la stessa cosa.</p>
+<ul>
+<li><strong>Loadings</strong>: fra 0,82 e 0,90 con i sei attributi del prodotto (cremosità, intensità di sapore, frutta vera, packaging, naturalità e tradizione), −0,92 con <code>prezzo</code> e −0,89 con <code>convenienza_promo</code>, vicini a zero con <code>salutismo</code> e <code>innovazione</code>.</li>
+<li><strong>Contributi</strong>: gli otto attributi pesano fra il 10,9% e il 13,8% ciascuno. PC1 è una sintesi equilibrata, e nessun attributo da solo ne decide il significato.</li>
+<li><strong>cos²</strong>: PC1 riproduce fra il 67% e l’85% delle differenze fra le marche su ciascuno degli otto attributi.</li>
+<li><strong>Cerchio delle correlazioni</strong> (<a href="#fig-acp-cerchio" class="quarto-xref">Figura&nbsp;<span>5.5</span></a>): le frecce degli attributi del prodotto puntano tutte a destra, quelle di prezzo e promozioni a sinistra.</li>
+</ul>
+<p>Ricordando che <code>prezzo</code> alto vuol dire economico, a destra stanno le marche giudicate migliori su tutti gli aspetti del prodotto, che sono anche le più care e le meno promozionali; a sinistra quelle economiche, spesso in promozione e giudicate meno buone. PC1 è l’asse della <strong>qualità percepita e del prezzo alto contro la convenienza</strong>: in breve, misura quanto una marca è premium. In termini interpretativi, in questo mercato qualità percepita e prezzo vanno insieme: nessuna marca è vista come buona ed economica allo stesso tempo, e chi vuole più qualità paga di più. Salute e innovazione, invece, con PC1 non c’entrano.</p>
+<p>Un nome va sempre controllato sui dati. La <a href="#fig-acp-estremi" class="quarto-xref">Figura&nbsp;<span>5.12</span></a>, a sinistra, confronta le due marche agli estremi di PC1, DanLat (3,68) e CasaNostra (−3,30), che su PC2 hanno coordinate simili: le loro differenze sono quindi quelle di PC1. DanLat ha punteggi fra 8,3 e 9,4 su cremosità, intensità di sapore, packaging, naturalità e tradizione, e una convenienza di prezzo di 1,3, cioè è molto cara; CasaNostra sugli stessi attributi sta fra 4,3 e 5,9, e ha una convenienza di prezzo di 8,1. Su salutismo e innovazione le due marche quasi coincidono, come dicono i loadings vicini a zero. Il grafico mette gli attributi nell’ordine dei loadings, e mostra la regola: le differenze più grandi stanno sugli attributi con il loading più lontano da zero, positivo o negativo.</p>
+<div id="fig-acp-estremi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-estremi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/estremi-pc1-pc2.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-estremi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.12: Le marche agli estremi delle prime due componenti, con i loro punteggi sui dieci attributi. <strong>A.</strong> DanLat e CasaNostra, agli estremi di PC1 e con coordinate simili su PC2. <strong>B.</strong> ManuFatto e LightOne, agli estremi di PC2 e con coordinate simili su PC1. In ogni pannello gli attributi sono in ordine di loading sulla componente, scritto fra parentesi; <code>prezzo</code> è la convenienza di prezzo, quindi un valore alto indica una marca economica.
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="pc2-salute-e-innovazione" class="level3" data-number="5.9.3">
+<h3 data-number="5.9.3" class="anchored" data-anchor-id="pc2-salute-e-innovazione"><span class="header-section-number">5.9.3</span> PC2: salute e innovazione</h3>
+<ul>
+<li><strong>Loadings</strong>: alti solo con <code>innovazione</code> (0,81) e <code>salutismo</code> (0,78); quelli degli altri attributi stanno fra −0,35 e 0,22.</li>
+<li><strong>Contributi</strong>: innovazione e salutismo fanno da soli il 71% di PC2, con il 37,2% e il 34,2%.</li>
+<li><strong>cos²</strong>: PC2 riproduce il 65% delle differenze fra le marche sull’innovazione e il 60% sul salutismo, meno del 13% su ciascun altro attributo.</li>
+<li><strong>Cerchio delle correlazioni</strong>: le frecce di <code>salutismo</code> e <code>innovazione</code> puntano verso l’alto.</li>
+</ul>
+<p>PC2 è l’asse della <strong>salute e dell’innovazione</strong>: in alto stanno le marche che puntano su prodotti funzionali, salutari e innovativi, in basso quelle con un prodotto più tradizionale e di base. I loadings piccoli e negativi di tradizione (−0,35), promozioni (−0,33), cremosità (−0,32) e convenienza di prezzo (−0,31) aggiungono una sfumatura: salendo su PC2 le marche sono anche un po’ meno tradizionali e cremose, e un po’ meno economiche.</p>
+<p>Il controllo sui dati, a destra nella <a href="#fig-acp-estremi" class="quarto-xref">Figura&nbsp;<span>5.12</span></a>, confronta ManuFatto (2,52) e LightOne (−2,21), che su PC1 stanno entrambe a sinistra. ManuFatto ha 8,8 sul salutismo e 9,0 sull’innovazione, LightOne 4,9 e 3,4. ManuFatto è anche meno tradizionale (3,0 contro 4,7) e meno economica (4,6 contro 8,3), come prevedono i loadings negativi.</p>
+<p>Una cautela riguarda proprio i due attributi che danno il nome a PC2. Salutismo e innovazione hanno correlazione solo 0,29 (<a href="#sec-acp-cerchio" class="quarto-xref"><span>Sezione 5.6</span></a>), e PC2 premia le marche che sono <strong>insieme</strong> salutari e innovative, come le Funzionali, che in media hanno 8,1 sul salutismo e 9,1 sull’innovazione. Una marca salutare ma poco innovativa, come le Bio, che in media hanno 9,2 e 3,7, sta a metà di PC2, e la sua particolarità si vede solo su PC3 (<a href="#sec-acp-osservazioni" class="quarto-xref"><span>Sezione 5.8</span></a>).</p>
+</section>
+<section id="le-due-componenti-insieme" class="level3" data-number="5.9.4">
+<h3 data-number="5.9.4" class="anchored" data-anchor-id="le-due-componenti-insieme"><span class="header-section-number">5.9.4</span> Le due componenti insieme</h3>
+<p>Con i nomi delle due direzioni il piano si legge come una mappa (<a href="#fig-acp-piano-nomi" class="quarto-xref">Figura&nbsp;<span>5.13</span></a>), e ogni marca si descrive con due frasi: quanto è premium, su PC1, e quanto punta su salute e innovazione, su PC2.</p>
+<div id="fig-acp-piano-nomi" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-piano-nomi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/piano-nomi.png" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-piano-nomi-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.13: Il piano di PC1 e PC2 con le coordinate delle marche dalla tabella del modulo, colorate per posizionamento, e i nomi delle quattro direzioni.
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>A destra, vicino all’asse orizzontale</strong>, stanno le marche Premium: qualità percepita alta e prezzo alto, senza un orientamento particolare a salute e innovazione. DanLat, la più a destra, sta anche un po’ in basso: è la Premium più tradizionale, con 9,4 sulla tradizione.</li>
+<li><strong>In basso a sinistra</strong> stanno le marche Mass: economiche, promozionali, con un prodotto di base, poco salutare e poco innovativo.</li>
+<li><strong>In alto a sinistra</strong> stanno le marche Funzionali: prezzo intermedio e un forte orientamento a salute e innovazione, ma meno cremose, meno saporite e meno tradizionali delle Premium.</li>
+<li><strong>In alto a destra</strong> non c’è nessuna marca: nessuna unisce qualità percepita e prezzo alto a un forte orientamento a salute e innovazione. È la zona libera discussa nella <a href="#sec-acp-mappa" class="quarto-xref"><span>Sezione 5.12</span></a>, da verificare prima di trattarla come un’opportunità.</li>
+<li><strong>Le marche Bio</strong> sembrano vicine alle Premium, poco più in alto, ma il piano ne mostra meno della metà della posizione (<a href="#sec-acp-osservazioni" class="quarto-xref"><span>Sezione 5.8</span></a>): vanno lette anche su PC3.</li>
+</ul>
+</section>
+<section id="le-cautele" class="level3" data-number="5.9.5">
+<h3 data-number="5.9.5" class="anchored" data-anchor-id="le-cautele"><span class="header-section-number">5.9.5</span> Le cautele</h3>
+<ul>
+<li><strong>I nomi descrivono direzioni, non segni.</strong> Il verso delle componenti è arbitrario: con i segni invertiti le marche Premium starebbero a sinistra, e la lettura non cambierebbe.</li>
+<li><strong>I nomi sono un’interpretazione.</strong> Riassumono loadings e contributi, e vanno controllati sui dati, come si è fatto con le marche agli estremi.</li>
+<li><strong>Le posizioni sono relative.</strong> Lo zero è la marca media del panel: una marca premium è più premium delle altre marche analizzate, non in assoluto.</li>
+<li><strong>Il piano mostra il 79% delle differenze.</strong> Per le marche con cos² basso la posizione non è affidabile, e la differenza che il piano non mostra, come quella delle Bio su PC3, può essere proprio quella che conta.</li>
+</ul>
+</section>
+</section>
+<section id="sec-acp-rotazioni" class="level2" data-number="5.10">
+<h2 data-number="5.10" class="anchored" data-anchor-id="sec-acp-rotazioni"><span class="header-section-number">5.10</span> Le rotazioni</h2>
+<p>L’opzione <em>Rotazione</em> offre tre scelte: Nessuna, che è quella predefinita, Varimax (ortogonale) e Promax (obliqua). La rotazione si applica dopo aver scelto quante componenti tenere, e serve a rendere più facile dare un nome a quelle componenti.</p>
+<section id="sec-acp-struttura-semplice" class="level3" data-number="5.10.1">
+<h3 data-number="5.10.1" class="anchored" data-anchor-id="sec-acp-struttura-semplice"><span class="header-section-number">5.10.1</span> Perché ruotare: la struttura semplice</h3>
+<p>Senza rotazione PC1 raccoglie quanta più informazione possibile, e spesso molte variabili risultano legate un po’ a tutte le componenti, che diventano difficili da nominare. La rotazione gira gli assi, dentro lo spazio delle componenti ritenute, per arrivare a una <strong>struttura semplice</strong>: ogni variabile legata molto a una sola componente e poco alle altre. Un esempio con i loadings di quattro item sulla qualità di un servizio:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+<col style="width: 14%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variabile</th>
+<th style="text-align: right;">Senza rotazione: PC1</th>
+<th style="text-align: right;">Senza rotazione: PC2</th>
+<th style="text-align: right;">Dopo la rotazione: PC1</th>
+<th style="text-align: right;">Dopo la rotazione: PC2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>cortesia</code></td>
+<td style="text-align: right;">0,72</td>
+<td style="text-align: right;">0,55</td>
+<td style="text-align: right;">0,90</td>
+<td style="text-align: right;">−0,05</td>
+</tr>
+<tr class="even">
+<td><code>tempi</code></td>
+<td style="text-align: right;">0,68</td>
+<td style="text-align: right;">0,60</td>
+<td style="text-align: right;">0,91</td>
+<td style="text-align: right;">0,02</td>
+</tr>
+<tr class="odd">
+<td><code>pulizia</code></td>
+<td style="text-align: right;">−0,55</td>
+<td style="text-align: right;">0,72</td>
+<td style="text-align: right;">0,05</td>
+<td style="text-align: right;">0,90</td>
+</tr>
+<tr class="even">
+<td><code>comfort</code></td>
+<td style="text-align: right;">−0,60</td>
+<td style="text-align: right;">0,68</td>
+<td style="text-align: right;">−0,02</td>
+<td style="text-align: right;">0,91</td>
+</tr>
+</tbody>
+</table>
+<p>Senza rotazione è difficile dare un nome a PC1, che mescola tutto. Dopo la rotazione PC1 è la qualità del personale, PC2 la qualità dell’ambiente.</p>
+<p><strong>La rotazione si applica ai loadings.</strong> Gli assi che si girano sono quelli del cerchio delle correlazioni, dove ogni variabile è una freccia e le sue coordinate sono i loadings: la rotazione calcola, per ogni variabile, i loadings sui nuovi assi. Conviene ricordare che cosa misurano (<a href="#sec-acp-loadings" class="quarto-xref"><span>Sezione 5.5.1</span></a>). Il loading di una variabile su una componente dice di quanto cambia in media la variabile, nella sua unità di misura, quando il punteggio sulla componente sale di una deviazione standard; con le variabili standardizzate è la correlazione fra variabile e componente. Nei loadings, quindi, le componenti sono misurate in deviazioni standard, che le variabili siano standardizzate o no: contano tutte allo stesso modo, qualunque sia la loro varianza. Sono due cose diverse: standardizzare le variabili dà varianza 1 a ogni variabile, misurare le componenti in deviazioni standard dà varianza 1 a ogni componente. Per questo, nel cerchio, due assi perpendicolari sono due componenti incorrelate. Varimax gira gli assi tenendoli perpendicolari, e le componenti ruotate, misurate in deviazioni standard come nei loadings, restano incorrelate; Promax li lascia avvicinare, e diventano correlate. Le PC ruotate che il modulo mostra e salva, invece, conservano la variabilità propria di ogni componente, e in generale sono correlate anche con Varimax (<a href="#sec-acp-coordinate-ruotate" class="quarto-xref"><span>Sezione 5.10.6</span></a>).</p>
+<p>La rotazione non cambia l’informazione raccolta dalle componenti ritenute nel loro insieme, né le posizioni delle variabili e delle osservazioni le une rispetto alle altre. Cambia il sistema di riferimento con cui le si legge, e quindi la quota raccolta da ciascun asse, i loadings, i contributi, i cos² e le coordinate.</p>
+<p>La <a href="#fig-acp-rot-varimax" class="quarto-xref">Figura&nbsp;<span>5.14</span></a> mostra l’effetto nel cerchio delle correlazioni, con sei item simulati che formano due gruppi di tre. Senza rotazione le frecce stanno in due gruppi in diagonale, a metà strada fra gli assi: ogni item ha un loading intermedio su tutte e due le componenti, e nessuna delle due ha un nome chiaro. Varimax gira gli assi finché ciascuno passa per un gruppo di frecce. Dopo la rotazione <code>item_A</code>, <code>item_B</code> e <code>item_E</code> stanno lungo il primo asse e <code>item_C</code>, <code>item_D</code> e <code>item_F</code> lungo il secondo, con loadings intorno a 0,95 sul proprio asse e vicini a zero sull’altro: ogni componente ruotata si nomina con il suo gruppo di item.</p>
+<div id="fig-acp-rot-varimax" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-rot-varimax-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/rotazione-cerchi-varimax.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-rot-varimax-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.14: Il cerchio delle correlazioni di sei item simulati, senza rotazione e dopo Varimax. Dopo la rotazione ogni freccia sta lungo uno dei due assi. Nei due pannelli le frecce hanno le stesse lunghezze e formano fra loro gli stessi angoli: è cambiato solo il sistema di riferimento.
+</figcaption>
+</figure>
+</div>
+<p>Nella figura sembrano girare le frecce, perché dopo la rotazione il cerchio è ridisegnato sui nuovi assi: è quello che fa il modulo con il <em>Cerchio delle correlazioni — ruotato (Varimax)</em>. In realtà girano gli assi, e le frecce restano dove sono, come mostra la <a href="#fig-acp-rot-varimax-promax" class="quarto-xref">Figura&nbsp;<span>5.15</span></a>, dove gli assi ruotati sono disegnati sopra le frecce.</p>
+</section>
+<section id="varimax-e-promax" class="level3" data-number="5.10.2">
+<h3 data-number="5.10.2" class="anchored" data-anchor-id="varimax-e-promax"><span class="header-section-number">5.10.2</span> Varimax e Promax</h3>
+<ul>
+<li><strong>Varimax</strong> è una rotazione <strong>ortogonale</strong>: gli assi ruotati restano perpendicolari fra loro. Fra le rotazioni che li tengono perpendicolari sceglie quella che rende i loadings più polarizzati, cioè grandi su poche componenti e vicini a zero sulle altre. È la rotazione più usata. Le PC ruotate che il modulo mostra e salva, però, in generale sono correlate, con le variabili standardizzate come senza (<a href="#sec-acp-coordinate-ruotate" class="quarto-xref"><span>Sezione 5.10.6</span></a>).</li>
+<li><strong>Promax</strong> è una rotazione <strong>obliqua</strong>: parte dalla soluzione di Varimax e lascia che gli assi smettano di essere perpendicolari, per avvicinarsi ancora di più a una struttura semplice. Il prezzo è che le componenti ruotate possono risultare <strong>correlate</strong>, e quella correlazione va letta e riportata.</li>
+</ul>
+<p>La <a href="#fig-acp-rot-varimax-promax" class="quarto-xref">Figura&nbsp;<span>5.15</span></a> confronta le due rotazioni su un altro esempio simulato, un questionario di soddisfazione con sei item: tre sulla qualità percepita (<code>qualita</code>, <code>affidabile</code>, <code>innovativa</code>) e tre sulla fedeltà alla marca (<code>fedele</code>, <code>raccomando</code>, <code>riacquisto</code>). Le due dimensioni sono legate, perché chi giudica bene la qualità tende anche a restare fedele, e i due gruppi di frecce formano un angolo più stretto di un angolo retto. Le frecce sono le stesse nei tre pannelli; cambiano gli assi, disegnati in rosso. Varimax li tiene perpendicolari, quindi non può metterli tutti e due al centro di un gruppo: li mette un po’ oltre i due gruppi, e ogni item resta legato in parte anche all’altro asse. Promax lascia che gli assi si avvicinino e mette ciascuno al centro di un gruppo: la struttura è più semplice, ma le due componenti ruotate sono correlate, come le due dimensioni che descrivono.</p>
+<div id="fig-acp-rot-varimax-promax" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-rot-varimax-promax-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/rotazione-cerchi-varimax-promax.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-rot-varimax-promax-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.15: Gli stessi sei item del questionario di soddisfazione senza rotazione, con Varimax e con Promax. Le frecce non cambiano; le linee rosse tratteggiate sono gli assi ruotati. Con Varimax restano perpendicolari, con Promax si avvicinano e passano ciascuno al centro di un gruppo di frecce.
+</figcaption>
+</figure>
+</div>
+<p>Con Promax il modulo disegna il cerchio delle correlazioni come il pannello di destra, con la prima componente orizzontale: le frecce restano quelle senza rotazione e le due componenti sono linee rosse oblique.</p>
+</section>
+<section id="nel-caso-yogurt" class="level3" data-number="5.10.3">
+<h3 data-number="5.10.3" class="anchored" data-anchor-id="nel-caso-yogurt"><span class="header-section-number">5.10.3</span> Nel caso yogurt</h3>
+<p>Con due componenti la rotazione cambia poco: con Varimax i loadings si spostano al massimo di 0,04. La struttura è già semplice, con otto attributi su PC1 e due su PC2, e la rotazione non ha niente da semplificare.</p>
+<p>Con tre componenti, quelle suggerite dal gomito e dal criterio di Kaiser, la rotazione invece aiuta. Senza rotazione <code>salutismo</code> e <code>innovazione</code> sono divise fra PC2 e PC3: nella tabella dei cos² <code>salutismo</code> ha 0,60 su PC2 e 0,34 su PC3, <code>innovazione</code> 0,65 e 0,25. È la situazione del pannello di sinistra della <a href="#fig-acp-rot-varimax" class="quarto-xref">Figura&nbsp;<span>5.14</span></a>: PC2 le mette insieme, PC3 le oppone, e nessuna delle due componenti ha un nome semplice. Rifacendo l’analisi con <em>Numero di componenti da ritenere</em> = 3 e <em>Rotazione</em> = Varimax, ciascuna delle due ha il suo asse: <code>innovazione</code> ha cos² 0,93 sulla seconda componente ruotata, <code>salutismo</code> 0,95 sulla terza. Con i loadings ruotati le tre componenti si nominano facilmente:</p>
+<ul>
+<li>la prima è ancora la <strong>qualità percepita e il prezzo alto contro la convenienza</strong>: <code>packaging</code> 0,97, <code>intensita_sapore</code> 0,96, <code>tradizione</code> 0,79, <code>cremosita</code> 0,77, <code>frutta_vera</code> 0,68 e <code>naturalita</code> 0,62, contro <code>prezzo</code> −0,88 e <code>convenienza_promo</code> −0,87;</li>
+<li>la seconda è l’<strong>innovazione contro la naturalità</strong>: <code>innovazione</code> 0,96, contro <code>naturalita</code> −0,64, <code>frutta_vera</code> −0,48, <code>tradizione</code> −0,44 e <code>cremosita</code> −0,43;</li>
+<li>la terza è il <strong>salutismo</strong>, con loading −0,97: il verso è arbitrario, e qui le marche più salutiste stanno dalla parte negativa.</li>
+</ul>
+<p><code>naturalita</code> resta divisa fra la prima e la seconda componente, con cos² 0,39 e 0,41: una struttura semplice perfetta non sempre si raggiunge, e una variabile che resta divisa va letta su più componenti.</p>
+</section>
+<section id="che-cosa-cambia-nelloutput" class="level3" data-number="5.10.4">
+<h3 data-number="5.10.4" class="anchored" data-anchor-id="che-cosa-cambia-nelloutput"><span class="header-section-number">5.10.4</span> Che cosa cambia nell’output</h3>
+<p><strong>I titoli dichiarano la rotazione.</strong> Le tabelle e i grafici riportano il suffisso «— ruotati (Varimax)», «— ruotato (Varimax)» e simili, e la tabella <em>Impostazioni</em> riporta la rotazione applicata.</p>
+<p><strong>Autovalori e scree plot non cambiano.</strong> Restano quelli della soluzione senza rotazione, perché servono a decidere quante componenti tenere, una decisione che precede la rotazione.</p>
+<p><strong>Una tabella nuova: le somme dei quadrati dei loadings.</strong> L’informazione raccolta da ogni componente ruotata si legge nella tabella <em>Somme dei quadrati dei loadings dopo la rotazione</em>, nella colonna <em>SS loadings</em>, dove SS sta per <em>sum of squares</em>, somma dei quadrati. Con Varimax e tre componenti:</p>
+<div class="jamovi-output">
+<p><strong>Somme dei quadrati dei loadings dopo la rotazione</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Componente ruotata</th>
+<th style="text-align: right;">SS loadings</th>
+<th style="text-align: right;">% varianza</th>
+<th style="text-align: right;">% cumulata</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>PC1</td>
+<td style="text-align: right;">5,446</td>
+<td style="text-align: right;">54,46</td>
+<td style="text-align: right;">54,46</td>
+</tr>
+<tr class="even">
+<td>PC2</td>
+<td style="text-align: right;">1,984</td>
+<td style="text-align: right;">19,84</td>
+<td style="text-align: right;">74,29</td>
+</tr>
+<tr class="odd">
+<td>PC3</td>
+<td style="text-align: right;">1,642</td>
+<td style="text-align: right;">16,42</td>
+<td style="text-align: right;">90,72</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Il totale è il 90,7%, lo stesso delle prime tre componenti senza rotazione (61,6%, 17,6% e 11,5%): la rotazione non aggiunge né toglie informazione, la ridistribuisce fra gli assi in modo più equilibrato. Le quote si possono sommare perché riguardano le componenti ruotate misurate in deviazioni standard, come nei loadings, e con Varimax queste restano incorrelate. Le PC ruotate che il modulo mostra e salva sono invece correlate (<a href="#sec-acp-coordinate-ruotate" class="quarto-xref"><span>Sezione 5.10.6</span></a>): calcolate su di loro, le quote conterebbero due volte l’informazione in comune. Le componenti ruotate sono numerate in ordine di informazione raccolta, e gli assi dei grafici riportano la quota ruotata, per esempio «PC2 (19.8% ruotata)». Con Varimax anche le tre tabelle delle osservazioni sono calcolate sugli assi ruotati.</p>
+<p><strong>Con Promax cambiano altre quattro cose.</strong></p>
+<ul>
+<li>Nella tabella delle <em>SS loadings</em> le colonne delle percentuali sono vuote: le componenti sono correlate, una parte dell’informazione è in comune fra loro, e sommarne le quote la conterebbe due volte. Per lo stesso motivo gli assi dei grafici riportano solo «PC1 (ruotata)», senza percentuale.</li>
+<li>Compare la tabella <strong>Correlazioni fra le componenti ruotate (Φ)</strong>, dove Φ, la lettera greca «fi», è solo il nome della tabella: riporta la correlazione fra ogni coppia di componenti ruotate. Un valore vicino a 0 vuol dire che le due componenti sono quasi incorrelate, un valore lontano da 0 che sono legate. Nel caso yogurt, con tre componenti, la prima e la seconda hanno correlazione −0,51: le marche percepite di qualità e care tendono a essere più naturali e tradizionali che innovative. Con due componenti la correlazione è solo −0,14.</li>
+<li>La tabella dei loadings non contiene più correlazioni, ma coefficienti che dicono quanto ogni componente pesa sulla variabile al netto delle altre, e che possono superare 1. Nel caso yogurt, con tre componenti, <code>packaging</code> ha 1,13 sulla prima componente, <code>innovazione</code> 1,10 sulla seconda e <code>salutismo</code> −1,01 sulla terza. Anche il cerchio delle correlazioni si legge in modo diverso, come spiega la <a href="#sec-acp-cerchio-promax" class="quarto-xref"><span>Sezione 5.10.5</span></a>. Contributi e cos² delle variabili sono calcolati dalle correlazioni fra variabili e componenti ruotate, che con Promax non coincidono con i coefficienti della tabella. Nella <em>Descrizione dell’analisi</em> i coefficienti della tabella si chiamano <em>pattern matrix</em> e le correlazioni <em>structure matrix</em>.</li>
+<li>Contributi e cos² delle osservazioni restano quelli della soluzione senza rotazione, come dice il titolo delle loro tabelle («— soluzione PCA non ruotata»): non vanno confrontati con le coordinate ruotate.</li>
+</ul>
+</section>
+<section id="sec-acp-cerchio-promax" class="level3" data-number="5.10.5">
+<h3 data-number="5.10.5" class="anchored" data-anchor-id="sec-acp-cerchio-promax"><span class="header-section-number">5.10.5</span> Come si legge il cerchio con Promax</h3>
+<p>Con Promax le componenti ruotate sono correlate, e nel cerchio delle correlazioni non possono più essere due assi perpendicolari, che vorrebbe dire componenti incorrelate (<a href="#sec-acp-struttura-semplice" class="quarto-xref"><span>Sezione 5.10.1</span></a>). Il modulo disegna il cerchio in due modi, scelti con l’opzione <em>▸ CERCHIO · Con Promax</em>: quello predefinito lascia le frecce come senza rotazione e disegna le componenti come due assi obliqui; l’altro, <em>Assi perpendicolari, pattern loadings</em>, raddrizza gli assi e sposta le frecce.</p>
+<p><strong>Due letture su assi obliqui.</strong> Su assi obliqui la posizione di una freccia si legge in due modi, che danno numeri diversi (<a href="#fig-acp-promax-letture" class="quarto-xref">Figura&nbsp;<span>5.16</span></a>).</p>
+<ul>
+<li><strong>Ad angolo retto</strong>, come nel cerchio classico: dalla punta della freccia si scende ad angolo retto su una componente. Il numero che si legge è la <strong>correlazione</strong> fra la variabile e la componente, e il suo quadrato è il cos² della tabella.</li>
+<li><strong>Con le parallele</strong>: dalla punta si va parallelamente a una componente fino all’altra. Il numero che si legge è il <strong>loading</strong> della tabella, cioè quanto quella componente pesa sulla variabile al netto dell’altra.</li>
+</ul>
+<div id="fig-acp-promax-letture" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-promax-letture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/cerchio-promax-letture.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-promax-letture-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.16: Le due letture di una freccia su due componenti di Promax che formano 60°, cioè con correlazione 0,50. In alto a sinistra, ad angolo retto: la variabile ha correlazione 0,90 con PC1 e 0,60 con PC2. In alto a destra, con le parallele: ha loading 0,80 su PC1 e 0,20 su PC2. In basso a sinistra, una freccia lunga 0,97 che sta oltre PC2: con le parallele il suo loading su PC2 è 1,08, fuori dal cerchio, e quello su PC1 è −0,29. In basso a destra, la stessa variabile nel disegno con assi perpendicolari: le coordinate sono i loadings, e la freccia, lunga 1,12, esce dal cerchio.
+</figcaption>
+</figure>
+</div>
+<p>Nell’esempio la variabile appartiene soprattutto a PC1: il suo loading su PC2 è solo 0,20. La sua correlazione con PC2, però, è 0,60, perché PC2 va d’accordo con PC1, e una parte di quella correlazione passa per PC1. Con assi perpendicolari le due letture danno lo stesso numero, ed è per questo che nel cerchio classico non serve distinguerle.</p>
+<p><strong>Perché un loading può superare 1.</strong> La correlazione misura quanto la variabile va d’accordo con la componente, e sta sempre fra −1 e 1. Il loading, invece, è un peso: quanto la componente pesa sulla variabile al netto dell’altra. Quando le due componenti sono legate, i due pesi si compensano: uno può superare 1 e l’altro diventare negativo, come i coefficienti di una regressione con due variabili esplicative correlate. Succede, per esempio, quando la freccia sta oltre una delle due componenti (<a href="#fig-acp-promax-letture" class="quarto-xref">Figura&nbsp;<span>5.16</span></a>, in basso a sinistra). La freccia è lunga 0,97 e resta nel cerchio, ma la parallela incontra PC2 fuori dal cerchio, a 1,08, e PC1 dalla parte negativa, a −0,29. Le sue correlazioni con le due componenti, lette ad angolo retto, restano invece fra −1 e 1: 0,94 con PC2 e 0,25 con PC1. Nel disegno con assi perpendicolari, che usa i loadings come coordinate, la stessa variabile diventa una freccia lunga 1,12, che esce dal cerchio (in basso a destra): la freccia si allunga perché il disegno non tiene conto del legame fra le due componenti.</p>
+<p><strong>Il cerchio predefinito: assi obliqui.</strong> Nella <a href="#fig-acp-promax-disegni" class="quarto-xref">Figura&nbsp;<span>5.17</span></a>, a sinistra, le frecce sono quelle del cerchio senza rotazione, girate in modo che la prima componente di Promax sia orizzontale, e le linee rosse sono le due componenti. Il cerchio si legge così.</p>
+<ol type="1">
+<li><strong>Le frecce</strong> si leggono come nel cerchio classico: la lunghezza dice quanto bene il piano rappresenta la variabile, l’angolo fra due frecce lunghe quanto le variabili sono correlate. <code>qualita</code> e <code>fedele</code> formano 61°, e la loro correlazione è 0,45.</li>
+<li><strong>L’angolo fra le linee rosse</strong> dice quanto sono correlate le componenti: 63°, cioè una correlazione di 0,46, quella della tabella Φ. Più le linee sono vicine, più le componenti sono correlate; se fossero perpendicolari, le componenti sarebbero incorrelate.</li>
+<li><strong>Ad angolo retto</strong> su una linea rossa si legge la correlazione con quella componente: <code>fedele</code> ha 0,46 con PC1, la qualità percepita (puntini arancio).</li>
+<li><strong>Con le parallele</strong> si leggono i loadings della tabella: <code>fedele</code> sta quasi sopra la linea di PC2, e la parallela a PC2 condotta dalla sua punta incontra PC1 quasi nell’origine, quindi il suo loading su PC1 è 0,03.</li>
+</ol>
+<p>In termini di ricerche di mercato: chi è fedele alla marca tende anche a giudicarne bene la qualità, e infatti <code>fedele</code> ha correlazione 0,46 con la componente della qualità; ma la fedeltà non è un pezzo della qualità percepita, perché il suo loading su quella componente è quasi zero. Sono due dimensioni distinte e legate fra loro, e il legame si legge nell’angolo fra le linee rosse.</p>
+<p>Con più di due componenti ritenute il cerchio mostra il piano delle due componenti scelte: le letture ad angolo retto restano le correlazioni, mentre i loadings vanno letti nella tabella.</p>
+<p><strong>Il cerchio con assi perpendicolari.</strong> Con l’opzione <em>Assi perpendicolari, pattern loadings</em> il modulo fa la lettura con le parallele al posto nostro: raddrizza gli assi e usa come coordinate delle frecce i loadings della tabella (<a href="#fig-acp-promax-disegni" class="quarto-xref">Figura&nbsp;<span>5.17</span></a>, a destra). Ogni gruppo di frecce sta lungo il proprio asse, ed è comodo per dare un nome alle componenti. In cambio le altre letture del cerchio classico non valgono più:</p>
+<ul>
+<li>le coordinate non sono correlazioni ma pesi, e una freccia esce dal cerchio quando un suo loading supera 1, come la freccia in basso a destra della <a href="#fig-acp-promax-letture" class="quarto-xref">Figura&nbsp;<span>5.16</span></a>; la didascalia del grafico lo avverte;</li>
+<li>il quadrato di una coordinata non è il cos², che viene dalle correlazioni;</li>
+<li>la lunghezza non è la qualità di rappresentazione, che resta quella del cerchio senza rotazione;</li>
+<li>gli angoli fra le frecce non dicono quanto le variabili sono correlate: <code>qualita</code> e <code>fedele</code> formano 88°, come se fossero quasi incorrelate, ma la loro correlazione è 0,45;</li>
+<li>il legame fra le componenti non si vede: sta nella tabella Φ.</li>
+</ul>
+<div id="fig-acp-promax-disegni" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-promax-disegni-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/cerchio-promax-due-disegni.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-promax-disegni-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.17: Il cerchio delle correlazioni con Promax nei due disegni del modulo, sui sei item del questionario di soddisfazione della <a href="#fig-acp-rot-varimax-promax" class="quarto-xref">Figura&nbsp;<span>5.15</span></a>. A sinistra il disegno predefinito: frecce senza rotazione e componenti di Promax come linee rosse a 63°; in arancio la correlazione di fedele con PC1. A destra il disegno con assi perpendicolari: le coordinate sono i loadings della tabella, e ogni gruppo sta lungo il proprio asse.
+</figcaption>
+</figure>
+</div>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Che cosa si legge</th>
+<th>Assi obliqui (predefinito)</th>
+<th>Assi perpendicolari</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lettura ad angolo retto su un asse</td>
+<td>correlazione con la componente; il quadrato è il cos²</td>
+<td>loading della tabella</td>
+</tr>
+<tr class="even">
+<td>Lettura con le parallele</td>
+<td>loading della tabella</td>
+<td>loading della tabella</td>
+</tr>
+<tr class="odd">
+<td>Lunghezza di una freccia</td>
+<td>qualità di rappresentazione</td>
+<td>non si legge</td>
+</tr>
+<tr class="even">
+<td>Angolo fra due frecce</td>
+<td>correlazione fra le variabili</td>
+<td>non si legge</td>
+</tr>
+<tr class="odd">
+<td>Angolo fra gli assi</td>
+<td>correlazione fra le componenti (Φ)</td>
+<td>sempre 90°: Φ è nella tabella</td>
+</tr>
+<tr class="even">
+<td>Frecce fuori dal cerchio</td>
+<td>mai</td>
+<td>quando un loading supera 1</td>
+</tr>
+<tr class="odd">
+<td>Serve soprattutto a</td>
+<td>leggere correlazioni e legame fra le componenti</td>
+<td>dare un nome alle componenti</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="sec-acp-coordinate-ruotate" class="level3" data-number="5.10.6">
+<h3 data-number="5.10.6" class="anchored" data-anchor-id="sec-acp-coordinate-ruotate"><span class="header-section-number">5.10.6</span> Le coordinate delle osservazioni dopo la rotazione</h3>
+<p>Senza rotazione le coordinate delle osservazioni su due componenti diverse sono <strong>incorrelate</strong>: sapere dove sta un’osservazione su PC1 non dice nulla, in media, su dove sta su PC2. Dopo una rotazione, sia con Varimax sia con Promax, le coordinate che il modulo mostra nella tabella e salva nel dataset, cioè le PC ruotate, in generale diventano <strong>correlate</strong>, sia con le variabili standardizzate sia con quelle nelle unità di misura originali. La <a href="#fig-acp-coord-ruotate" class="quarto-xref">Figura&nbsp;<span>5.18</span></a> lo mostra con le 250 osservazioni del questionario di soddisfazione della <a href="#fig-acp-rot-varimax-promax" class="quarto-xref">Figura&nbsp;<span>5.15</span></a>, analizzate con le variabili standardizzate.</p>
+<div id="fig-acp-coord-ruotate" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-coord-ruotate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/coordinate-ruotate.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-coord-ruotate-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.18: Le coordinate delle stesse 250 osservazioni senza rotazione, con Varimax e con Promax. Senza rotazione la nuvola è allungata lungo il primo asse e non è inclinata: correlazione 0. Gli assi di Varimax, tratteggiati in rosso nel primo pannello, la tagliano di traverso: sugli assi ruotati la nuvola risulta inclinata, con correlazione 0,47; con Promax, i cui assi non sono perpendicolari, la correlazione sale a 0,76.
+</figcaption>
+</figure>
+</div>
+<p><strong>Perché succede.</strong> Senza rotazione gli assi seguono la forma della nuvola delle osservazioni: PC1 è la direzione in cui la nuvola è più allungata e PC2 le è perpendicolare, quindi la nuvola non è inclinata rispetto agli assi. La rotazione, invece, sceglie gli assi guardando le variabili, per allinearli ai gruppi di frecce del cerchio delle correlazioni, e non la forma della nuvola. Le osservazioni restano dove sono; sugli assi ruotati, però, la nuvola risulta inclinata, e una nuvola inclinata vuol dire coordinate correlate: nel questionario chi ha una coordinata alta sulla prima componente ruotata tende ad averla alta anche sulla seconda. Con Promax si aggiunge un secondo motivo, perché gli assi non sono più nemmeno perpendicolari, e la correlazione cresce ancora. Standardizzare le variabili non cambia le cose. Dà a ogni variabile la stessa variabilità lungo il proprio asse, ma la nuvola diventa rotonda solo se le variabili sono anche incorrelate, e in quel caso la PCA non avrebbe niente da trovare. Se sono correlate, la nuvola resta allungata: nella <a href="#fig-acp-geometria" class="quarto-xref">Figura&nbsp;<span>5.1</span></a> le due variabili sono standardizzate, con correlazione 0,75, e la variabilità è 1 lungo ciascuna variabile, ma 1,75 lungo PC1 e 0,25 lungo PC2. Su quella nuvola soltanto PC1 e PC2 danno coordinate incorrelate: letta sugli assi delle due variabili, per esempio, ridà la loro correlazione, 0,75. La nuvola diventa rotonda, invece, dividendo ogni componente per la sua deviazione standard, ed è la versione su cui lavorano i loadings.</p>
+<p><strong>E la frase dei manuali?</strong> Si legge spesso che con Varimax le componenti ruotate restano incorrelate. È vero per le componenti come le misurano i loadings, in deviazioni standard (<a href="#sec-acp-struttura-semplice" class="quarto-xref"><span>Sezione 5.10.1</span></a>): con Varimax restano incorrelate, con le variabili standardizzate come senza. Sono quelle che salva l’Analisi delle Componenti Principali di jamovi, <strong>Analisi → Fattore → Analisi delle Componenti Principali</strong>, con l’opzione <em>Salva → Punteggi delle componenti</em>. Il modulo salva invece le coordinate, che conservano le distanze fra le osservazioni e per questo sono correlate. Le due coppie si somigliano molto, nel questionario la correlazione fra l’una e l’altra è 0,97 su ciascun asse, ma non coincidono; la differenza è spiegata, con le formule, nell’<a href="./A3-approfondimento-pca.html#sec-pca-ortogonali-oblique">approfondimento in appendice</a>.</p>
+<p>Con Promax anche le componenti dei loadings sono correlate, secondo la tabella Φ: la correlazione c’è quasi sempre, ma può essere piccola, come nel caso yogurt con due componenti (−0,14). Le coordinate del modulo sommano i due effetti, la nuvola allungata e gli assi obliqui, e di solito sono più correlate di quanto dica la tabella Φ.</p>
+<p><strong>Quanto conta nel caso yogurt.</strong> Dipende da quanto gli assi si spostano. Con due componenti la rotazione è piccolissima, e la correlazione fra le coordinate è appena −0,06 con Varimax e −0,30 con Promax. Con tre componenti la rotazione è più ampia: le coordinate sulla prima e sulla seconda componente ruotata hanno correlazione −0,45 con Varimax e −0,81 con Promax, dove la tabella Φ riporta −0,51. In termini di posizionamento, le marche con un punteggio alto sulla prima componente ruotata, quella della qualità percepita e del prezzo alto, tendono ad avere un punteggio basso sulla seconda, quella dell’innovazione: sono percepite più naturali e tradizionali che innovative. Misurate sulle marche, le due dimensioni non sono indipendenti. Senza standardizzare le variabili i numeri cambiano, ma non la sostanza: con tre componenti la correlazione fra le coordinate è −0,45 con Varimax e −0,66 con Promax, dove la tabella Φ riporta −0,41.</p>
+<p><strong>Che cosa fare.</strong> Per descrivere e confrontare le osservazioni le coordinate ruotate vanno bene, purché si sappia che sono correlate. Se invece servono PC incorrelate, per esempio come variabili esplicative in una regressione, ci sono due strade: le coordinate senza rotazione del modulo (<a href="#sec-acp-salvare" class="quarto-xref"><span>Sezione 5.13</span></a>) oppure, con Varimax, i punteggi delle componenti salvati dall’Analisi delle Componenti Principali del menu <em>Fattore</em> di jamovi.</p>
+</section>
+<section id="quale-scegliere" class="level3" data-number="5.10.7">
+<h3 data-number="5.10.7" class="anchored" data-anchor-id="quale-scegliere"><span class="header-section-number">5.10.7</span> Quale scegliere</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 52%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Situazione</th>
+<th>Rotazione</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Componenti già facili da nominare, come nel caso yogurt con due componenti</td>
+<td>Nessuna</td>
+</tr>
+<tr class="even">
+<td>Componenti difficili da nominare, da leggere su assi perpendicolari</td>
+<td>Varimax</td>
+</tr>
+<tr class="odd">
+<td>Coordinate incorrelate da usare in altre analisi</td>
+<td>Nessuna</td>
+</tr>
+<tr class="even">
+<td>Dimensioni che plausibilmente sono legate fra loro, come la qualità percepita e la fedeltà alla marca</td>
+<td>Promax, controllando la tabella Φ</td>
+</tr>
+</tbody>
+</table>
+<p>In caso di dubbio si provano Varimax e Promax e si confrontano, guardando la tabella Φ e la leggibilità dei loadings. Se le correlazioni fra le componenti sono piccole, all’incirca sotto 0,20, Varimax è preferibile perché più semplice; se superano all’incirca 0,40, imporre assi perpendicolari probabilmente forza la struttura dei dati. Sono riferimenti indicativi, non soglie. Nel caso yogurt con tre componenti la correlazione di −0,51 fra le prime due componenti ruotate fa preferire Promax; Varimax resta una lettura più semplice, purché si dica che le dimensioni non sono indipendenti. Quando si usa Promax la tabella Φ va riportata nel report.</p>
+<div class="callout callout-style-simple callout-warning callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Avviso</span>Quando non ruotare
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Con una sola componente la rotazione non ha senso: il modulo non la applica e lo dichiara nella tabella <em>Impostazioni</em>.</li>
+<li>Quando la struttura semplice non si raggiunge, per esempio con molte variabili legate a più componenti, la rotazione può confondere invece di chiarire.</li>
+</ul>
+</div>
+</div>
+</section>
+</section>
+<section id="sec-acp-supplementari" class="level2" data-number="5.11">
+<h2 data-number="5.11" class="anchored" data-anchor-id="sec-acp-supplementari"><span class="header-section-number">5.11</span> Le variabili supplementari</h2>
+<p>Le <strong>variabili supplementari</strong> non entrano nel calcolo delle componenti: vengono proiettate dopo, sulle componenti già costruite, per arricchire e controllare l’interpretazione. Le variabili che costruiscono le componenti si chiamano invece <strong>attive</strong>, e una stessa variabile non può essere attiva e supplementare.</p>
+<p><strong>Quantitative supplementari</strong> (<em>Variabili quantitative supplementari (opzionali)</em>). Il modulo calcola le loro correlazioni con le componenti e le disegna nel cerchio delle correlazioni come frecce arancioni tratteggiate. Servono soprattutto a <strong>validare</strong> le componenti con variabili esterne: se il panel avesse anche la quota di mercato delle marche, una freccia lunga nella direzione di PC1 direbbe che le marche percepite di qualità sono anche quelle che vendono di più. Una freccia corta dice che manca un legame lineare con le componenti del piano, non che manchi qualunque legame. Il capitolo <a href="./P-24-variabili-supplementari.html">§ P-24</a> ne mostra un esempio con il reddito e l’età dei rispondenti.</p>
+<p><strong>Qualitative supplementari.</strong> Per ogni modalità il modulo calcola il <strong>baricentro</strong>, cioè la posizione media delle osservazioni che hanno quella modalità, e lo disegna sul piano. Le caselle sono due:</p>
+<ul>
+<li><em>Variabile qualitativa supplementare per biplot (opzionale)</em>: una sola variabile, che colora i punti del biplot; se la mappa di posizionamento è attiva, i baricentri delle sue modalità compaiono anche lì;</li>
+<li><em>Variabili qualitative per la mappa di posizionamento (opzionali)</em>: una o più variabili, i cui baricentri compaiono nella mappa.</li>
+</ul>
+<p>Nel caso yogurt la variabile qualitativa è <code>posizionamento</code>, e i baricentri hanno coordinate (2,7; −0,2) per le Premium, (−2,8; −1,7) per le Mass, (−2,0; 1,9) per le Funzionali e (1,8; 0,2) per le Bio. Il posizionamento non è stato usato per costruire le componenti: che i quattro gruppi finiscano in quattro zone diverse del piano è un <strong>risultato</strong>, e conferma che le componenti colgono la logica del mercato. Per lo stesso motivo una variabile come il gruppo di appartenenza trovato da una cluster analysis va fra le supplementari, non fra le attive: le componenti sarebbero costruite anche su di lei, e ritrovarla nella mappa non confermerebbe niente.</p>
+</section>
+<section id="sec-acp-mappa" class="level2" data-number="5.12">
+<h2 data-number="5.12" class="anchored" data-anchor-id="sec-acp-mappa"><span class="header-section-number">5.12</span> La mappa di posizionamento</h2>
+<p>La <strong>mappa di posizionamento</strong> (opzione <em>Mappa di posizionamento (variabili e baricentri, no osservazioni)</em>) mostra in un unico piano i baricentri delle variabili qualitative supplementari e, con <em>▸ MAPPA · Mostra vettori variabili attive</em>, le frecce degli attributi (<a href="#fig-acp-mappa" class="quarto-xref">Figura&nbsp;<span>5.19</span></a>). <em>▸ MAPPA · Mostra vettori quantitative supplementari</em> aggiunge le frecce delle quantitative supplementari, mentre <em>▸ MAPPA · Larghezza</em> e <em>▸ MAPPA · Altezza</em> regolano le dimensioni dell’immagine. Le singole osservazioni non compaiono: per vederle si usa il biplot.</p>
+<div id="fig-acp-mappa" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-acp-mappa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figures/teoria-pca-yogurt/mappa.png" class="img-fluid figure-img" style="width:90.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-acp-mappa-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figura&nbsp;5.19: La mappa di posizionamento prodotta dal modulo. Le frecce blu sono i dieci attributi, i triangoli verdi i baricentri dei quattro posizionamenti.
+</figcaption>
+</figure>
+</div>
+<p>La mappa si legge in tre passi.</p>
+<ol type="1">
+<li><strong>Dare un nome agli assi</strong>, con le frecce, i loadings e i contributi: PC1 va dalla convenienza, a sinistra, alla qualità percepita con prezzo alto, a destra; PC2 sale verso salute e innovazione.</li>
+<li><strong>Leggere la posizione dei gruppi.</strong> Le marche Premium stanno all’estremo destro: care, cremose, tradizionali, ben confezionate, neutre su salute e innovazione. Le Mass stanno all’estremo opposto, in basso: economiche e promozionali. Le Funzionali stanno in alto a sinistra: prezzo intermedio e il punteggio più alto sull’innovazione. Le Bio stanno vicino alle Premium, poco più in alto, ma sono le marche che il piano rappresenta peggio (<a href="#sec-acp-osservazioni" class="quarto-xref"><span>Sezione 5.8</span></a>).</li>
+<li><strong>Leggere le relazioni</strong>, con la tabella che segue.</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Che cosa si osserva</th>
+<th>Che cosa vuol dire</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Due marche o due baricentri vicini</td>
+<td>Profili simili sugli attributi rappresentati nel piano: può suggerire una concorrenza diretta, da verificare con altri dati</td>
+</tr>
+<tr class="even">
+<td>Due marche o due baricentri lontani</td>
+<td>Profili diversi sugli attributi rappresentati; la distanza da sola non dimostra che si rivolgano a pubblici diversi</td>
+</tr>
+<tr class="odd">
+<td>Una marca spostata nella direzione di una freccia</td>
+<td>Valore relativamente alto su quell’attributo: conta la proiezione sulla direzione della freccia, non la distanza dalla punta</td>
+</tr>
+<tr class="even">
+<td>Due frecce lunghe in versi opposti</td>
+<td>Attributi correlati negativamente, come <code>prezzo</code> e <code>packaging</code></td>
+</tr>
+<tr class="odd">
+<td>Due frecce lunghe perpendicolari</td>
+<td>Attributi con correlazione vicina a zero nel piano: una marca può puntare su tutti e due senza rinunciare a uno dei due</td>
+</tr>
+<tr class="even">
+<td>Un baricentro</td>
+<td>La posizione media del gruppo, non quella di ciascuna marca</td>
+</tr>
+</tbody>
+</table>
+<p>Con più variabili qualitative nella stessa mappa servono due cautele. Due baricentri vicini di variabili diverse, per esempio una fascia d’età e un canale d’acquisto, dicono che i due gruppi hanno in media profili simili, non che le due modalità si trovino nelle stesse persone: per saperlo serve una tabella di contingenza fra le due variabili. Due baricentri lontani della stessa variabile dicono che i profili medi dei gruppi sono diversi; per dire quanto la variabile distingue davvero le unità servono anche la dispersione dentro i gruppi e la loro numerosità, che la mappa non mostra.</p>
+<p><strong>A che cosa serve la mappa.</strong></p>
+<ul>
+<li><strong>Leggere la concorrenza.</strong> Marche vicine hanno profili simili sugli attributi rappresentati e possono essere in concorrenza diretta, ma la concorrenza effettiva dipende anche da prezzo, distribuzione e clienti, e va verificata con i dati di mercato.</li>
+<li><strong>Trovare zone libere</strong> (<em>white space</em>). Le aree vuote della mappa sono combinazioni di attributi che nessuna marca del campione presidia. Nel caso yogurt nessun baricentro sta in alto a destra, dove si troverebbe una marca di qualità percepita e cara <strong>e</strong> orientata a salute e innovazione. Un’area senza baricentri, però, non è necessariamente un’area senza marche, e un’area vuota non è automaticamente un’opportunità: può corrispondere a una combinazione che i consumatori non cercano o che non è sostenibile. Va controllata sulle singole marche, nel biplot, e con dati sulla domanda.</li>
+<li><strong>Pianificare un riposizionamento.</strong> Per una marca che vuole spostarsi la mappa indica in che direzione andare, cioè su quali attributi puntare, e quali concorrenti troverà nella nuova zona. La distanza sulla mappa misura quanto i profili sono diversi, non quanto costa cambiare. Rifacendo la mappa a distanza di tempo si controlla se lo spostamento avviene davvero.</li>
+</ul>
+<p><strong>I limiti della mappa.</strong></p>
+<ul>
+<li>Mostra solo due componenti: le unità e le variabili con cos² basso sul piano sono rappresentate male, e la loro posizione non va commentata senza controllare i cos², come insegnano le marche Bio.</li>
+<li>È una fotografia, non un film: descrive com’è il mercato oggi, non come ci è arrivato né come cambierà.</li>
+<li>Dipende dagli attributi scelti: cambiando le variabili attive cambiano gli assi, e la mappa va riletta.</li>
+<li>Se i dati vengono da un questionario, rappresenta la <strong>percezione</strong> dei consumatori, non le caratteristiche oggettive dei prodotti. Una differenza fra percezione e realtà è essa stessa un’informazione utile.</li>
+</ul>
+</section>
+<section id="sec-acp-salvare" class="level2" data-number="5.13">
+<h2 data-number="5.13" class="anchored" data-anchor-id="sec-acp-salvare"><span class="header-section-number">5.13</span> Salvare i punteggi</h2>
+<p>Le opzioni da <em>▸ SALVA · PC1</em> a <em>▸ SALVA · PC5</em> aggiungono al dataset nuove colonne con le coordinate delle osservazioni sulle componenti ritenute, fino al numero scelto in <em>Numero di componenti da ritenere</em>; con una rotazione attiva sono le coordinate ruotate. Le colonne salvate si usano come nuove variabili:</p>
+<ul>
+<li>come <strong>indicatori sintetici</strong>: nel caso yogurt la coordinata su PC1 è un indice di posizionamento sulla qualità percepita e sul prezzo, un solo numero al posto di otto attributi;</li>
+<li>come base di una <strong>cluster analysis</strong> (<a href="./T-04-cluster-analysis.html">§ T-04</a>). Tenere poche componenti, però, cambia lo spazio delle distanze su cui il clustering lavora, e può scartare componenti piccole che distinguevano bene i gruppi: è una scelta da motivare, non un miglioramento automatico. Conta anche l’opzione <em>Standardizza le variabili</em> della cluster analysis, attiva se non si cambia nulla: sulle coordinate salvate dà a tutte le componenti la stessa variabilità, e quindi lo stesso peso nelle distanze, anche se PC1 raccoglie molta più informazione di PC2. Per conservare le distanze della PCA la si spegne. Così le coordinate Varimax danno gli stessi gruppi di quelle senza rotazione, perché una rotazione ortogonale non cambia le distanze fra le unità, mentre quelle Promax possono darne di diversi;</li>
+<li>come variabili esplicative incorrelate in una <strong>regressione</strong>, ma solo senza rotazione, perché le coordinate ruotate sono correlate (<a href="#sec-acp-coordinate-ruotate" class="quarto-xref"><span>Sezione 5.10.6</span></a>).</li>
+</ul>
+</section>
+<section id="sec-acp-ricerche" class="level2" data-number="5.14">
+<h2 data-number="5.14" class="anchored" data-anchor-id="sec-acp-ricerche"><span class="header-section-number">5.14</span> La PCA nelle ricerche di mercato</h2>
+<p>Nelle ricerche di mercato la PCA ha tre usi tipici, spesso combinati.</p>
+<ol type="1">
+<li><strong>Mappe di posizionamento.</strong> Marche o prodotti valutati su molti attributi diventano punti di un piano leggibile, con gli attributi come frecce e i gruppi come baricentri.</li>
+<li><strong>Indicatori sintetici.</strong> Più domande correlate di un questionario diventano un unico punteggio, per esempio un indice di soddisfazione costruito da dieci item. Nel progetto d’esempio (<a href="./P-26-esempio-progetto.html">§ P-26</a>) nove variabili diventano due componenti che conservano il 61,5% della variabilità totale.</li>
+<li><strong>Preparazione di una cluster analysis.</strong> Le prime componenti diventano la base della segmentazione, con le cautele viste nella <a href="#sec-acp-salvare" class="quarto-xref"><span>Sezione 5.13</span></a>.</li>
+</ol>
+</section>
+<section id="sec-acp-sintesi" class="level2" data-number="5.15">
+<h2 data-number="5.15" class="anchored" data-anchor-id="sec-acp-sintesi"><span class="header-section-number">5.15</span> In sintesi: dove si legge che cosa</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Output del modulo</th>
+<th>Che cosa dice</th>
+<th>Dove se ne parla</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><em>Impostazioni</em></td>
+<td>che cosa il modulo ha fatto davvero: osservazioni usate, standardizzazione, componenti, rotazione</td>
+<td><a href="#sec-acp-caso" class="quarto-xref"><span>Sezione 5.2</span></a></td>
+</tr>
+<tr class="even">
+<td><em>Autovalori e varianza spiegata</em></td>
+<td>quanta informazione raccoglie ogni componente, da sola e insieme alle precedenti</td>
+<td><a href="#sec-acp-autovalori" class="quarto-xref"><span>Sezione 5.3.3</span></a></td>
+</tr>
+<tr class="odd">
+<td><em>Scree plot</em></td>
+<td>dove si trova il gomito e quali componenti superano la soglia di Kaiser</td>
+<td><a href="#sec-acp-quante" class="quarto-xref"><span>Sezione 5.4</span></a></td>
+</tr>
+<tr class="even">
+<td><em>Coordinate delle variabili (loadings)</em></td>
+<td>di quanto cambia in media ogni variabile quando il punteggio su una componente sale: nome e verso delle componenti</td>
+<td><a href="#sec-acp-loadings" class="quarto-xref"><span>Sezione 5.5.1</span></a></td>
+</tr>
+<tr class="odd">
+<td><em>Contributi delle variabili (%)</em></td>
+<td>quali variabili costruiscono ogni componente</td>
+<td><a href="#sec-acp-contributi" class="quarto-xref"><span>Sezione 5.5.2</span></a></td>
+</tr>
+<tr class="even">
+<td><em>Coseni quadrati delle variabili (cos²)</em> e heatmap</td>
+<td>quanto bene ogni componente, o il piano, rappresenta ogni variabile</td>
+<td><a href="#sec-acp-cos2-variabili" class="quarto-xref"><span>Sezione 5.5.3</span></a></td>
+</tr>
+<tr class="odd">
+<td><em>Cerchio delle correlazioni</em></td>
+<td>le variabili nel piano: lunghezza delle frecce e angoli fra loro</td>
+<td><a href="#sec-acp-cerchio" class="quarto-xref"><span>Sezione 5.6</span></a></td>
+</tr>
+<tr class="even">
+<td><em>Coordinate delle osservazioni</em> e biplot</td>
+<td>dove sta ogni unità</td>
+<td><a href="#sec-acp-osservazioni" class="quarto-xref"><span>Sezione 5.8</span></a></td>
+</tr>
+<tr class="odd">
+<td><em>Contributi delle osservazioni (%)</em></td>
+<td>quali unità costruiscono le componenti: casi anomali e solidità</td>
+<td><a href="#sec-acp-osservazioni" class="quarto-xref"><span>Sezione 5.8</span></a></td>
+</tr>
+<tr class="even">
+<td><em>Coseni quadrati delle osservazioni (cos²)</em></td>
+<td>quanto è affidabile la posizione di ogni unità sul piano</td>
+<td><a href="#sec-acp-osservazioni" class="quarto-xref"><span>Sezione 5.8</span></a></td>
+</tr>
+<tr class="odd">
+<td><em>Somme dei quadrati dei loadings dopo la rotazione</em></td>
+<td>quanta informazione raccoglie ogni componente ruotata</td>
+<td><a href="#sec-acp-rotazioni" class="quarto-xref"><span>Sezione 5.10</span></a></td>
+</tr>
+<tr class="even">
+<td><em>Correlazioni fra le componenti ruotate (Φ)</em></td>
+<td>solo con Promax: quanto sono legate le componenti ruotate</td>
+<td><a href="#sec-acp-rotazioni" class="quarto-xref"><span>Sezione 5.10</span></a></td>
+</tr>
+<tr class="odd">
+<td><em>Mappa di posizionamento</em></td>
+<td>i baricentri dei gruppi rispetto agli attributi</td>
+<td><a href="#sec-acp-mappa" class="quarto-xref"><span>Sezione 5.12</span></a></td>
+</tr>
+<tr class="even">
+<td><em>▸ SALVA · PC1</em> … <em>PC5</em></td>
+<td>le coordinate come nuove variabili del dataset</td>
+<td><a href="#sec-acp-salvare" class="quarto-xref"><span>Sezione 5.13</span></a></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="bibliografia-di-riferimento" class="level2" data-number="5.16">
+<h2 data-number="5.16" class="anchored" data-anchor-id="bibliografia-di-riferimento"><span class="header-section-number">5.16</span> Bibliografia di riferimento</h2>
+<ul>
+<li><span class="citation" data-cites="jolliffe2002pca">Jolliffe (<a href="references.html#ref-jolliffe2002pca" role="doc-biblioref">2002</a>)</span> — testo classico.</li>
+<li><span class="citation" data-cites="husson2017exploratory">Husson et al. (<a href="references.html#ref-husson2017exploratory" role="doc-biblioref">2017</a>)</span> — riferimento moderno con FactoMineR.</li>
+<li><span class="citation" data-cites="kaiser1958varimax">Kaiser (<a href="references.html#ref-kaiser1958varimax" role="doc-biblioref">1958</a>)</span> — il lavoro originale sulla rotazione Varimax.</li>
+<li><span class="citation" data-cites="factominer">Lê et al. (<a href="references.html#ref-factominer" role="doc-biblioref">2008</a>)</span> — il pacchetto R su cui si basa l’implementazione del modulo.</li>
+</ul>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-husson2017exploratory" class="csl-entry" role="listitem">
+Husson, François, Sébastien Lê, e Jérôme Pagès. 2017. <em>Exploratory Multivariate Analysis by Example Using <span>R</span></em>. 2nd ed. Chapman &amp; Hall/CRC.
+</div>
+<div id="ref-jolliffe2002pca" class="csl-entry" role="listitem">
+Jolliffe, Ian T. 2002. <em>Principal Component Analysis</em>. 2nd ed. Springer.
+</div>
+<div id="ref-kaiser1958varimax" class="csl-entry" role="listitem">
+Kaiser, Henry F. 1958. <span>«The Varimax Criterion for Analytic Rotation in Factor Analysis»</span>. <em>Psychometrika</em> 23: 187–200.
+</div>
+<div id="ref-factominer" class="csl-entry" role="listitem">
+Lê, Sébastien, Julie Josse, e François Husson. 2008. <span>«<span>FactoMineR</span>: An <span>R</span> Package for Multivariate Analysis»</span>. <em>Journal of Statistical Software</em> 25 (1): 1–18. <a href="https://doi.org/10.18637/jss.v025.i01">https://doi.org/10.18637/jss.v025.i01</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copiato!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copiato!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("^(?!https://github\.com/)");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+            // target, if specified
+            link.setAttribute("target", "_blank");
+            if (link.getAttribute("rel") === null) {
+              link.setAttribute("rel", "noopener");
+            }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./T-04-cluster-analysis.html" class="pagination-link" aria-label="Cluster Analysis">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Cluster Analysis</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./P-25-introduzione-progetto.html" class="pagination-link" aria-label="Introduzione al progetto del corso">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Introduzione al progetto del corso</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p><code>AnalisiMercato</code> — Dispense del corso. © 2026 Luca Frigau, tutti i diritti riservati.</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>Realizzate con <a href="https://quarto.org">Quarto</a>.</p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
